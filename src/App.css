@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Play:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Play:wght@700&family=Titillium+Web:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;400&display=swap');
 
 .container-box {
   background-color: rgb(4, 70, 121);
   height: 100vh;
-  font-family: 'Roboto', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   display: flex;
 }
 
@@ -107,7 +108,7 @@ a:focus {
 }
 
 .navbar {
-  padding: 10px 10px;    
+  padding: 10px 10px;
   border: none;
   border-radius: 0;
   /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); */
@@ -115,10 +116,12 @@ a:focus {
   width: 100%;
   z-index: 9;
 }
-.navbar .btn{
-padding: 2px 12px;
-border:1px rgb(238, 238, 238) solid;
+
+.navbar .btn {
+  padding: 2px 12px;
+  border: 1px rgb(238, 238, 238) solid;
 }
+
 .navbar-btn {
   box-shadow: none;
   outline: none !important;
@@ -139,7 +142,8 @@ border:1px rgb(238, 238, 238) solid;
 .wrapper {
   display: flex;
   width: 100%;
-  font-family: 'Roboto', sans-serif;  /* font-family: 'Titillium Web', sans-serif; */
+  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Titillium Web', sans-serif; */
 }
 
 #sidebar {
@@ -154,7 +158,7 @@ border:1px rgb(238, 238, 238) solid;
   color: rgb(131, 131, 131);
   transition: all 0.3s;
   border-right: 1px solid #eee;
-  padding:10px;
+  padding: 10px;
 }
 
 #sidebar.active {
@@ -165,7 +169,7 @@ border:1px rgb(238, 238, 238) solid;
   font-size: 0.9em;
   padding: 10px;
   background-color: rgb(5, 87, 150);
-/*   background: rgb(26, 63, 92);  */
+  /*   background: rgb(26, 63, 92);  */
   color: #fff;
   font-weight: 500;
 }
@@ -182,7 +186,7 @@ border:1px rgb(238, 238, 238) solid;
   font-size: 0.9em;
   font-weight: 600;
   padding: 0px 15px;
-  margin:5px 0px;
+  margin: 5px 0px;
 }
 
 #sidebar ul li a {
@@ -200,7 +204,7 @@ border:1px rgb(238, 238, 238) solid;
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
-  color: rgba(0,0,0,.85);
+  color: rgba(0, 0, 0, .85);
   font-weight: 600;
   background: #ffffff;
 }
@@ -227,13 +231,13 @@ ul.CTAs {
   padding: 5px 10px;
 }
 
- ul.CTAs a {
+ul.CTAs a {
   text-align: center;
   font-size: 0.9em !important;
   display: block;
   border-radius: 5px;
   margin-bottom: 5px;
-} 
+}
 
 a.logout,
 a.logout:hover {
@@ -246,9 +250,8 @@ a.logout:hover {
 ----------------------------------------------------- */
 
 #content {
-  background-color: #e4e4e4;
+  background-color: #fcfcfc;
   width: calc(100% - 250px);
-  /* padding: 20px; */
   min-height: 100vh;
   transition: all 0.3s;
   position: absolute;
@@ -261,109 +264,162 @@ a.logout:hover {
   width: 100%;
 }
 
-#content >.navbar-brand img {
+#content>.navbar-brand img {
   width: 35px;
   height: 35px;
 }
-#content >.navbar{
+
+#content>.navbar {
   background-color: #fff;
   border-bottom: 1px solid rgba(235, 235, 235, 0.514);
 }
-#content .title{
+
+#content .title {
   background-color: #fff;
   padding: 10px 15px;
   margin-top: 50px;
   border-bottom: 1px solid rgba(235, 235, 235, 0.514);
 }
-#content .title .text{
+
+#content .title .text {
   font-weight: 700;
   border-bottom: 2px solid #00146d;
   padding: 10px 15px;
 }
-#content .card{
+
+#content .card {
   margin: 8vh 5%;
   padding: 20px;
   border: 1px solid rgba(235, 235, 235, 0.514);
 }
-#content .card .card-title{
+
+#content .card .card-title {
   font-weight: 700;
   color: #0000008e;
   text-align: center;
   margin-bottom: 0px;
 }
-#content .card .card-body .personal-info-card-body{
+
+#content .card .card-body .personal-info-card-body {
   padding: 0px 20%;
 }
+
 @media (max-width: 768px) {
-  #content .card .card-body .personal-info-card-body{
+  #content .card .card-body .personal-info-card-body {
     padding: 5px 10%;
-  }  
+  }
 }
-.personal-info-form .label{
+
+.personal-info-form .label {
   font-weight: 700;
   font-size: 0.9em;
 }
-  /* ---------------------------------------------------
+
+/* ---------------------------------------------------
   MEDIAQUERIES
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
   #sidebar {
-      margin-left: -250px;
+    margin-left: -250px;
   }
+
   #sidebar.active {
-      margin-left: 0;
+    margin-left: 0;
   }
+
   #content {
-      width: 100%;
+    width: 100%;
   }
+
   #content.active {
-      width: calc(100% - 250px);
+    width: calc(100% - 250px);
   }
+
   #sidebarCollapse span {
-      display: none;
+    display: none;
   }
 }
 
 /* ---------------------------------
   MODAL 
   ----------------------------------*/
-.modal-form-label{
+.modal-form-label {
   font-weight: 600;
   font-size: 0.8em;
 
 }
+
 /* ---------------------------------
   EDUCATION
   ----------------------------------*/
-.education-card-body .add-button{
+.education-card-body .add-button {
   margin-bottom: 10px;
 }
-.edu-action, .docs-action{
-  cursor:pointer;
+
+.edu-action,
+.docs-action {
+  cursor: pointer;
 }
-.docs-action a:hover{
+
+.docs-action a:hover {
   text-decoration: underline;
 }
+
 /* ---------------------------------
   GENERAL 
   ---------------------------------*/
-.center-spinner{
-  margin:auto;
+.center-spinner {
+  margin: auto;
 }
-.modal-spinner{
-  margin:auto;
+
+.modal-spinner {
+  margin: auto;
   margin-top: 15px;
   margin-bottom: 15px;
 }
-.form-feedback-message{
+
+.form-feedback-message {
   margin-bottom: 10px;
   font-size: 0.9em;
   font-weight: 600;
 }
+
 /* ---------------------------------
   DATEPICKER 
   ---------------------------------*/
-.react-datepicker-wrapper{
-  display:block !important;
+.react-datepicker-wrapper {
+  display: block !important;
+}
+
+/* GENERAL CSS */
+.body-wrapper {
+  padding: 5%;
+}
+
+.body-wrapper-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.body-wrapper-heading-left {
+  font-weight: bolder;
+  font-size: 24px;
+}
+
+.body-wrapper-heading-right {}
+
+.body-wrapper-content {
+  /* margin-top: 20px; */
+}
+
+.search-area {
+  padding: 10px 20px;
+  border-radius: 5px;
+  /* background-color: #fafafa; */
+  border: 1px solid #cccccc8e;
+  /* box-shadow: 0px 1px 10px #c7c7c78e; */
+}
+.table{
+  border-radius: 10px;
 }

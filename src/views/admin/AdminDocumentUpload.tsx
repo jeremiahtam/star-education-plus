@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import BodyWrapper from '../../components/BodyWrapper'
 
 function AdminDocumentUpload() {
   return (
-    <div>AdminDocumentUpload</div>
+    <BodyWrapper title='Document Upload'>
+
+    </BodyWrapper>
   )
 }
 

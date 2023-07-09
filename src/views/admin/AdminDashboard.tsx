@@ -1,14 +1,29 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useEffect, useCallback } from 'react'
+import { Navigate, Outlet, redirect, useNavigate } from 'react-router-dom'
 import TopNav from "../../components/TopNav"
 import SideBarNav from "../../components/SideBarNav"
 import { useSelector } from 'react-redux'
-import { navToggleClassStateType } from '../../../types/type-definitions'
-import AdminMetrics from '../../views/admin/AdminMetrics';
-import { Outlet } from "react-router-dom";
+import { navToggleClassStateType, stateLoggedInUserType } from '../../../types/type-definitions'
+import { store } from '../../store/root-reducer'
+import { insertUserData, loadUserData } from '../../store/actions/user-info'
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
+  //Toggle side nav bar
   const navToggleClass = useSelector((state: navToggleClassStateType) => state.navToggle.navbarClass)
+
+  const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+  useEffect(() => {
+    store.dispatch(loadUserData())
+  }, [])
+
+  useEffect(() => {
+    if (userInfoData === null || undefined) {
+      console.log(userInfoData)
+      navigate('/admin-login')
+    }
+  }, [userInfoData])
+
   return (
     <div className="wrapper">
       <SideBarNav />

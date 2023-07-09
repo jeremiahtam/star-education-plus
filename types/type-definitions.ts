@@ -5,3 +5,15 @@ export interface navToggleClassStateType {
     sidebarHide: boolean
   }
 }
+
+// logged in user data type
+export interface stateLoggedInUserType {
+  userInfo: {
+    loggedInUserData: {
+      token: string,
+      phoneNumber: string,
+      userId: number,
+      userType: string
+    };
+  };
+}

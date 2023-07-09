@@ -1,0 +1,23 @@
+import React, { ReactNode, FC } from 'react'
+import PropTypes from 'prop-types'
+
+interface BodyWrapperPropType {
+  title: string,
+  children: ReactNode,
+  rightHandSide?: ReactNode,
+}
+const BodyWrapper = (props: BodyWrapperPropType) => {
+  return (
+    <div className='body-wrapper'>
+      <div className='body-wrapper-heading mb-3'>
+        <div className='body-wrapper-heading-left'>{props.title}</div>
+        <div className='body-wrapper-heading-right'>{props.rightHandSide} </div>
+      </div>
+      <div className='body-wrapper-content mt-3'>
+        {props.children}
+      </div>
+    </div>
+  )
+}
+
+export default BodyWrapper

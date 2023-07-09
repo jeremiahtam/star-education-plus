@@ -1,11 +1,11 @@
 import ReduxThunk from "redux-thunk";
 import { createStore, combineReducers, applyMiddleware } from "redux";
-// import userInfoReducer from "./reducers/user-info";
+import userInfoReducer from "./reducer/user-info";
 import navReducer from "./reducer/nav";
 
 //setup redux
 const appReducer = combineReducers({
-    // userInfo: userInfoReducer,
+    userInfo: userInfoReducer,
     navToggle: navReducer
 })
 

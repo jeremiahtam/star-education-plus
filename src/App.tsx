@@ -1,9 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import AdminDashboard from './views/admin/AdminDashboard';
 import AdminMetrics from './views/admin/AdminMetrics';
 import AdminLogin from './views/admin/AdminLogin';
@@ -20,70 +17,94 @@ import AdminServiceProviders from './views/admin/AdminServiceProviders';
 import AdminDocumentUpload from './views/admin/AdminDocumentUpload';
 import AdminInvoices from './views/admin/AdminInvoices';
 import AdminMessages from './views/admin/AdminMessages';
+import AdminViewSchoolProfile from './views/admin/AdminViewSchoolProfile';
+import { useSelector } from 'react-redux';
+import { loadUserData } from './store/actions/user-info';
+import { stateLoggedInUserType } from '../types/type-definitions';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  const router = createBrowserRouter([
+  
+  const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+
+  // const publicRouter = createBrowserRouter([
+  //   {
+  //     path: "/admin-login",
+  //     element: <AdminLogin />,
+  //     errorElement: <ErrorPage />,
+  //   }])
+
+  const schoolRouter = createBrowserRouter([
     {
-      path: "/",
-      element: <SchoolLogin />,
+      path: "/admin-login",
+      element: <AdminLogin />,
       errorElement: <ErrorPage />,
-    },
+    }])
+  const adminRouter = createBrowserRouter([
     {
       path: "/admin-login",
       element: <AdminLogin />,
       errorElement: <ErrorPage />,
     },
     {
-      path: '/admin-dashboard',
+      path: '/',
       element: <AdminDashboard />,
       errorElement: <ErrorPage />,
       children: [{
-        path: '/admin-dashboard',
+        path: '/dashboard',
         element: <AdminMetrics />,
       },
       {
-        path: '/admin-dashboard/broadcasts',
+        path: '/broadcasts',
         element: <AdminBroadcasts />,
       },
       {
-        path: '/admin-dashboard/membership-plans',
+        path: '/membership-plans',
         element: <AdminMembershipPlans />,
       },
       {
-        path: '/admin-dashboard/schools',
-        element: <AdminSchools />,
+        path: '/schools',
+        errorElement: <ErrorPage />,
+        children: [{
+          path: '/schools',
+          element: <AdminSchools />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: '/schools/:userId',
+          element: <AdminViewSchoolProfile />,
+          errorElement: <ErrorPage />
+        }]
       },
       {
-        path: '/admin-dashboard/packages-and-services',
+        path: '/packages-and-services',
         element: <AdminPackagesAndServices />,
       },
       {
-        path: '/admin-dashboard/resources',
+        path: '/resources',
         element: <AdminResources />,
       },
       {
-        path: '/admin-dashboard/service-providers',
+        path: '/service-providers',
         element: <AdminServiceProviders />,
       },
       {
-        path: '/admin-dashboard/document-upload',
+        path: '/document-upload',
         element: <AdminDocumentUpload />,
       },
       {
-        path: '/admin-dashboard/invoices',
+        path: '/invoices',
         element: <AdminInvoices />,
       },
       {
-        path: '/admin-dashboard/messages',
+        path: '/messages',
         element: <AdminMessages />,
       }]
     }
   ]);
 
   return (
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <RouterProvider router={adminRouter} />
   );
 }
 

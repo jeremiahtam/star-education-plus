@@ -1,9 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Table, Button, Pagination, Form, Row, Col, InputGroup } from 'react-bootstrap';
+import BodyWrapper from '../../components/BodyWrapper'
 
 const AdminMetrics = () => {
   return (
-    <div>WelcomePage with metrics</div>
+    <BodyWrapper title='Dashboard'>
+
+    </BodyWrapper>
   )
 }
 

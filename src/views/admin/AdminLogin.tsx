@@ -1,17 +1,74 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Link, useNavigate} from "react-router-dom";
-import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { insertUserData } from '../../store/actions/user-info';
+import axios from 'axios'
+import { store } from '../../store/root-reducer';
+import { stateLoggedInUserType } from '../../../types/type-definitions';
+import { loadUserData } from '../../store/actions/user-info';
+import { Spinner } from 'react-bootstrap';
 
 const AdminLogin = (props: any) => {
 
+  const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const navigate = useNavigate();
 
-  const loginHandler = () => {
-    console.log('redirection')
-    return navigate("/admin-dashboard")
-  }
+  const loginHandler = async (
+    values: any,
+    setSubmitting: any,
+    setErrors: any
+  ) => {
+    try {
+      const res = await axios.post(
+        `http://127.0.0.1:8000/api/admin-login`,
+        values,
+        {
+          headers: {
+            "Accept": "application/json"
+          },
+          timeout: 5000,
+        }
+      );
+
+      const resData = res.data;
+      console.log(resData);
+      if (resData.success == false) {
+        if (resData.errors !== undefined) {
+          setErrors(resData.errors);
+        } else {
+          //output the error message
+        }
+      } else {
+        store.dispatch(insertUserData(resData.data));
+        navigate('/dashboard')
+      }
+    } catch (e: any) {
+      console.log(e);
+      if (e.code == "ECONNABORTED") {
+
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+        setErrors(errorData.errors);
+      }
+    }
+    setSubmitting(false);
+  };
+
+  useEffect(() => {
+    store.dispatch(loadUserData())
+  }, [])
+
+  useEffect(() => {
+    if (userInfoData !== null) {
+      if (userInfoData.userType == 'admin') {
+        navigate('/dashboard')
+      }
+    }
+  }, [userInfoData])
+
   return (
     <div className='container-box'>
       <div className='container'>
@@ -32,12 +89,8 @@ const AdminLogin = (props: any) => {
                   .required('Password cannot be empty'),
               })}
 
-              onSubmit={(values, { setSubmitting }) => {
-                loginHandler()
-                setTimeout(() => {
-                  setSubmitting(false);
-                  // alert(JSON.stringify(values, null, 2));
-                }, 400);
+              onSubmit={(values, { setSubmitting, setErrors }) => {
+                loginHandler(values, setSubmitting, setErrors)
               }}
             >
               {({
@@ -63,7 +116,7 @@ const AdminLogin = (props: any) => {
                     {isSubmitting ?
                       (
                         <>
-                          <span className="spinner-border spinner-border" role="status" aria-hidden="true"></span>
+                          <Spinner animation="border" size='sm' />
                           <span> Processing..</span>
                         </>
                       ) : (" Login")}
