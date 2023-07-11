@@ -86,8 +86,6 @@ function AdminBroadcasts(props: any) {
     }
   }
 
-
-
   return (
     <BodyWrapper title='Broadcasts'
       rightHandSide={<button className='btn btn-primary btn-sm'
@@ -112,12 +110,13 @@ function AdminBroadcasts(props: any) {
                   }}
                   value={search}
                 />
-                <Button type="button" variant='light' onClick={() => {
+                <Button type="button" variant='light' onClick={(e: any) => {
+                  e.preventDefault()
                   setPage(1)
                   setSearch('')
-
                 }}>X</Button>
-                <Button type="button" onClick={() => {
+                <Button type="submit" onClick={(e: any) => {
+                  e.preventDefault()
                   setPage(1)
                   getBroadcastsHandler()
                 }}>Search</Button>
@@ -126,35 +125,36 @@ function AdminBroadcasts(props: any) {
           </Row>
         </Form>
       </div>
-      <div className="table-responsive">
-        <table className='table table-hover table-sm'>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Body</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {broadcasts.map((item, index) => {
-              return (
-                <tr key={item.id}>
-                  <td>{item.title}</td>
-                  <td>{item.body}</td>
-                  <td ><IoMdCreate onClick={() => {
-                    modalDataHandler(item.id, 'edit-broadcast')
-                  }} /></td>
-                  <td><IoMdTrash onClick={() => {
-                    modalDataHandler(item.id, 'delete-broadcast')
-                  }} /></td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
-      <CustomPagination page={page} setPage={setPage} totalPages={totalPages} />
+      {broadcasts.length !== 0 &&
+        <div className="table-responsive">
+          <table className='table table-hover table-sm'>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Body</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {broadcasts.map((item, index) => {
+                return (
+                  <tr key={item.id}>
+                    <td>{item.title}</td>
+                    <td>{item.body}</td>
+                    <td ><IoMdCreate onClick={() => {
+                      modalDataHandler(item.id, 'edit-broadcast')
+                    }} /></td>
+                    <td><IoMdTrash onClick={() => {
+                      modalDataHandler(item.id, 'delete-broadcast')
+                    }} /></td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>}
+      {broadcasts.length !== 0 && <CustomPagination page={page} setPage={setPage} totalPages={totalPages} />}
       {modalType && <CustomModal show={show} handleClose={handleClose} handleShow={handleShow}
         modalType={modalType} modalDataId={modalDataId} loadBroadcast={getBroadcastsHandler} />}
     </BodyWrapper>

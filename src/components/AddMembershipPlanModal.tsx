@@ -1,0 +1,149 @@
+import React, { useState } from 'react'
+import { Link } from "react-router-dom";
+import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
+import { Button, Modal, Form, Col, Row, InputGroup } from 'react-bootstrap';
+import CustomModal from './MembershipPlanModal';
+import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { stateLoggedInUserType } from '../../types/type-definitions';
+
+function AddMembershipPlanModal(props: any) {
+  const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+
+  const addMembershipPlanHandler = async (
+    values: any,
+    setSubmitting: any,
+    setErrors: any
+  ) => {
+    try {
+      const res = await axios.post(
+        `http://127.0.0.1:8000/api/create-membership-plan`,
+        values,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${userInfoData.token}`,
+          },
+          timeout: 5000,
+        }
+      );
+
+      const resData = res.data;
+      console.log(resData);
+      if (resData.success == false) {
+        if (resData.errors !== undefined) {
+          setErrors(resData.errors);
+        } else {
+
+        }
+      } else {
+        props.handleClose()
+        props.loadMembershipPlan()
+      }
+    } catch (e: any) {
+      console.log(e);
+      if (e.code == "ECONNABORTED") {
+
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+        setErrors(errorData.errors);
+      }
+    }
+    setSubmitting(false);
+  };
+
+  return (
+    <>
+      <Formik
+        initialValues={{
+          name: '',
+          membershipPlanContent: '',
+          duration: '',
+          amount: ''
+        }}
+        validationSchema={Yup.object({
+          name: Yup.string().required('Enter a name'),
+          membershipPlanContent: Yup.string()
+            .min(8, "Must be more than eight characters")
+            .required('Membership plan ontent cannot be empty'),
+          duration: Yup.number().typeError('Enter a number')
+            .required('Duration cannot be empty!')
+            .integer('Please enter a whole number')
+            .positive('Enter a positive number').min(1, 'Please enter at least a digit'),
+          amount: Yup.number().typeError('Enter a number')
+            .required('Amount cannot be empty!').positive('Enter a positive number')
+            .test(
+              "maxDigitsAfterDecimal",
+              "Amount cannot have more than 2 digits after decimal",
+              (amount: any) => /^\d+(\.\d{1,2})?$/.test(amount)
+            ),
+        })}
+
+        onSubmit={(values, { setSubmitting, setErrors }) => {
+          addMembershipPlanHandler(values, setSubmitting, setErrors)
+        }}
+      >
+        {({
+          isSubmitting
+        }) => (
+          <FormikForm method="POST" id="add-membership-plan" name="add-membership-plan">
+            <Modal.Header closeButton>
+              <Modal.Title>Add Membership Plan</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form.Group className="mb-3"  >
+                <Form.Label>Name</Form.Label>
+                <Field className="form-control" type="text" placeholder="Name of plan" name='name' id='name'
+                  disabled={isSubmitting} />
+                <div className="form-error">
+                  <ErrorMessage name="name" />
+                </div>
+              </Form.Group>
+              <Form.Group className="mb-3" >
+                <Form.Label>Content</Form.Label>
+                <Field className="form-control" placeholder='Full details of membership plan' as="textarea" rows={4}
+                  name='membershipPlanContent' id='membershipPlanContent' disabled={isSubmitting} />
+                <div className="form-error">
+                  <ErrorMessage name="membershipPlanContent" />
+                </div>
+              </Form.Group>
+              <Row className="align-items-center">
+                <Col xs="auto" lg={'6'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label>Duration (Days)</Form.Label>
+                    <Field className="form-control" type="number" placeholder="Duration (Days)" name='duration' id='duration'
+                      disabled={isSubmitting} />
+                    <div className="form-error">
+                      <ErrorMessage name="duration" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col xs="auto" lg={'6'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="inlineFormInputGroup">Amount</Form.Label>
+                    <InputGroup className="mb-2">
+                      <InputGroup.Text>£</InputGroup.Text>
+                      <Field className="form-control" type="number" step=".01" placeholder="00.00" name='amount' id='amount'
+                        disabled={isSubmitting} />
+                    </InputGroup>
+                    <div className="form-error">
+                      <ErrorMessage name="amount" />
+                    </div>
+                  </Form.Group>
+                </Col>
+              </Row>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={props.handleClose}>Close</Button>
+              <Button variant="primary" type='submit'>Submit</Button>
+            </Modal.Footer>
+          </FormikForm>)}
+      </Formik>
+    </>
+  )
+}
+
+export default AddMembershipPlanModal

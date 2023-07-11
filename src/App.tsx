@@ -24,15 +24,8 @@ import { stateLoggedInUserType } from '../types/type-definitions';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  
-  const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
-  // const publicRouter = createBrowserRouter([
-  //   {
-  //     path: "/admin-login",
-  //     element: <AdminLogin />,
-  //     errorElement: <ErrorPage />,
-  //   }])
+  const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
   const schoolRouter = createBrowserRouter([
     {
@@ -102,6 +95,8 @@ function App() {
       }]
     }
   ]);
+  
+  // const i = userInfoData === null ? adminRouter : schoolRouter
 
   return (
     <RouterProvider router={adminRouter} />
