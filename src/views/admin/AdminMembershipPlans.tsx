@@ -143,7 +143,7 @@ function AdminMembershipPlans(props: any) {
                   <tr key={item.id}>
                     <td>{item.name}</td>
                     <td>{item.amount}</td>
-                    <td>{item.membershipPlanContent}</td>
+                    <td><div>{item.membershipPlanContent}</div></td>
                     <td>{item.duration}</td>
                     <td ><IoMdCreate onClick={() => {
                       modalDataHandler(item.id, 'edit-membership-plan')

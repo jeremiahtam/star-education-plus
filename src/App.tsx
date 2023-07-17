@@ -64,7 +64,7 @@ function App() {
           errorElement: <ErrorPage />
         },
         {
-          path: '/schools/:userId',
+          path: '/schools/:schoolId',
           element: <AdminViewSchoolProfile />,
           errorElement: <ErrorPage />
         }]
@@ -92,10 +92,15 @@ function App() {
       {
         path: '/messages',
         element: <AdminMessages />,
-      }]
+      },
+      {
+        path: "/error-page",
+        element: <ErrorPage />,
+      },
+      ]
     }
   ]);
-  
+
   // const i = userInfoData === null ? adminRouter : schoolRouter
 
   return (

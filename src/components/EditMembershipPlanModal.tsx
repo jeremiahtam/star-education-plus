@@ -96,7 +96,7 @@ function EditMembershipPlanModal(props: any) {
         enableReinitialize
         initialValues={{
           name: selectedMembershipPlan?.name,
-          membershipPlanContent: selectedMembershipPlan?.membershipPlanContent,
+          membershipPlanContent: selectedMembershipPlan?.membershipPlanContent,//?.replace(/\n/g, "<br>"),
           duration: selectedMembershipPlan?.duration,
           amount: selectedMembershipPlan?.amount
         }}
@@ -141,7 +141,7 @@ function EditMembershipPlanModal(props: any) {
               <Form.Group className="mb-3" >
                 <Form.Label>Content</Form.Label>
                 <Field className="form-control" placeholder='Full details of membership plan' as="textarea" rows={4}
-                  name='membershipPlanContent' id='membershipPlanContent' disabled={isSubmitting} />
+                 style={{ whiteSpace: "pre-wrap" }} name='membershipPlanContent' id='membershipPlanContent' disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="membershipPlanContent" />
                 </div>

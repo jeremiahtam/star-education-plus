@@ -1,14 +1,12 @@
-import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Link } from "react-router-dom";
+import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
-import { Table, Button, Pagination, Form, Row, Col, InputGroup } from 'react-bootstrap';
-import AddBroadcastModal from '../../components/AddBroadcastModal';
-import CustomModal from '../../components/BroadcastModal';
+import { Button, Form, Row, Col, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
+import CustomModal from '../../components/BroadcastModal';
 
 function AdminBroadcasts(props: any) {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -36,9 +34,6 @@ function AdminBroadcasts(props: any) {
   const [totalPages, setTotalPages] = useState<number | null>(null)
   // Search 
   const [search, setSearch] = useState<string>('')
-
-  const reset = async () => {
-  }
   useEffect(() => {
     if (search === '') {
       getBroadcastsHandler()

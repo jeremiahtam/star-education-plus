@@ -1,6 +1,5 @@
-import React from 'react'
-import { Link, redirect } from "react-router-dom";
-import { IoIosHome, IoIosCloudUpload, IoMdSchool, IoMdClipboard, IoMdInformationCircle } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
+import { IoMdSchool } from "react-icons/io";
 import { RiDashboardLine } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 import { navToggleClassStateType } from '../../types/type-definitions'
@@ -12,6 +11,7 @@ import { deleteUserData } from '../store/actions/user-info';
 import { stateLoggedInUserType } from '../../types/type-definitions';
 
 const SideBarNav = (props: any) => {
+  const navigate = useNavigate()
 
   const navToggleClass = useSelector((state: navToggleClassStateType) => state.navToggle.navbarClass)
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -39,7 +39,7 @@ const SideBarNav = (props: any) => {
         }
       } else {
         store.dispatch(deleteUserData());
-        redirect('/admin-login')
+        navigate('/admin-login')
       }
     } catch (e: any) {
       console.log(e);
