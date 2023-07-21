@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
-import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
-import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from "react-router-dom";
+import { Row, Col } from 'react-bootstrap';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import BodyWrapper from '../../components/BodyWrapper';
 import EditSchoolProfile from '../../components/EditSchoolProfile';
 import AdminChangeSchoolPassword from '../../components/AdminChangeSchoolPassword';
+import EditSchoolProfilePic from '../../components/EditSchoolProfilePic';
 
 function AdminViewSchoolProfile() {
   const { schoolId } = useParams()
@@ -57,22 +55,23 @@ function AdminViewSchoolProfile() {
 
   return (
     <BodyWrapper title='School Profile'>
+      <Row className='mb-3'>
+        {selectedSchool !== null && <EditSchoolProfilePic selectedSchool={selectedSchool} />}
+      </Row>
       <Row>
         <Col md={'8'}>
           {selectedSchool !== null && <EditSchoolProfile selectedSchool={selectedSchool} />}
         </Col>
         <Col md={'4'}>
           <Row>
-            {selectedSchool !== null && <AdminChangeSchoolPassword selectedSchool={selectedSchool} />}
-          </Row>
-          <Row>
+            <Col md={'12'}>
+              {selectedSchool !== null && <AdminChangeSchoolPassword selectedSchool={selectedSchool} />}
+            </Col>
           </Row>
         </Col>
       </Row>
     </BodyWrapper>
   )
 }
-
-AdminViewSchoolProfile.propTypes = {}
 
 export default AdminViewSchoolProfile
