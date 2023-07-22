@@ -26,7 +26,7 @@ function EditSchoolProfile(props: any) {
             Accept: "application/json",
             Authorization: `Bearer ${userInfoData.token}`,
           },
-          timeout: 5000,
+          timeout: 30000,
         });
       const resData = res.data;
       console.log(resData);

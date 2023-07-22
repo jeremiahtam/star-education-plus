@@ -59,7 +59,7 @@ function AdminSchools(props: any) {
           Accept: "application/json",
           Authorization: `Bearer ${userInfoData.token}`,
         },
-        timeout: 10000,
+        timeout: 30000,
       });
       const resData = res.data;
       console.log(resData)
