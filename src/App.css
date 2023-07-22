@@ -182,7 +182,6 @@ a:focus {
   display: flex;
   width: 100%;
   font-family: 'Roboto', sans-serif;
-  /* font-family: 'Titillium Web', sans-serif; */
 }
 
 #sidebar {
@@ -192,8 +191,7 @@ a:focus {
   left: 0;
   height: 100vh;
   z-index: 999;
-  /* background-color:rgb(0, 36, 63); */
-  background-color: rgb(4, 70, 121);
+  background-color: #030432;
   color: rgb(131, 131, 131);
   transition: all 0.3s;
   border-right: 1px solid #eee;
@@ -201,16 +199,28 @@ a:focus {
 }
 
 #sidebar.active {
-  margin-left: -250px;
+  width: 90px;
+}
+
+#sidebar.active .sidebar-header {
+  justify-content: center;
+  display: flex;
+  padding: 10px;
+}
+
+#sidebar.active ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #sidebar .sidebar-header {
   font-size: 0.9em;
   padding: 10px;
-  background-color: rgb(5, 87, 150);
-  /*   background: rgb(26, 63, 92);  */
   color: #fff;
   font-weight: 500;
+  justify-content: center;
+  display: flex;
 }
 
 #sidebar ul.components {
@@ -220,32 +230,41 @@ a:focus {
   border-bottom: 1px solid rgba(238, 238, 238, 0.226);
 }
 
-#sidebar ul p {
-  color: rgb(219, 219, 219);
-  font-size: 0.9em;
-  font-weight: 600;
-  padding: 0px 15px;
-  margin: 5px 0px;
+#sidebar ul li {
+  /* width: 90%; */
 }
 
 #sidebar ul li a {
-  padding: 8px 15px;
   font-size: 0.9em;
   font-weight: 500;
   color: rgb(255, 255, 255);
-  display: block;
+  display: flex;
+  flex-direction: row;
   text-decoration: none;
+  padding: 10px 20px;
+  width: 100%;
+  align-items: center;
+}
+
+#sidebar.active ul li a {
+  padding: 10px 10px;
+  width: 60%;
+  justify-content: center;
+}
+
+#sidebar ul li a .icon {
+  margin-right: 5px;
 }
 
 #sidebar ul li a:hover {
-  color: rgba(255, 255, 255, 0.65);
+  background: #FBFBFB;
+  border-radius: 4px;
+  color: #030432 !important;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
-  color: rgba(0, 0, 0, .85);
   font-weight: 600;
-  background: #ffffff;
 }
 
 a[data-toggle="collapse"] {
@@ -263,25 +282,6 @@ a[data-toggle="collapse"] {
 ul ul a {
   font-size: 0.7em !important;
   padding-left: 30px !important;
-  background: #ffffff;
-}
-
-ul.CTAs {
-  padding: 5px 10px;
-}
-
-ul.CTAs a {
-  text-align: center;
-  font-size: 0.9em !important;
-  display: block;
-  border-radius: 5px;
-  margin-bottom: 5px;
-}
-
-a.logout,
-a.logout:hover {
-  background: #6d7fcc !important;
-  color: #fff !important;
 }
 
 /* ---------------------------------------------------
@@ -289,7 +289,7 @@ a.logout:hover {
 ----------------------------------------------------- */
 
 #content {
-  background-color: #fcfcfc;
+  background-color: rgba(3, 4, 50, 0.03);;
   width: calc(100% - 250px);
   min-height: 100vh;
   transition: all 0.3s;
@@ -300,7 +300,7 @@ a.logout:hover {
 }
 
 #content.active {
-  width: 100%;
+  width: calc(100% - 90px);
 }
 
 #content>.navbar-brand img {
@@ -433,7 +433,7 @@ a.logout:hover {
 
 /* GENERAL CSS */
 .body-wrapper {
-  padding: 5%;
+  padding: 20px;
 }
 
 .body-wrapper-heading {

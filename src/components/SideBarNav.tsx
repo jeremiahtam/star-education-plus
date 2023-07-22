@@ -1,10 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
-import { IoMdSchool } from "react-icons/io";
-import { RiDashboardLine } from 'react-icons/ri'
+import { SiGooglechat } from "react-icons/si";
+import { BsBroadcastPin } from 'react-icons/bs'
+import { ImStack } from 'react-icons/im'
+import { FaGlobe, FaFileUpload, FaFileInvoice } from 'react-icons/fa'
+import { RiLogoutBoxLine } from 'react-icons/ri'
+import { BiSolidDashboard, BiSolidPackage } from 'react-icons/bi'
+import { MdSchool, MdCardMembership } from 'react-icons/md'
 import { useSelector } from 'react-redux'
 import { navToggleClassStateType } from '../../types/type-definitions'
 import { Image } from 'react-bootstrap';
 import SEPLogo from '../images/SEP-Logo-White-Final.png'
+import SEPlogo129 from '../images/logo192.png'
 import axios from 'axios'
 import { store } from '../store/root-reducer';
 import { deleteUserData } from '../store/actions/user-info';
@@ -14,10 +20,11 @@ const SideBarNav = (props: any) => {
   const navigate = useNavigate()
 
   const navToggleClass = useSelector((state: navToggleClassStateType) => state.navToggle.navbarClass)
+  const sidebarHide = useSelector((state: navToggleClassStateType) => state.navToggle.sidebarHide)
+
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
-  const logoutHandler = async (
-  ) => {
+  const logoutHandler = async () => {
     try {
       const res = await axios.post(
         `http://127.0.0.1:8000/api/admin-logout`,
@@ -27,7 +34,7 @@ const SideBarNav = (props: any) => {
             "Accept": "application/json",
             Authorization: `Bearer ${userInfoData.token}`,
           },
-          timeout: 5000,
+          timeout: 30000,
         }
       );
 
@@ -56,44 +63,75 @@ const SideBarNav = (props: any) => {
   return (
     <nav id={"sidebar"} className={navToggleClass}>
       <div className="sidebar-header">
-        <Image src={SEPLogo} height={35} />
+        <Image src={sidebarHide == false ? SEPLogo : SEPlogo129} height={35} />
       </div>
       <ul className="list-unstyled components">
-        <p>WELCOME </p>
         <li className=''>
-          <Link to='/dashboard'> <RiDashboardLine /> Dashboard</Link>
+          <Link to='/dashboard'>
+            <BiSolidDashboard className="icon" />
+            <div hidden={sidebarHide}> Dashboard</div>
+          </Link>
         </li>
         <li className=''>
-          <Link to="/broadcasts"><IoMdSchool /> Broadcasts</Link>
+          <Link to="/broadcasts">
+            <BsBroadcastPin className="icon" />
+            <div hidden={sidebarHide}> Broadcasts</div>
+          </Link>
         </li>
         <li className=''>
-          <Link to="/membership-plans"><IoMdSchool /> Membership Plans</Link>
+          <Link to="/membership-plans">
+            <MdCardMembership className="icon" />
+            <div hidden={sidebarHide}> Membership Plans</div>
+          </Link>
         </li>
         <li className=''>
-          <Link to="/schools"><IoMdSchool /> Schools</Link>
+          <Link to="/schools">
+            <MdSchool className="icon" />
+            <div hidden={sidebarHide}> Schools</div>
+          </Link>
         </li>
         <li className=''>
-          <Link to="/packages-and-services"><IoMdSchool /> Packages & Services</Link>
+          <Link to="/packages-and-services">
+            <BiSolidPackage className="icon" />
+            <div hidden={sidebarHide}> Packages & Services</div>
+          </Link>
         </li>
         <li className=''>
-          <Link to="/resources"><IoMdSchool /> Resources</Link>
+          <Link to="/resources" >
+            <ImStack className="icon" />
+            <div hidden={sidebarHide}> Resources</div>
+          </Link>
         </li>
         <li className=''>
-          <Link to="/service-providers"><IoMdSchool /> Service Providers</Link>
+          <Link to="/service-providers">
+            <FaGlobe className="icon" />
+            <div hidden={sidebarHide}> Service Providers</div>
+          </Link>
         </li>
         <li className=''>
-          <Link to="/document-upload"><IoMdSchool /> Document Upload</Link>
+          <Link to="/document-upload">
+            <FaFileUpload className="icon" />
+            <div hidden={sidebarHide}> Document Upload</div>
+          </Link>
         </li>
         <li className=''>
-          <Link to="/invoices"><IoMdSchool /> Invoices</Link>
+          <Link to="/invoices">
+            <FaFileInvoice className="icon" />
+            <div hidden={sidebarHide}> Invoices</div></Link>
         </li>
         <li className=''>
-          <Link to="/messages"><IoMdSchool /> Messages</Link>
+          <Link to="/messages">
+            <SiGooglechat className="icon" />
+            <div hidden={sidebarHide}> Messages</div>
+          </Link>
         </li>
       </ul>
       <ul className="list-unstyled CTAs">
         <li>
-          <Link to="#" className="logout" onClick={() => logoutHandler()}>Logout</Link>
+          <Link to="#" className="logout" onClick={() => logoutHandler()}>
+            <RiLogoutBoxLine className="icon" />
+            <div hidden={sidebarHide}> Logout</div>
+          </Link>
         </li>
       </ul>
     </nav>
