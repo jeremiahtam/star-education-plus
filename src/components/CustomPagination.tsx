@@ -3,30 +3,48 @@ import { Table, Button, Pagination, Form, Row, Col, InputGroup } from 'react-boo
 
 interface CustomPaginationPropType {
   page: number,
-  totalPages: ReactNode,
+  totalPages: any,
   setPage: Function,
+  setItemsPerPage: Function
 }
 
 function CustomPagination(props: CustomPaginationPropType) {
 
-  const arr = [...Array(props.totalPages)]
+  const arrayRange = (start: number, stop: number, step: number) =>
+    Array.from({ length: (stop - start) / step + 1 },
+      (value, index) => start + index * step);
+
+  const arr = arrayRange(1, props.totalPages, 1)
 
   return (
-    <Pagination className='float-end'>
-      <Pagination.Prev disabled={props.page == 1 ? true : false} onClick={() => props.setPage(props.page - 1)} />
-      {arr.map((item, index) => {
-        if ((index + 1) < props.page && (index + 1) < 4) {
-          return <Pagination.Item key={index + 1} onClick={() => props.setPage(index + 1)}>{index + 1}</Pagination.Item>
-        }
-      })}
-      <Pagination.Item active>{props.page}</Pagination.Item>
-      {arr.map((item, index) => {
-        if ((index + 1) > props.page && (index + 1) < 4) {
-          return <Pagination.Item key={index + 1} onClick={() => props.setPage(index + 1)}>{index + 1}</Pagination.Item>
-        }
-      })}
-      <Pagination.Next disabled={props.page == props.totalPages ? true : false} onClick={() => props.setPage(props.page + 1)} />
-    </Pagination>
+    <div className='pagination-row' >
+      <div className='left-side float-start'>
+        <Pagination>
+          <div>Items per page:</div>
+          <select className="" onChange={(e: any) => {
+            props.setItemsPerPage(e.target.value)
+          }}>
+            {[2, 10, 20, 50, 100].map((item, index) => {
+              return <option key={index} value={item}>{item}</option>
+            })}
+          </select>
+        </Pagination>
+      </div>
+      <div className='right-side float-end'>
+        <Pagination>
+          <Pagination.Item active>{props.page} of {props.totalPages} pages</Pagination.Item>
+          <select className="" onChange={(e: any) => {
+            props.setPage(e.target.value)
+          }}>
+            {arr.map((item, index) => {
+              return <option key={index} value={item}>{item}</option>
+            })}
+          </select>
+          <Pagination.Prev disabled={props.page == 1 ? true : false} onClick={() => props.setPage(props.page - 1)} />
+          <Pagination.Next disabled={props.page == props.totalPages ? true : false} onClick={() => props.setPage(props.page + 1)} />
+        </Pagination>
+      </div>
+    </div>
   )
 }
 export default CustomPagination

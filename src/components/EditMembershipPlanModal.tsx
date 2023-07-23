@@ -131,16 +131,16 @@ function EditMembershipPlanModal(props: any) {
             </Modal.Header>
             <Modal.Body>
               <Form.Group className="mb-3"  >
-                <Form.Label>Name</Form.Label>
-                <Field className="form-control" type="text" placeholder="Name of plan" name='name' id='name'
+                <Form.Label className='form-labels'>Name</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Name of plan" name='name' id='name'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="name" />
                 </div>
               </Form.Group>
               <Form.Group className="mb-3" >
-                <Form.Label>Content</Form.Label>
-                <Field className="form-control" placeholder='Full details of membership plan' as="textarea" rows={4}
+                <Form.Label className='form-labels'>Content</Form.Label>
+                <Field className="form-control custom-text-input" placeholder='Full details of membership plan' as="textarea" rows={4}
                  style={{ whiteSpace: "pre-wrap" }} name='membershipPlanContent' id='membershipPlanContent' disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="membershipPlanContent" />
@@ -149,8 +149,8 @@ function EditMembershipPlanModal(props: any) {
               <Row className="align-items-center">
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label>Duration (Days)</Form.Label>
-                    <Field className="form-control" type="number" placeholder="Duration (Days)" name='duration' id='duration'
+                    <Form.Label className='form-labels'>Duration (Days)</Form.Label>
+                    <Field className="form-control custom-text-input" type="number" placeholder="Duration (Days)" name='duration' id='duration'
                       disabled={isSubmitting} />
                     <div className="form-error">
                       <ErrorMessage name="duration" />
@@ -159,10 +159,10 @@ function EditMembershipPlanModal(props: any) {
                 </Col>
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="inlineFormInputGroup">Amount</Form.Label>
+                    <Form.Label htmlFor="amount">Amount</Form.Label>
                     <InputGroup className="mb-2">
                       <InputGroup.Text>£</InputGroup.Text>
-                      <Field className="form-control" type="number" step=".01" placeholder="00.00" name='amount' id='amount'
+                      <Field className="form-control custom-text-input" type="number" step=".01" placeholder="00.00" name='amount' id='amount'
                         disabled={isSubmitting} />
                     </InputGroup>
                     <div className="form-error">
@@ -173,8 +173,8 @@ function EditMembershipPlanModal(props: any) {
               </Row>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={props.handleClose}>  Close </Button>
-              <Button variant="primary" type='submit'>Submit</Button>
+              <Button className="btn-custom-outline" onClick={props.handleClose}>  Close </Button>
+              <Button className="btn-custom" type='submit'>Submit</Button>
             </Modal.Footer>
           </FormikForm>)}
       </Formik>

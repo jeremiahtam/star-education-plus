@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Alert } from 'react-bootstrap';
 import CustomModal from './BroadcastModal';
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -81,26 +81,26 @@ function AddBroadcastModal(props: any) {
             <Modal.Header closeButton>
               <Modal.Title>Add Broadcast</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body>             
               <Form.Group className="mb-3"  >
-                <Form.Label>Title</Form.Label>
-                <Field className="form-control" type="text" placeholder="Enter a title" name='title' id='title'
+                <Form.Label className='form-labels'>Title</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Enter a title" name='title' id='title'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="title" />
                 </div>
               </Form.Group>
               <Form.Group className="mb-3" >
-                <Form.Label>Body</Form.Label>
-                <Field className="form-control" placeholder='Enter the message' as="textarea" rows={3} name='body' id='body' disabled={isSubmitting} />
+                <Form.Label className='form-labels'>Body</Form.Label>
+                <Field className="form-control custom-text-input" placeholder='Enter the message' as="textarea" rows={3} name='body' id='body' disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="body" />
                 </div>
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={props.handleClose}>  Close </Button>
-              <Button variant="primary" type='submit'>Submit</Button>
+              <Button className="btn-custom-outline" onClick={props.handleClose}>Close</Button>
+              <Button className="btn-custom" type='submit'>Submit</Button>
             </Modal.Footer>
           </FormikForm>)}
       </Formik>

@@ -57,8 +57,8 @@ function DeleteSchoolModal(props: DeleteSchoolModalPropType) {
       </Modal.Header>
       <Modal.Body>Do you want to delete this school</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={props.handleClose}>Close</Button>
-        <Button variant="primary" onClick={() => { deleteSchoolHandler() }}>Delete</Button>
+        <Button className="btn-custom-outline" onClick={props.handleClose}>Close</Button>
+        <Button className="btn-custom" onClick={() => { deleteSchoolHandler() }}>Delete</Button>
       </Modal.Footer>
     </>
   )

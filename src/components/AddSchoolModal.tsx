@@ -104,13 +104,13 @@ function AddSchoolModal(props: any) {
             </Modal.Header>
             <Modal.Body>
               <Row className="align-items-center">
-                <Col xs="auto" lg={'12'}>The fields marked * are compulsory</Col>
+                <Col xs="auto" lg={'12'} className='form-instructions'>The fields marked * are compulsory</Col>
               </Row>
               <Row className="align-items-center">
                 <Col xs="auto" lg={'12'}>
                   <Form.Group className="mb-3"  >
-                    <Form.Label>School Name*</Form.Label>
-                    <Field className="form-control" type="text" placeholder="Enter school name" name='schoolName' id='schoolName'
+                    <Form.Label className=''>School Name*</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="Enter school name" name='schoolName' id='schoolName'
                       disabled={isSubmitting} />
                     <div className="form-error">
                       <ErrorMessage name="schoolName" />
@@ -119,8 +119,8 @@ function AddSchoolModal(props: any) {
                 </Col>
               </Row>
               <Form.Group className="mb-3">
-                <Form.Label>Adddress*</Form.Label>
-                <Field className="form-control" type="text" placeholder="Enter school address" name='address' id='address'
+                <Form.Label className='form-labels'>Adddress*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Enter school address" name='address' id='address'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="address" />
@@ -129,8 +129,8 @@ function AddSchoolModal(props: any) {
               <Row className="align-items-center">
                 <Col xs="auto" lg={'4'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label>Email*</Form.Label>
-                    <Field className="form-control" type="email" placeholder="Email" name='email' id='email'
+                    <Form.Label className='form-labels'>Email*</Form.Label>
+                    <Field className="form-control custom-text-input" type="email" placeholder="Email" name='email' id='email'
                       disabled={isSubmitting} />
                     <div className="form-error">
                       <ErrorMessage name="email" />
@@ -139,8 +139,8 @@ function AddSchoolModal(props: any) {
                 </Col>
                 <Col xs="auto" lg={'4'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="inlineFormInputGroup">Password*</Form.Label>
-                    <Field className="form-control" type="password" placeholder="Password" name='password' id='password'
+                    <Form.Label htmlFor="password">Password*</Form.Label>
+                    <Field className="form-control custom-text-input" type="password" placeholder="Password" name='password' id='password'
                       disabled={isSubmitting} />
                     <div className="form-error">
                       <ErrorMessage name="password" />
@@ -149,14 +149,12 @@ function AddSchoolModal(props: any) {
                 </Col>
                 <Col xs="auto" lg={'4'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="inlineFormInputGroup">Status*</Form.Label>
-                    <Form.Select
-                      onChange={(selectedOption: any) =>
-                        setFieldValue(
-                          'status',
-                          selectedOption.target.value,
-                        )}
-                      aria-label="Default select example" id='status' name='status'>
+                    <Form.Label htmlFor="status">Status*</Form.Label>
+                    <Form.Select onChange={(selectedOption: any) =>
+                      setFieldValue(
+                        'status',
+                        selectedOption.target.value,
+                      )} aria-label="Default select example" id='status' name='status' className='custom-text-input'>
                       <option value={''}>-- select status --</option>
                       <option value="Pending Review">Pending Review</option>
                       <option value="Approved">Approved</option>
@@ -171,8 +169,8 @@ function AddSchoolModal(props: any) {
               <Row className="align-items-center">
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label>Full Name*</Form.Label>
-                    <Field className="form-control" type="text" placeholder="Enter school admin name" name='fullName' id='fullName'
+                    <Form.Label className='form-labels'>Full Name*</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="Enter school admin name" name='fullName' id='fullName'
                       disabled={isSubmitting} />
                     <div className="form-error">
                       <ErrorMessage name="fullName" />
@@ -186,10 +184,10 @@ function AddSchoolModal(props: any) {
                       placeholder="Enter phone number"
                       value={phoneNumber}
                       onChange={() => setPhoneNumber}
-                      className="form-control"
+                      className="form-control custom-text-input"
                       name='phoneNumber' id='phoneNumber'
                       disabled={isSubmitting} /> */}
-                    <Field className="form-control" type="text" placeholder="Phone number" name='phoneNumber' id='phoneNumber'
+                    <Field className="form-control custom-text-input" type="text" placeholder="Phone number" name='phoneNumber' id='phoneNumber'
                       disabled={isSubmitting} />
                     <div className="form-error">
                       <ErrorMessage name="phoneNumber" />
@@ -200,8 +198,8 @@ function AddSchoolModal(props: any) {
               <Row className="align-items-center">
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label>Number of Pupils*</Form.Label>
-                    <Field className="form-control" type="text" placeholder="Number of pupils" name='numberOfPupils' id='numberOfPupils'
+                    <Form.Label className='form-labels'>Number of Pupils*</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="Number of pupils" name='numberOfPupils' id='numberOfPupils'
                       disabled={isSubmitting} />
                     <div className="form-error">
                       <ErrorMessage name="numberOfPupils" />
@@ -210,8 +208,8 @@ function AddSchoolModal(props: any) {
                 </Col>
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="inlineFormInputGroup">Number of Staff*</Form.Label>
-                    <Field className="form-control" type="text" placeholder="Numer of staff" name='numberOfStaff' id='numberOfStaff'
+                    <Form.Label htmlFor="numberOfStaff">Number of Staff*</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="Numer of staff" name='numberOfStaff' id='numberOfStaff'
                       disabled={isSubmitting} />
                     <div className="form-error">
                       <ErrorMessage name="numberOfStaff" />
@@ -222,8 +220,8 @@ function AddSchoolModal(props: any) {
               <Row className="align-items-center">
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label>Chair of Trustees Name</Form.Label>
-                    <Field className="form-control" type="text" placeholder="Chair of trustees name" name='chairOfTrusteesName' id='chairOfTrusteesName'
+                    <Form.Label className='form-labels'>Chair of Trustees Name</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="Chair of trustees name" name='chairOfTrusteesName' id='chairOfTrusteesName'
                       disabled={isSubmitting} />
                     <div className="form-error">
                       <ErrorMessage name="chairOfTrusteesName" />
@@ -232,8 +230,8 @@ function AddSchoolModal(props: any) {
                 </Col>
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label>Head Teacher Name</Form.Label>
-                    <Field className="form-control" type="text" placeholder="Head teacher's name" name='headTeacherName' id='headTeacherName'
+                    <Form.Label className='form-labels'>Head Teacher Name</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="Head teacher's name" name='headTeacherName' id='headTeacherName'
                       disabled={isSubmitting} />
                     <div className="form-error">
                       <ErrorMessage name="headTeacherName" />
@@ -243,8 +241,8 @@ function AddSchoolModal(props: any) {
               </Row>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={props.handleClose}>  Close </Button>
-              <Button variant="primary" type='submit'>Submit</Button>
+              <Button className="btn-custom-outline" onClick={props.handleClose}>  Close </Button>
+              <Button className="btn-custom" type='submit'>Submit</Button>
             </Modal.Footer>
           </FormikForm>)}
       </Formik>

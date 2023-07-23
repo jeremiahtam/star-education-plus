@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SiGooglechat } from "react-icons/si";
 import { BsBroadcastPin } from 'react-icons/bs'
 import { ImStack } from 'react-icons/im'
@@ -18,6 +18,7 @@ import { stateLoggedInUserType } from '../../types/type-definitions';
 
 const SideBarNav = (props: any) => {
   const navigate = useNavigate()
+  const { pathname } = useLocation();
 
   const navToggleClass = useSelector((state: navToggleClassStateType) => state.navToggle.navbarClass)
   const sidebarHide = useSelector((state: navToggleClassStateType) => state.navToggle.sidebarHide)
@@ -59,6 +60,7 @@ const SideBarNav = (props: any) => {
       }
     }
   }
+  const splitLocation = pathname.split("/");
 
   return (
     <nav id={"sidebar"} className={navToggleClass}>
@@ -66,60 +68,60 @@ const SideBarNav = (props: any) => {
         <Image src={sidebarHide == false ? SEPLogo : SEPlogo129} height={35} />
       </div>
       <ul className="list-unstyled components">
-        <li className=''>
+        <li className={splitLocation[1] == 'dashboard' ? 'active' : ''}>
           <Link to='/dashboard'>
             <BiSolidDashboard className="icon" />
             <div hidden={sidebarHide}> Dashboard</div>
           </Link>
         </li>
-        <li className=''>
+        <li className={splitLocation[1] == 'broadcasts' ? 'active' : ''}>
           <Link to="/broadcasts">
             <BsBroadcastPin className="icon" />
             <div hidden={sidebarHide}> Broadcasts</div>
           </Link>
         </li>
-        <li className=''>
+        <li className={splitLocation[1] == 'membership-plans' ? 'active' : ''}>
           <Link to="/membership-plans">
             <MdCardMembership className="icon" />
             <div hidden={sidebarHide}> Membership Plans</div>
           </Link>
         </li>
-        <li className=''>
+        <li className={splitLocation[1] == 'schools' ? 'active' : ''}>
           <Link to="/schools">
             <MdSchool className="icon" />
             <div hidden={sidebarHide}> Schools</div>
           </Link>
         </li>
-        <li className=''>
+        <li className={splitLocation[1] == 'packages-and-services' ? 'active' : ''}>
           <Link to="/packages-and-services">
             <BiSolidPackage className="icon" />
             <div hidden={sidebarHide}> Packages & Services</div>
           </Link>
         </li>
-        <li className=''>
+        <li className={splitLocation[1] == 'resources' ? 'active' : ''}>
           <Link to="/resources" >
             <ImStack className="icon" />
             <div hidden={sidebarHide}> Resources</div>
           </Link>
         </li>
-        <li className=''>
+        <li className={splitLocation[1] == 'service-providers' ? 'active' : ''}>
           <Link to="/service-providers">
             <FaGlobe className="icon" />
             <div hidden={sidebarHide}> Service Providers</div>
           </Link>
         </li>
-        <li className=''>
+        <li className={splitLocation[1] == 'document-upload' ? 'active' : ''}>
           <Link to="/document-upload">
             <FaFileUpload className="icon" />
             <div hidden={sidebarHide}> Document Upload</div>
           </Link>
         </li>
-        <li className=''>
+        <li className={splitLocation[1] == 'invoices' ? 'active' : ''}>
           <Link to="/invoices">
             <FaFileInvoice className="icon" />
             <div hidden={sidebarHide}> Invoices</div></Link>
         </li>
-        <li className=''>
+        <li className={splitLocation[1] == 'messages' ? 'active' : ''}>
           <Link to="/messages">
             <SiGooglechat className="icon" />
             <div hidden={sidebarHide}> Messages</div>

@@ -57,8 +57,8 @@ function DeleteBroadcastModal(props: DeleteBroadcastModalPropType) {
       </Modal.Header>
       <Modal.Body>Do you want to delete this broadcast</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={props.handleClose}>Close</Button>
-        <Button variant="primary" onClick={() => { deleteBroadcastHandler() }}>Delete</Button>
+        <Button className="btn-custom-outline" onClick={props.handleClose}>Close</Button>
+        <Button className="btn-custom" onClick={() => { deleteBroadcastHandler() }}>Delete</Button>
       </Modal.Footer>
     </>
   )

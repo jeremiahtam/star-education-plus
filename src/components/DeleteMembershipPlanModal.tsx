@@ -57,8 +57,8 @@ function DeleteMembershipPlanModal(props: DeleteMembershipPlanModalPropType) {
       </Modal.Header>
       <Modal.Body>Do you want to delete this membership plan?</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={props.handleClose}>Close</Button>
-        <Button variant="primary" onClick={() => { deleteMembershipPlanHandler() }}>Delete</Button>
+        <Button className="btn-custom-outline" onClick={props.handleClose}>Close</Button>
+        <Button className="btn-custom" onClick={() => { deleteMembershipPlanHandler() }}>Delete</Button>
       </Modal.Footer>
     </>
   )

@@ -1,6 +1,8 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
+import { IoIosAdd } from "react-icons/io";
+import { MdOutlineClear } from "react-icons/md";
 import { Button, Form, Row, Col, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -42,7 +44,7 @@ function AdminBroadcasts(props: any) {
 
   useEffect(() => {
     getBroadcastsHandler()
-  }, [userInfoData, page])
+  }, [userInfoData, page, itemsPerPage])
 
   const getBroadcastsHandler = async () => {
     try {
@@ -83,44 +85,44 @@ function AdminBroadcasts(props: any) {
 
   return (
     <BodyWrapper title='Broadcasts'
-      rightHandSide={<button className='btn btn-primary btn-sm'
+      rightHandSide={<button className='btn btn-sm btn-custom'
         onClick={() => {
           setModalType('add-broadcast')
           handleShow()
-        }}>CREATE NEW</button>}>
+        }}>Create New <IoIosAdd className='btn-icon' /> </button>}>
       <div className='search-area mb-3'>
         <Form>
           <Row className="justify-content-end">
-            <Col sm={12} className="my-1">
+            <Col md={4} sm={10} className="my-1 search-bar">
               <Form.Label htmlFor="search" visuallyHidden>
                 Search
               </Form.Label>
-              <InputGroup>
+              <InputGroup className=''>
                 <InputGroup.Text><IoMdSearch size={24} /></InputGroup.Text>
-                <Form.Control
-                  id="search"
-                  placeholder="Search"
+                <Form.Control id="search" placeholder="Search"
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     setSearch(e.target.value)
-                  }}
-                  value={search}
-                />
-                <Button type="button" variant='light' onClick={(e: any) => {
-                  e.preventDefault()
-                  setPage(1)
-                  setSearch('')
-                }}>X</Button>
+                  }} value={search} />
+                {search !== '' &&
+                  <InputGroup.Text onClick={(e: any) => {
+                    e.preventDefault()
+                    setPage(1)
+                    setSearch('')
+                  }} className='cancel-button' >
+                    <MdOutlineClear size={24} />
+                  </InputGroup.Text>}
                 <Button type="submit" onClick={(e: any) => {
                   e.preventDefault()
                   setPage(1)
                   getBroadcastsHandler()
-                }}>Search</Button>
+                }} hidden>Search</Button>
               </InputGroup>
             </Col>
           </Row>
         </Form>
       </div>
-      {broadcasts.length !== 0 &&
+      {
+        broadcasts.length !== 0 &&
         <div className="table-responsive">
           <table className='table table-hover table-sm'>
             <thead>
@@ -148,11 +150,14 @@ function AdminBroadcasts(props: any) {
               })}
             </tbody>
           </table>
-        </div>}
-      {broadcasts.length !== 0 && <CustomPagination page={page} setPage={setPage} totalPages={totalPages} />}
+        </div>
+      }
+      {broadcasts.length !== 0 &&
+        <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
       {modalType && <CustomModal show={show} handleClose={handleClose} handleShow={handleShow}
-        modalType={modalType} modalDataId={modalDataId} loadBroadcast={getBroadcastsHandler} />}
-    </BodyWrapper>
+        modalType={modalType} modalDataId={modalDataId} loadBroadcast={getBroadcastsHandler} />
+      }
+    </BodyWrapper >
   )
 }
 

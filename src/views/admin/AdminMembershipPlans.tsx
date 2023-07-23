@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import { Link } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
-import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
+import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
 import { Table, Button, Pagination, Form, Row, Col, InputGroup } from 'react-bootstrap';
 import AddMembershipPlanModal from '../../components/AddMembershipPlanModal';
 import CustomModal from '../../components/MembershipPlanModal';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
+import { MdOutlineClear } from 'react-icons/md';
 
 
 function AdminMembershipPlans(props: any) {
@@ -46,7 +47,7 @@ function AdminMembershipPlans(props: any) {
 
   useEffect(() => {
     getMembershipPlansHandler()
-  }, [userInfoData, page])
+  }, [userInfoData, page, itemsPerPage])
 
   const getMembershipPlansHandler = async () => {
     try {
@@ -87,38 +88,37 @@ function AdminMembershipPlans(props: any) {
 
   return (
     <BodyWrapper title='Membership Plans'
-      rightHandSide={<button className='btn btn-primary btn-sm'
+      rightHandSide={<button className='btn btn-custom btn-sm'
         onClick={() => {
           setModalType('add-membership-plan')
           handleShow()
-        }}>CREATE NEW</button>}>
+        }}>Create New <IoIosAdd className='btn-icon' /></button>}>
       <div className='search-area mb-3'>
         <Form>
           <Row className="justify-content-end">
-            <Col sm={12} className="my-1">
+            <Col md={4} sm={10} className="my-1 search-bar">
               <Form.Label htmlFor="search" visuallyHidden>
                 Search
               </Form.Label>
-              <InputGroup>
+              <InputGroup className=''>
                 <InputGroup.Text><IoMdSearch size={24} /></InputGroup.Text>
-                <Form.Control
-                  id="search"
-                  placeholder="Search"
+                <Form.Control id="search" placeholder="Search"
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     setSearch(e.target.value)
-                  }}
-                  value={search}
-                />
-                <Button type="button" variant='light' onClick={(e: any) => {
-                  e.preventDefault()
-                  setPage(1)
-                  setSearch('')
-                }}>X</Button>
+                  }} value={search} />
+                {search !== '' &&
+                  <InputGroup.Text onClick={(e: any) => {
+                    e.preventDefault()
+                    setPage(1)
+                    setSearch('')
+                  }} className='cancel-button' >
+                    <MdOutlineClear size={24} />
+                  </InputGroup.Text>}
                 <Button type="submit" onClick={(e: any) => {
                   e.preventDefault()
                   setPage(1)
                   getMembershipPlansHandler()
-                }}>Search</Button>
+                }} hidden>Search</Button>
               </InputGroup>
             </Col>
           </Row>
@@ -157,7 +157,8 @@ function AdminMembershipPlans(props: any) {
             </tbody>
           </table>
         </div>}
-      {membershipPlans.length !== 0 && <CustomPagination page={page} setPage={setPage} totalPages={totalPages} />}
+      {membershipPlans.length !== 0 &&
+        <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
       {modalType && <CustomModal show={show} handleClose={handleClose} handleShow={handleShow}
         modalType={modalType} modalDataId={modalDataId} loadMembershipPlan={getMembershipPlansHandler} />}
     </BodyWrapper>
