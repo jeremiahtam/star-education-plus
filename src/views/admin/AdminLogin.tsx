@@ -112,20 +112,20 @@ const AdminLogin = (props: any) => {
                   }) => (
                     <Form method="POST" id="login-form-school" name="login-form-school">
                       <div className="form-group">
-                        <label htmlFor="email">Email address</label>
-                        <Field name="email" disabled={isSubmitting} className="form-control custom-text" type="text" placeholder="Email" />
+                        <label htmlFor="email" className='form-labels'>Email address</label>
+                        <Field name="email" disabled={isSubmitting} className="form-control custom-text-input" type="text" placeholder="Email" />
                         <div className="form-error">
                           <ErrorMessage name="email" />
                         </div>
                       </div>
                       <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <Field name="password" disabled={isSubmitting} className="form-control custom-input-input" type="password" placeholder="Password" />
+                        <label htmlFor="password" className='form-labels'>Password</label>
+                        <Field name="password" disabled={isSubmitting} className="form-control custom-text-input" type="password" placeholder="Password" />
                         <div className="form-error">
                           <ErrorMessage name="password" />
                         </div>
                       </div>
-                      <button className="btn btn-block mb-3 form-control" type="submit" disabled={!!isSubmitting}>
+                      <button className="btn btn-block mb-3 form-control btn-custom" type="submit" disabled={!!isSubmitting}>
                         {isSubmitting ?
                           (
                             <>

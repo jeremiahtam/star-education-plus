@@ -99,22 +99,21 @@ function EditSchoolProfile(props: any) {
         values
       }) => (
         <FormikForm method="POST" id="add-school" name="add-school">
-          <h6>Edit Profile</h6>
+          <h6 className='form-heading'>Edit Profile</h6>
           {updateProfileResponse?.success &&
-            <Alert onClose={() => setUpdateProfileResponse(null)}
+            <Alert className='form-feedback-message' onClose={() => setUpdateProfileResponse(null)}
               variant={updateProfileResponse?.success == true ? "success" : "danger"}
               dismissible>
               <div>{updateProfileResponse.message}</div>
             </Alert>}
-
           <Row className="align-items-center">
-            <Col xs="auto" lg={'12'}>The fields marked * are compulsory</Col>
+            <Col xs={"12"} lg={'12'} className='form-instructions'>The fields marked * are compulsory</Col>
           </Row>
           <Row className="align-items-center">
-            <Col xs="auto" lg={'12'}>
+            <Col xs={"12"} lg={'12'}>
               <Form.Group className="mb-3"  >
-                <Form.Label>School Name*</Form.Label>
-                <Field className="form-control" type="text" placeholder="Enter school name" name='schoolName' id='schoolName'
+                <Form.Label className='form-labels'>School Name*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Enter school name" name='schoolName' id='schoolName'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="schoolName" />
@@ -123,31 +122,30 @@ function EditSchoolProfile(props: any) {
             </Col>
           </Row>
           <Form.Group className="mb-3">
-            <Form.Label>Adddress*</Form.Label>
-            <Field className="form-control" type="text" placeholder="Enter school address" name='address' id='address'
+            <Form.Label className='form-labels'>Adddress*</Form.Label>
+            <Field className="form-control custom-text-input" type="text" placeholder="Enter school address" name='address' id='address'
               disabled={isSubmitting} />
             <div className="form-error">
               <ErrorMessage name="address" />
             </div>
           </Form.Group>
           <Row className="align-items-center">
-            <Col xs="auto" lg={'6'}>
+            <Col xs={"12"} lg={'6'}>
               <Form.Group className="mb-3" >
-                <Form.Label>Email*</Form.Label>
-                <Field className="form-control" type="email" placeholder="Email" name='email' id='email'
+                <Form.Label className='form-labels'>Email*</Form.Label>
+                <Field className="form-control custom-text-input" type="email" placeholder="Email" name='email' id='email'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="email" />
                 </div>
               </Form.Group>
             </Col>
-            <Col xs="auto" lg={'6'}>
+            <Col xs={"12"} lg={'6'}>
               <Form.Group className="mb-3" >
-                <Form.Label htmlFor="inlineFormInputGroup">Status*</Form.Label>
-                <Form.Select onChange={(selectedOption: any) =>
-                  setFieldValue('status', selectedOption.target.value,
-                  )}
-                  aria-label="Default select example" id='status' name='status'
+                <Form.Label className='form-labels'>Status*</Form.Label>
+                <Form.Select className='custom-text-input' onChange={(selectedOption: any) =>
+                  setFieldValue('status', selectedOption.target.value)
+                } id='status' name='status'
                   value={values.status}>
                   <option value={''}>-- select status --</option>
                   <option value="Pending Review">Pending Review</option>
@@ -161,27 +159,20 @@ function EditSchoolProfile(props: any) {
             </Col>
           </Row>
           <Row className="align-items-center">
-            <Col xs="auto" lg={'6'}>
+            <Col xs={"12"} lg={'6'}>
               <Form.Group className="mb-3" >
-                <Form.Label>Full Name*</Form.Label>
-                <Field className="form-control" type="text" placeholder="Enter school admin name" name='fullName' id='fullName'
+                <Form.Label className='form-labels'>Full Name*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Enter school admin name" name='fullName' id='fullName'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="fullName" />
                 </div>
               </Form.Group>
             </Col>
-            <Col xs="auto" lg={'6'}>
+            <Col xs={"12"} lg={'6'}>
               <Form.Group className="mb-3" >
-                <Form.Label htmlFor="inlineFormInputGroup">Phone Number*</Form.Label>
-                {/* <PhoneInput
-                      placeholder="Enter phone number"
-                      value={phoneNumber}
-                      onChange={() => setPhoneNumber}
-                      className="form-control"
-                      name='phoneNumber' id='phoneNumber'
-                      disabled={isSubmitting} /> */}
-                <Field className="form-control" type="text" placeholder="Phone number" name='phoneNumber' id='phoneNumber'
+                <Form.Label className='form-labels'>Phone Number*</Form.Label>                
+                <Field className="form-control custom-text-input" type="text" placeholder="Phone number" name='phoneNumber' id='phoneNumber'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="phoneNumber" />
@@ -190,20 +181,20 @@ function EditSchoolProfile(props: any) {
             </Col>
           </Row>
           <Row className="align-items-center">
-            <Col xs="auto" lg={'6'}>
+            <Col xs={"12"} lg={'6'}>
               <Form.Group className="mb-3" >
-                <Form.Label>Number of Pupils*</Form.Label>
-                <Field className="form-control" type="text" placeholder="Number of pupils" name='numberOfPupils' id='numberOfPupils'
+                <Form.Label className='form-labels'>Number of Pupils*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Number of pupils" name='numberOfPupils' id='numberOfPupils'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="numberOfPupils" />
                 </div>
               </Form.Group>
             </Col>
-            <Col xs="auto" lg={'6'}>
+            <Col xs={"12"} lg={'6'}>
               <Form.Group className="mb-3" >
-                <Form.Label htmlFor="inlineFormInputGroup">Number of Staff*</Form.Label>
-                <Field className="form-control" type="text" placeholder="Numer of staff" name='numberOfStaff' id='numberOfStaff'
+                <Form.Label className='form-labels'>Number of Staff*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Numer of staff" name='numberOfStaff' id='numberOfStaff'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="numberOfStaff" />
@@ -212,20 +203,20 @@ function EditSchoolProfile(props: any) {
             </Col>
           </Row>
           <Row className="align-items-center">
-            <Col xs="auto" lg={'6'}>
+            <Col xs={"12"} lg={'6'}>
               <Form.Group className="mb-3" >
-                <Form.Label>Chair of Trustees Name</Form.Label>
-                <Field className="form-control" type="text" placeholder="Chair of trustees name" name='chairOfTrusteesName' id='chairOfTrusteesName'
+                <Form.Label className='form-labels'>Chair of Trustees Name</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Chair of trustees name" name='chairOfTrusteesName' id='chairOfTrusteesName'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="chairOfTrusteesName" />
                 </div>
               </Form.Group>
             </Col>
-            <Col xs="auto" lg={'6'}>
+            <Col xs={"12"} lg={'6'}>
               <Form.Group className="mb-3" >
-                <Form.Label>Head Teacher Name</Form.Label>
-                <Field className="form-control" type="text" placeholder="Head teacher's name" name='headTeacherName' id='headTeacherName'
+                <Form.Label className='form-labels'>Head Teacher Name</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Head teacher's name" name='headTeacherName' id='headTeacherName'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="headTeacherName" />
@@ -233,7 +224,7 @@ function EditSchoolProfile(props: any) {
               </Form.Group>
             </Col>
           </Row>
-          <Button variant="primary" type='submit'>Submit</Button>
+          <Button className='btn btn-custom' type='submit'>Submit</Button>
         </FormikForm>
       )}
     </Formik>

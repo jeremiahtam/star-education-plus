@@ -111,8 +111,8 @@ function ChangeProfilePicModal(props: any) {
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={props.handleClose}>  Close </Button>
-              <Button variant="primary" type='submit'>Submit</Button>
+              <Button className="btn-custom-outline" onClick={props.handleClose}>Close</Button>
+              <Button className="btn-custom" type='submit'>Submit</Button>
             </Modal.Footer>
           </FormikForm>)}
       </Formik>

@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
+import { HiTrash } from 'react-icons/hi';
 
 
 function AdminMembershipPlans(props: any) {
@@ -130,6 +131,7 @@ function AdminMembershipPlans(props: any) {
           <table className='table table-hover table-sm'>
             <thead>
               <tr>
+                <th>No.</th>
                 <th>Name</th>
                 <th>Amount</th>
                 <th>Content</th>
@@ -142,6 +144,7 @@ function AdminMembershipPlans(props: any) {
               {membershipPlans.map((item, index) => {
                 return (
                   <tr key={item.id}>
+                    <td>{item.sn}</td>
                     <td>{item.name}</td>
                     <td>{item.amount}</td>
                     <td><div>{item.membershipPlanContent}</div></td>
@@ -149,7 +152,7 @@ function AdminMembershipPlans(props: any) {
                     <td ><IoMdCreate onClick={() => {
                       modalDataHandler(item.id, 'edit-membership-plan')
                     }} /></td>
-                    <td><IoMdTrash onClick={() => {
+                    <td><HiTrash onClick={() => {
                       modalDataHandler(item.id, 'delete-membership-plan')
                     }} /></td>
                   </tr>

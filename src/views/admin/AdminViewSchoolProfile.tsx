@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
@@ -57,16 +57,24 @@ function AdminViewSchoolProfile() {
   return (
     <BodyWrapper title='School Profile'>
       <Row className='mb-3'>
-        {selectedSchool !== null && <EditSchoolProfilePic selectedSchool={selectedSchool} />}
+        <Col md={'12'}>
+          <div className='compartment'>
+            {selectedSchool !== null && <EditSchoolProfilePic selectedSchool={selectedSchool} />}
+          </div>
+        </Col>
       </Row>
       <Row>
         <Col md={'8'}>
-          {selectedSchool !== null && <EditSchoolProfile selectedSchool={selectedSchool} />}
+          <div className='compartment'>
+            {selectedSchool !== null && <EditSchoolProfile selectedSchool={selectedSchool} />}
+          </div>
         </Col>
         <Col md={'4'}>
           <Row>
             <Col md={'12'}>
-              {selectedSchool !== null && <AdminChangeSchoolPassword selectedSchool={selectedSchool} />}
+              <div className='compartment'>
+                {selectedSchool !== null && <AdminChangeSchoolPassword selectedSchool={selectedSchool} />}
+              </div>
             </Col>
           </Row>
         </Col>

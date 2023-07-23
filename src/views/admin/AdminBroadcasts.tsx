@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import CustomModal from '../../components/BroadcastModal';
+import { HiTrash } from 'react-icons/hi';
 
 function AdminBroadcasts(props: any) {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -71,7 +72,6 @@ function AdminBroadcasts(props: any) {
       }
     } catch (e: any) {
       console.log(e)
-      // setShowLoadMoreSpinner(false)
       // setPageLoaded(true)
       if (e.code == "ECONNABORTED") {
         // showToast("default", "Timeout. Try again.");
@@ -122,12 +122,12 @@ function AdminBroadcasts(props: any) {
           </Row>
         </Form>
       </div>
-      {
-        broadcasts.length !== 0 &&
+      {broadcasts.length !== 0 &&
         <div className="table-responsive">
           <table className='table table-hover table-sm'>
             <thead>
               <tr>
+                <th>No.</th>
                 <th>Title</th>
                 <th>Body</th>
                 <th></th>
@@ -138,12 +138,13 @@ function AdminBroadcasts(props: any) {
               {broadcasts.map((item, index) => {
                 return (
                   <tr key={item.id}>
+                    <td>{item.sn}</td>
                     <td>{item.title}</td>
                     <td>{item.body}</td>
                     <td ><IoMdCreate onClick={() => {
                       modalDataHandler(item.id, 'edit-broadcast')
                     }} /></td>
-                    <td><IoMdTrash onClick={() => {
+                    <td><HiTrash onClick={() => {
                       modalDataHandler(item.id, 'delete-broadcast')
                     }} /></td>
                   </tr>

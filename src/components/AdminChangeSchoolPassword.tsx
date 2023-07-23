@@ -75,17 +75,17 @@ function AdminChangeSchoolPassword(props: any) {
         isSubmitting
       }) => (
         <FormikForm method="POST" id="admin-change-school-password" name="admin-change-school-password">
-          <h6>Change Password</h6>
+          <h6 className='form-heading'>Change Password</h6>
           {changePasswordResponse?.success &&
-            <Alert onClose={() => setChangePasswordResponse(null)}
+            <Alert className='form-feedback-message' onClose={() => setChangePasswordResponse(null)}
               variant={changePasswordResponse?.success == true ? "success" : "danger"}
               dismissible>
               <div>{changePasswordResponse.message}</div>
             </Alert>}
           <Row className="align-items-center">
             <Form.Group className="mb-3" >
-              <Form.Label htmlFor="inlineFormInputGroup">Password*</Form.Label>
-              <Field className="form-control" type="password" placeholder="Password" name='password' id='password'
+              <Form.Label className='form-labels'>Password*</Form.Label>
+              <Field className="form-control custom-text-input" type="password" placeholder="Password" name='password' id='password'
                 disabled={isSubmitting} />
               <div className="form-error">
                 <ErrorMessage name="password" />
@@ -93,7 +93,7 @@ function AdminChangeSchoolPassword(props: any) {
             </Form.Group>
           </Row>
           <div className="d-grid gap-2">
-            <Button variant="primary" type='submit' className='btn-block'>Submit</Button>
+            <Button type='submit' className='btn-block btn-custom'>Submit</Button>
           </div>
         </FormikForm>
       )}

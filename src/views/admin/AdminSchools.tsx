@@ -3,12 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Button, Form, InputGroup, Row, Col } from 'react-bootstrap';
+import { Button, Form, InputGroup, Row, Col, Badge } from 'react-bootstrap';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import SchoolModal from '../../components/SchoolModal';
 import { MdOutlineClear } from 'react-icons/md';
+import { HiTrash } from 'react-icons/hi';
 
 function AdminSchools(props: any) {
   const navigate = useNavigate();
@@ -128,6 +129,7 @@ function AdminSchools(props: any) {
           <table className='table table-hover table-sm'>
             <thead>
               <tr>
+                <th>No.</th>
                 <th>Full Name</th>
                 <th>School Name</th>
                 <th>Email</th>
@@ -141,16 +143,22 @@ function AdminSchools(props: any) {
               {schools.map((item, index) => {
                 return (
                   <tr key={item.id}>
-                    <td>{item.fullname}</td>
+                    <td>{item.sn}</td>
+                    <td onClick={() => {
+                      navigate(`/schools/${item.id}`)
+                    }} >
+                      {item.fullname}
+                    </td>
                     <td>{item.schoolName}</td>
                     <td>{item.email}</td>
                     <td>{item.address}</td>
-                    <td>{item.status}</td>
+                    <td><Badge bg={item.status == 'Pending Review' ? "secondary" :
+                      item.status == 'Approved' ? 'success' : 'danger'}>
+                      {item.status}</Badge></td>
                     <td ><IoMdCreate onClick={() => {
                       navigate(`/schools/${item.id}`)
-                      // <Link to={`/schools/${item.id}`} />
                     }} /></td>
-                    <td><IoMdTrash onClick={() => {
+                    <td><HiTrash onClick={() => {
                       modalDataHandler(item.id, 'delete-school')
                     }} /></td>
                   </tr>

@@ -76,7 +76,6 @@ function AddBroadcastModal(props: any) {
       >
         {({
           isSubmitting,
-
         }) => (
           <FormikForm method="POST" id="add-broadcast" name="add-broadcast">
             <Modal.Header closeButton>
