@@ -19,6 +19,7 @@ import { stateLoggedInUserType } from '../../types/type-definitions';
 const SideBarNav = (props: any) => {
   const navigate = useNavigate()
   const { pathname } = useLocation();
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const navToggleClass = useSelector((state: navToggleClassStateType) => state.navToggle.navbarClass)
   const sidebarHide = useSelector((state: navToggleClassStateType) => state.navToggle.sidebarHide)
@@ -28,7 +29,7 @@ const SideBarNav = (props: any) => {
   const logoutHandler = async () => {
     try {
       const res = await axios.post(
-        `http://127.0.0.1:8000/api/admin-logout`,
+        `${baseUrl}/api/admin-logout`,
         {},
         {
           headers: {

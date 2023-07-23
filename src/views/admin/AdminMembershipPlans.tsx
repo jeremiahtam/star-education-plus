@@ -14,6 +14,7 @@ import { MdOutlineClear } from 'react-icons/md';
 
 function AdminMembershipPlans(props: any) {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   //Modal COntrol
   const [show, setShow] = useState(false);
@@ -51,7 +52,7 @@ function AdminMembershipPlans(props: any) {
 
   const getMembershipPlansHandler = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/all-membership-plans`, {
+      const res = await axios.get(`${baseUrl}/api/all-membership-plans`, {
         params: {
           search,
           items_per_page: itemsPerPage,

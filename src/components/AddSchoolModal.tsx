@@ -10,7 +10,7 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 
 function AddSchoolModal(props: any) {
-  const [phoneNumber, setPhoneNumber] = useState()
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
   const addSchoolHandler = async (
@@ -20,7 +20,7 @@ function AddSchoolModal(props: any) {
   ) => {
     try {
       const res = await axios.post(
-        `http://127.0.0.1:8000/api/create-school`,
+        `${baseUrl}/api/create-school`,
         values,
         {
           headers: {

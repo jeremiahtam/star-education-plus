@@ -12,7 +12,7 @@ import { MdOutlineClear } from 'react-icons/md';
 
 function AdminSchools(props: any) {
   const navigate = useNavigate();
-
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
   //Modal COntrol
@@ -50,7 +50,7 @@ function AdminSchools(props: any) {
 
   const getSchoolsHandler = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/all-schools`, {
+      const res = await axios.get(`${baseUrl}/api/all-schools`, {
         params: {
           search,
           items_per_page: itemsPerPage,

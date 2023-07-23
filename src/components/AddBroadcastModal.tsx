@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';
 
 function AddBroadcastModal(props: any) {
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
   const addBroadcastHandler = async (
@@ -19,7 +20,7 @@ function AddBroadcastModal(props: any) {
   ) => {
     try {
       const res = await axios.post(
-        `http://127.0.0.1:8000/api/create-broadcast`,
+        `${baseUrl}/api/create-broadcast`,
         values,
         {
           headers: {

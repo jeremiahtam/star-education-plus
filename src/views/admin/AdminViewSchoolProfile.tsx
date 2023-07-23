@@ -12,12 +12,13 @@ import EditSchoolProfilePic from '../../components/EditSchoolProfilePic';
 function AdminViewSchoolProfile() {
   const { schoolId } = useParams()
   const navigate = useNavigate()
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const [selectedSchool, setSelectedSchool] = useState<any>(null)
 
   const getSchoolHandler = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/get-school-by-id`,
+      const res = await axios.get(`${baseUrl}/api/get-school-by-id`,
         {
           params: {
             id: schoolId

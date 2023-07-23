@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';
 
 function EditMembershipPlanModal(props: any) {
-
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
   const [selectedMembershipPlan, setSelectedMembershipPlan] = useState<any>({})
@@ -21,7 +21,7 @@ function EditMembershipPlanModal(props: any) {
 
   const getMembershipPlanHandler = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/get-membership-plan`,
+      const res = await axios.get(`${baseUrl}/api/get-membership-plan`,
         {
           params: {
             id: props.modalDataId
@@ -57,7 +57,7 @@ function EditMembershipPlanModal(props: any) {
   ) => {
     try {
       const res = await axios.put(
-        `http://127.0.0.1:8000/api/edit-membership-plan/${props.modalDataId}`,
+        `${baseUrl}/api/edit-membership-plan/${props.modalDataId}`,
         values,
         {
           headers: {

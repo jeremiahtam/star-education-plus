@@ -12,6 +12,7 @@ import CustomModal from '../../components/BroadcastModal';
 
 function AdminBroadcasts(props: any) {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   //Modal COntrol
   const [show, setShow] = useState(false);
@@ -48,7 +49,7 @@ function AdminBroadcasts(props: any) {
 
   const getBroadcastsHandler = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/all-broadcasts`, {
+      const res = await axios.get(`${baseUrl}/api/all-broadcasts`, {
         params: {
           search,
           items_per_page: itemsPerPage,

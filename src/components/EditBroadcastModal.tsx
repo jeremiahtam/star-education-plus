@@ -10,10 +10,10 @@ import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';
 
 function EditBroadcastModal(props: any) {
-
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
-  const [selectedBroadcast, setSelectedBroadcast] = useState<any>({ title: '', body: '' })
+  const [selectedBroadcast, setSelectedBroadcast] = useState<any>()
 
   useEffect(() => {
     getBroadcastHandler()
@@ -21,7 +21,7 @@ function EditBroadcastModal(props: any) {
 
   const getBroadcastHandler = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/get-broadcast`,
+      const res = await axios.get(`${baseUrl}/api/get-broadcast`,
         {
           params: {
             id: props.modalDataId
@@ -57,7 +57,7 @@ function EditBroadcastModal(props: any) {
   ) => {
     try {
       const res = await axios.put(
-        `http://127.0.0.1:8000/api/edit-broadcast/${props.modalDataId}`,
+        `${baseUrl}/api/edit-broadcast/${props.modalDataId}`,
         values,
         {
           headers: {

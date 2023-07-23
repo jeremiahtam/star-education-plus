@@ -13,7 +13,7 @@ import SEPLogo from '../../images/SEP-Logo-White-Final.png'
 import SEPLogo129 from '../../images/logo192.png'
 
 const AdminLogin = (props: any) => {
-
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const AdminLogin = (props: any) => {
   ) => {
     try {
       const res = await axios.post(
-        `http://127.0.0.1:8000/api/admin-login`,
+        `${baseUrl}/api/admin-login`,
         values,
         {
           headers: {
@@ -88,7 +88,6 @@ const AdminLogin = (props: any) => {
                 <div className='right-logo'>
                   <Image src={SEPLogo129} height={30} />
                 </div>
-
                 <div className="form-heading">Welcome Back</div>
                 <div className="form-sub-heading">Enter your details to access the admin panel</div>
                 <Formik
@@ -114,14 +113,14 @@ const AdminLogin = (props: any) => {
                     <Form method="POST" id="login-form-school" name="login-form-school">
                       <div className="form-group">
                         <label htmlFor="email">Email address</label>
-                        <Field name="email" disabled={isSubmitting} className="form-control" type="text" placeholder="Email" />
+                        <Field name="email" disabled={isSubmitting} className="form-control custom-text" type="text" placeholder="Email" />
                         <div className="form-error">
                           <ErrorMessage name="email" />
                         </div>
                       </div>
                       <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <Field name="password" disabled={isSubmitting} className="form-control" type="password" placeholder="Password" />
+                        <Field name="password" disabled={isSubmitting} className="form-control custom-input-input" type="password" placeholder="Password" />
                         <div className="form-error">
                           <ErrorMessage name="password" />
                         </div>
@@ -139,9 +138,6 @@ const AdminLogin = (props: any) => {
                 </Formik>
               </div>
             </div>
-            {/* <div className="row second-row">
-              <div className='production-info'>An <a href='http://www.oncliqsupport.com'> oncliqsupport </a> production</div>
-            </div> */}
           </div>
         </Col>
       </div>

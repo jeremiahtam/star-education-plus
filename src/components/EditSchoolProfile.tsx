@@ -11,6 +11,7 @@ import { stateLoggedInUserType } from '../../types/type-definitions';
 function EditSchoolProfile(props: any) {
   const [updateProfileResponse, setUpdateProfileResponse] = useState<any>(null)
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const updateProfileHandler = async (
     values: any,
@@ -19,7 +20,7 @@ function EditSchoolProfile(props: any) {
   ) => {
     try {
       const res = await axios.put(
-        `http://127.0.0.1:8000/api/admin-edit-school-profile/${props.selectedSchool.id}`,
+        `${baseUrl}/api/admin-edit-school-profile/${props.selectedSchool.id}`,
         values,
         {
           headers: {

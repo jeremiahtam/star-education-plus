@@ -14,12 +14,12 @@ interface DeleteSchoolModalPropType {
 }
 
 function DeleteSchoolModal(props: DeleteSchoolModalPropType) {
-
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
   const deleteSchoolHandler = async () => {
     try {
-      const res = await axios.put(`http://127.0.0.1:8000/api/delete-school/${props.modalDataId}`,
+      const res = await axios.put(`${baseUrl}/api/delete-school/${props.modalDataId}`,
         {},
         {
           headers: {

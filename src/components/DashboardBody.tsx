@@ -1,18 +1,18 @@
 import React from 'react'
 import TopNav from "./TopNav"
 import SideBarNav from "./SideBarNav"
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 
-const DashboardBody = (props:any) => {
-  // const navToggleClass = useSelector(state=>state.navToggle.navbarClass)
+const DashboardBody = (props: any) => {
+  // const navToggleClass = useSelector(state: any => state.navToggle.navbarClass)
   const navToggleClass = ''
   return (
     <div className={"wrapper"}>
-      <SideBarNav/>
-    <div id="content" className={navToggleClass}>
-      <TopNav/>
-          {props.children}
-      </div>      
+      <SideBarNav />
+      <div id="content" className={navToggleClass}>
+        <TopNav />
+        {props.children}
+      </div>
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { stateLoggedInUserType } from '../../types/type-definitions';
 
 function AdminChangeSchoolPassword(props: any) {
   const [changePasswordResponse, setChangePasswordResponse] = useState<any>(null)
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
   const changeSchoolPasswordHandler = async (
@@ -19,7 +20,7 @@ function AdminChangeSchoolPassword(props: any) {
   ) => {
     try {
       const res = await axios.put(
-        `http://127.0.0.1:8000/api/admin-change-school-password/${props.selectedSchool.id}`,
+        `${baseUrl}/api/admin-change-school-password/${props.selectedSchool.id}`,
         values,
         {
           headers: {

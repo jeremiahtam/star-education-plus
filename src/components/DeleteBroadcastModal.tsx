@@ -14,12 +14,12 @@ interface DeleteBroadcastModalPropType {
 }
 
 function DeleteBroadcastModal(props: DeleteBroadcastModalPropType) {
-
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
   const deleteBroadcastHandler = async () => {
     try {
-      const res = await axios.put(`http://127.0.0.1:8000/api/delete-broadcast/${props.modalDataId}`,
+      const res = await axios.put(`${baseUrl}/api/delete-broadcast/${props.modalDataId}`,
         {},
         {
           headers: {
