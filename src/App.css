@@ -82,6 +82,41 @@
 
 .login-form-box .btn {
   margin-top: 10px;
+  /* padding: 10px;
+  background-color: #030432;
+  color: #ffffff;
+  border: 1px solid #030432; */
+}
+
+
+
+.form-error {
+  color: #ff5353;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+/* 
+.form-extras {
+  color: rgba(4, 70, 121, 0.808);
+  font-size: 0.9em;
+  font-weight: 700;
+}
+
+.form-extras span {
+  margin-top: 10px;
+}
+
+.form-extras a {
+  color: rgba(4, 70, 121, 0.596);
+  font-weight: 700;
+}
+
+.form-footer {
+  color: #fff;
+}
+
+.form-footer a {
+  color: rgb(241, 241, 241);
 }
 
 /* ---------------------------------------------------
@@ -627,17 +662,12 @@ ul ul a {
   transition: all .2s ease;
   vertical-align: middle;
 }
-
 .profile-pic-section .image-outter-box .image-box img:hover {
-  -webkit-transform: scale(1.5);
-  /* Safari and Chrome */
-  -moz-transform: scale(1.5);
-  /* Firefox */
-  -ms-transform: scale(1.5);
-  /* IE 9 */
-  -o-transform: scale(1.5);
-  /* Opera */
-  transform: scale(1.5);
+  -webkit-transform:scale(1.5); /* Safari and Chrome */
+  -moz-transform:scale(1.5); /* Firefox */
+  -ms-transform:scale(1.5); /* IE 9 */
+  -o-transform:scale(1.5); /* Opera */
+  transform:scale(1.5);
 }
 
 .profile-pic-section .image-outter-box .dropdown {
