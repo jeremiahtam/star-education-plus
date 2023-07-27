@@ -44,6 +44,7 @@ function AdminViewSchoolProfile() {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
+        setSelectedSchool(null)
       }
     }
   };

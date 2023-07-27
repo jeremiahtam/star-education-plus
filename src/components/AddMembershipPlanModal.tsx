@@ -69,7 +69,7 @@ function AddMembershipPlanModal(props: any) {
           name: Yup.string().required('Enter a name'),
           membershipPlanContent: Yup.string()
             .min(8, "Must be more than eight characters")
-            .required('Membership plan ontent cannot be empty'),
+            .required('Membership plan content cannot be empty'),
           duration: Yup.number().typeError('Enter a number')
             .required('Duration cannot be empty!')
             .integer('Please enter a whole number')

@@ -50,6 +50,11 @@ function App() {
           path: '/schools/:schoolId',
           element: <AdminViewSchoolProfile />,
           errorElement: <ErrorPage />
+        },
+        {
+          path: '/schools/:schoolId/service-providers',
+          element: <AdminServiceProviders />,
+          errorElement: <ErrorPage />
         }]
       },
       {
@@ -59,10 +64,6 @@ function App() {
       {
         path: '/resources',
         element: <AdminResources />,
-      },
-      {
-        path: '/service-providers',
-        element: <AdminServiceProviders />,
       },
       {
         path: '/document-upload',

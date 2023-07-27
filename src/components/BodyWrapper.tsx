@@ -2,7 +2,7 @@ import React, { ReactNode, FC } from 'react'
 import PropTypes from 'prop-types'
 
 interface BodyWrapperPropType {
-  title: string,
+  title?: string,
   children: ReactNode,
   rightHandSide?: ReactNode,
 }

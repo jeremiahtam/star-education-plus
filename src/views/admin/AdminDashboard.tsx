@@ -21,7 +21,7 @@ const AdminDashboard = () => {
     if (userInfoData === null || userInfoData === undefined) {
       console.log(userInfoData)
       // navigate('/admin-login')
-    }else{
+    } else {
       // navigate('/dashboard')
     }
   }, [userInfoData])
