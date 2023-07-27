@@ -131,7 +131,8 @@ function AdminServiceProviders() {
   }
 
   return (
-    <BodyWrapper title={selectedSchool !== null ? `Service providers for ${selectedSchool.school_name}` : ''}
+    <BodyWrapper title={'Service Providers'}
+      subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}
       rightHandSide={selectedSchool !== null && <button className='btn btn-custom btn-sm'
         onClick={() => {
           setModalType('add-service-providers')
@@ -206,7 +207,7 @@ function AdminServiceProviders() {
           {serviceProviders.length !== 0 &&
             <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
           {modalType && <AdminServiceProvidersModal show={show} handleClose={handleClose} handleShow={handleShow}
-            modalType={modalType} modalDataId={modalDataId} loadServiceProviders={getServiceProvidersHandler} />}
+            modalType={modalType} modalDataId={modalDataId} schoolId={schoolId} loadServiceProviders={getServiceProvidersHandler} />}
         </>
       }
     </BodyWrapper>

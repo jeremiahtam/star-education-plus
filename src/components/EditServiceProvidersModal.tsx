@@ -1,33 +1,64 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom";
-import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
-import { Button, Modal, Form, Col, Row, InputGroup } from 'react-bootstrap';
+import React, { useState, useEffect, useRef } from 'react'
+import { Button, Modal, Form, Row, Col, InputGroup } from 'react-bootstrap';
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import en from 'date-fns/locale/en-GB';
+registerLocale('en', en)
 
-function AddServiceProvidersModal(props: any) {
+function EditServiceProvidersModal(props: any) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
-  const [expiryDate, setExpiryDate] = useState()
 
-  const addServiceProviderHandler = async (
+  const [selectedServiceProvider, setSelectedServiceProvider] = useState<any>()
+
+  useEffect(() => {
+    getServiceProvidersHandler()
+  }, [])
+
+  const getServiceProvidersHandler = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/api/get-service-provider-by-id`,
+        {
+          params: {
+            id: props.modalDataId
+          },
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${userInfoData.token}`,
+          },
+          timeout: 30000,
+        });
+
+      const resData = res.data;
+      console.log(resData.data);
+      if (resData.success == false) {
+
+      } else {
+        setSelectedServiceProvider(resData.data)
+      }
+    } catch (e: any) {
+      console.log(e);
+      if (e.code == "ECONNABORTED") {
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+      }
+    }
+  };
+
+  const editServiceProviderHandler = async (
     values: any,
     setSubmitting: any,
     setErrors: any
   ) => {
-    values = {
-      ...values, ...{
-        'schoolId': props.schoolId
-      }
-    }
     try {
-      const res = await axios.post(
-        `${baseUrl}/api/add-service-provider`,
+      const res = await axios.put(
+        `${baseUrl}/api/edit-service-provider/${props.modalDataId}`,
         values,
         {
           headers: {
@@ -35,8 +66,7 @@ function AddServiceProvidersModal(props: any) {
             Authorization: `Bearer ${userInfoData.token}`,
           },
           timeout: 30000,
-        }
-      );
+        });
 
       const resData = res.data;
       console.log(resData);
@@ -44,7 +74,6 @@ function AddServiceProvidersModal(props: any) {
         if (resData.errors !== undefined) {
           setErrors(resData.errors);
         } else {
-
         }
       } else {
         props.handleClose()
@@ -53,7 +82,6 @@ function AddServiceProvidersModal(props: any) {
     } catch (e: any) {
       console.log(e);
       if (e.code == "ECONNABORTED") {
-
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
@@ -62,13 +90,14 @@ function AddServiceProvidersModal(props: any) {
     }
     setSubmitting(false);
   };
-
+ 
   return (
     <>
       <Formik
+        enableReinitialize
         initialValues={{
-          serviceName: '',
-          expiryDate: null,
+          serviceName: selectedServiceProvider ? selectedServiceProvider?.service_name : '',
+          expiryDate: selectedServiceProvider ? new Date(selectedServiceProvider?.expiry_date) : null
         }}
         validationSchema={Yup.object({
           serviceName: Yup.string().required('Enter a service'),
@@ -77,7 +106,7 @@ function AddServiceProvidersModal(props: any) {
 
         onSubmit={(values, { setSubmitting, setErrors }) => {
           // console.log(values)
-          addServiceProviderHandler(values, setSubmitting, setErrors)
+          editServiceProviderHandler(values, setSubmitting, setErrors)
         }}
       >
         {({
@@ -110,6 +139,7 @@ function AddServiceProvidersModal(props: any) {
                         className="form-control custom-text-input"
                         placeholderText="DD/MM/YYYY, 00:00PM"
                         showTimeSelect
+                        locale='en'
                         selected={values.expiryDate}
                         onChange={(date: any) => {
                           setFieldValue('expiryDate', date)
@@ -134,4 +164,4 @@ function AddServiceProvidersModal(props: any) {
   )
 }
 
-export default AddServiceProvidersModal
+export default EditServiceProvidersModal

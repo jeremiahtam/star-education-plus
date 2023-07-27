@@ -308,12 +308,12 @@ ul ul a {
   border-bottom: 1px solid rgba(235, 235, 235, 0.514);
 }
 
-#content .title {
+/* #content .title {
   background-color: #fff;
   padding: 10px 15px;
   margin-top: 50px;
   border-bottom: 1px solid rgba(235, 235, 235, 0.514);
-}
+} */
 
 #content .title .text {
   font-weight: 700;
@@ -495,10 +495,11 @@ ul ul a {
   justify-content: space-between;
 }
 
-.body-wrapper-heading-left {
+.body-wrapper-heading-left .title{
   font-weight: bolder;
   font-size: 24px;
 }
+.body-wrapper-heading-left .sub-title{}
 
 .body-wrapper-heading-right {}
 

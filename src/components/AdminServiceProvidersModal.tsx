@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap';
 import AddServiceProvidersModal from './AddServiceProvidersModal';
-import EditMembershipPlanModal from './EditMembershipPlanModal';
-import DeleteMembershipPlanModal from './DeleteMembershipPlanModal';
+import EditServiceProvidersModalModal from './EditServiceProvidersModal';
+import DeleteServiceProvidersModalModal from './DeleteServiceProvidersModal';
 
 function AdminServiceProvidersModal(props: any) {
   return (
     <Modal show={props.show} onHide={props.handleClose}>
       {props.modalType == 'add-service-providers' ?
-        <AddServiceProvidersModal handleClose={props.handleClose} loadServiceProviders={props.loadServiceProviders} /> :
+        <AddServiceProvidersModal handleClose={props.handleClose} schoolId={props.schoolId}
+          loadServiceProviders={props.loadServiceProviders} /> :
         props.modalType == 'edit-service-providers' ?
-          <EditMembershipPlanModal modalDataId={props.modalDataId}
+          <EditServiceProvidersModalModal modalDataId={props.modalDataId}
             handleClose={props.handleClose} loadServiceProviders={props.loadServiceProviders} /> :
-          // props.modalType == 'delete-service-providers' ?
-          //   <DeleteMembershipPlanModal modalDataId={props.modalDataId}
-          //     handleClose={props.handleClose} loadServiceProviders={props.loadServiceProviders} /> :
-            'Hellloiojiopiom'
+          props.modalType == 'delete-service-providers' ?
+            <DeleteServiceProvidersModalModal modalDataId={props.modalDataId}
+              handleClose={props.handleClose} loadServiceProviders={props.loadServiceProviders} />
+            :
+            ''
       }
     </Modal>
   )
