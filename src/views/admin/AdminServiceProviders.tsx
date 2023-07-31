@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import { Link } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Table, Button, Pagination, Form, Row, Col, InputGroup } from 'react-bootstrap';
+import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
 import AdminServiceProvidersModal from '../../components/AdminServiceProvidersModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -34,7 +34,7 @@ function AdminServiceProviders() {
     console.log(`${_dataId} ${_modalType}`)
   }, [setModalType, setModalDataId])
 
-  const [serviceProviders, setServiceProviders] = useState<any[]>([])
+  const [serviceProviders, setServiceProviders] = useState<any>()
 
   // Pagination control
   const [page, setPage] = useState<number>(1)
@@ -110,37 +110,53 @@ function AdminServiceProviders() {
       });
       const resData = res.data;
       console.log(resData)
-      if (resData.success == true) {
-        setServiceProviders(resData.data)
-        setTotalPages(resData.pageInfo.totalPages)
+      if (resData.success == false) {
+        return setServiceProviders(resData)
       } else {
-
+        setServiceProviders(resData)
+        setTotalPages(resData.pageInfo.totalPages)
       }
     } catch (e: any) {
       console.log(e)
-      // setPageLoaded(true)
       if (e.code == "ECONNABORTED") {
-        // showToast("default", "Timeout. Try again.");
-      }
-      if (e?.response?.data !== undefined) {
-        const errorData = e.response.data;
-        if (errorData.message === "Unauthenticated") {
+        return setServiceProviders({
+          "success": false,
+          "message": "Request timed out.",
+        })
+      } else
+        if (e?.response?.data !== undefined) {
+          const errorData = e.response.data;
+          return setServiceProviders({
+            "success": false,
+            "message": "Error. Something went wrong.",
+          })
+        } else {
+          return setServiceProviders({
+            "success": false,
+            "message": "Error. Something went wrong.",
+          })
         }
-      }
     }
   }
 
   return (
     <BodyWrapper title={'Service Providers'}
       subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}
-      rightHandSide={selectedSchool !== null && <button className='btn btn-custom btn-sm'
-        onClick={() => {
-          setModalType('add-service-providers')
-          handleShow()
-        }}>Create New <IoIosAdd className='btn-icon' /></button>}>
+      rightHandSide={selectedSchool !== null && serviceProviders?.data &&
+        <button className='btn btn-custom btn-sm'
+          onClick={() => {
+            setModalType('add-service-providers')
+            handleShow()
+          }}>Create New <IoIosAdd className='btn-icon' />
+        </button>}>
+
+      {serviceProviders?.success === false && !serviceProviders?.data &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>{serviceProviders?.message}</div>
+        </Alert>}
 
       {/*  Only display if selected school is not null*/}
-      {selectedSchool !== null &&
+      {selectedSchool !== null && serviceProviders?.data &&
         <>
           <div className='search-area mb-3'>
             <Form>
@@ -173,7 +189,7 @@ function AdminServiceProviders() {
               </Row>
             </Form>
           </div>
-          {serviceProviders.length !== 0 &&
+          {serviceProviders.data.length !== 0 &&
             <div className="table-responsive">
               <table className='table table-hover table-sm'>
                 <thead>
@@ -186,7 +202,7 @@ function AdminServiceProviders() {
                   </tr>
                 </thead>
                 <tbody>
-                  {serviceProviders.map((item, index) => {
+                  {serviceProviders.data.map((item: any, index: number) => {
                     return (
                       <tr key={item.id}>
                         <td>{item.sn}</td>
@@ -204,7 +220,13 @@ function AdminServiceProviders() {
                 </tbody>
               </table>
             </div>}
-          {serviceProviders.length !== 0 &&
+
+          {serviceProviders.data.length == 0 &&
+            <Alert className='form-feedback-message' variant={"info"} dismissible>
+              <div>{serviceProviders?.message}</div>
+            </Alert>}
+
+          {serviceProviders.data.length !== 0 &&
             <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
           {modalType && <AdminServiceProvidersModal show={show} handleClose={handleClose} handleShow={handleShow}
             modalType={modalType} modalDataId={modalDataId} schoolId={schoolId} loadServiceProviders={getServiceProvidersHandler} />}

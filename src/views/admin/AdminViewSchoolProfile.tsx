@@ -33,12 +33,12 @@ function AdminViewSchoolProfile() {
       const resData = res.data;
       console.log(resData);
       if (resData.success == false) {
-
         navigate('/error-page')
       } else {
         setSelectedSchool(resData.data)
       }
     } catch (e: any) {
+      navigate('/error-page')
       console.log(e);
       if (e.code == "ECONNABORTED") {
       }
