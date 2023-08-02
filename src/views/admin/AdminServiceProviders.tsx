@@ -98,9 +98,9 @@ function AdminServiceProviders() {
       const res = await axios.get(`${baseUrl}/api/get-school-service-providers`, {
         params: {
           search,
-          items_per_page: itemsPerPage,
+          itemsPerPage: itemsPerPage,
           page: page,
-          id: schoolId
+          schoolId: schoolId
         },
         headers: {
           Accept: "application/json",

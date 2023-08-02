@@ -63,7 +63,7 @@ function AdminBroadcasts(props: any) {
       const res = await axios.get(`${baseUrl}/api/all-broadcasts`, {
         params: {
           search,
-          items_per_page: itemsPerPage,
+          itemsPerPage: itemsPerPage,
           page: page
         },
         headers: {

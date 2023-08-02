@@ -14,6 +14,7 @@ import AdminDocumentUpload from './views/admin/AdminDocumentUpload';
 import AdminInvoices from './views/admin/AdminInvoices';
 import AdminMessages from './views/admin/AdminMessages';
 import AdminViewSchoolProfile from './views/admin/AdminViewSchoolProfile';
+import AdminViewSchoolPackagesAndServices from './views/admin/AdminViewSchoolPackagesAndServices';
 
 function App() {
   const adminRouter = createBrowserRouter([
@@ -54,6 +55,11 @@ function App() {
         {
           path: '/schools/:schoolId/service-providers',
           element: <AdminServiceProviders />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: '/schools/:schoolId/packages-and-services',
+          element: <AdminViewSchoolPackagesAndServices />,
           errorElement: <ErrorPage />
         }]
       },

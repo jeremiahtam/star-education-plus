@@ -65,7 +65,7 @@ function AdminSchools(props: any) {
       const res = await axios.get(`${baseUrl}/api/all-schools`, {
         params: {
           search,
-          items_per_page: itemsPerPage,
+          itemsPerPage: itemsPerPage,
           page: page
         },
         headers: {

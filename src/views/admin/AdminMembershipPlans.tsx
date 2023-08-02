@@ -56,7 +56,7 @@ function AdminMembershipPlans(props: any) {
       const res = await axios.get(`${baseUrl}/api/all-membership-plans`, {
         params: {
           search,
-          items_per_page: itemsPerPage,
+          itemsPerPage: itemsPerPage,
           page: page
         },
         headers: {

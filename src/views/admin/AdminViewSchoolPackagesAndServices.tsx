@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
 import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
-import AdminPackagesAndServicesModal from '../../components/AdminPackagesAndServicesModal';
+// import AdminSchoolPackagesAndServicesModal from '../../components/AdminSchoolPackagesAndServicesModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
@@ -11,11 +11,15 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 import { useNavigate, useParams } from "react-router-dom";
+import { BsCloudUpload, BsEye } from 'react-icons/bs';
 
-function AdminPackagesAndServices() {
+export default function AdminViewSchoolPackagesAndServices() {
+
+  const { schoolId } = useParams()
   const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+  const [selectedSchool, setSelectedSchool] = useState<any>(null)
 
   //Modal COntrol
   const [show, setShow] = useState(false);
@@ -32,43 +36,39 @@ function AdminPackagesAndServices() {
     console.log(`${_dataId} ${_modalType}`)
   }, [setModalType, setModalDataId])
 
+  const [schoolPackagesAndServices, setSchoolPackagesAndServices] = useState<any>()
+
   // Pagination control
   const [page, setPage] = useState<number>(1)
   const [itemsPerPage, setItemsPerPage] = useState<number | null>(2)
   const [totalPages, setTotalPages] = useState<number | null>(null)
-
   // Search 
   const [search, setSearch] = useState<string>('')
 
-  // Packages and services 
-  const [selectedPackagesAndServices, setSelectedPackagesAndServices] = useState<any>(null)
-
   useEffect(() => {
-    if (selectedPackagesAndServices !== null) {
+    if (selectedSchool !== null) {
       if (search === '') {
-        getPackagesAndServicesHandler()
+        getSchoolPackagesAndServicesHandler()
       }
     }
   }, [search])
 
   useEffect(() => {
-    if (selectedPackagesAndServices !== null) {
-      getPackagesAndServicesHandler()
+    if (selectedSchool !== null) {
+      getSchoolPackagesAndServicesHandler()
     }
-  }, [userInfoData, page, itemsPerPage])
+  }, [userInfoData, page, itemsPerPage, selectedSchool])
 
   useEffect(() => {
-    getPackagesAndServicesHandler()
+    getSchoolHandler()
   }, [userInfoData])
 
-  const getPackagesAndServicesHandler = async () => {
+  const getSchoolHandler = async () => {
     try {
-      const res = await axios.get(`${baseUrl}/api/all-packages-and-services`,
+      const res = await axios.get(`${baseUrl}/api/get-school-by-id`,
         {
           params: {
-            search,
-            itemsPerPage: itemsPerPage,
-            page: page
+            id: schoolId
           },
           headers: {
             Accept: "application/json",
@@ -78,50 +78,80 @@ function AdminPackagesAndServices() {
         });
 
       const resData = res.data;
-      console.log(resData);
+      // console.log(resData);
       if (resData.success == false) {
-        return setSelectedPackagesAndServices(resData)
+        navigate('/error-page')
       } else {
-        setSelectedPackagesAndServices(resData)
-        setTotalPages(resData.pageInfo.totalPages)
+        setSelectedSchool(resData.data)
       }
     } catch (e: any) {
       console.log(e);
       if (e.code == "ECONNABORTED") {
-        return setSelectedPackagesAndServices({
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+        setSelectedSchool(null)
+      }
+    }
+  };
+
+  const getSchoolPackagesAndServicesHandler = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/api/get-school-packages-and-services`, {
+        params: {
+          search,
+          itemsPerPage: itemsPerPage,
+          page: page,
+          schoolId: schoolId
+        },
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${userInfoData.token}`,
+        },
+        timeout: 30000,
+      });
+      const resData = res.data;
+      console.log(resData)
+      if (resData.success == false) {
+        return setSchoolPackagesAndServices(resData)
+      } else {
+        setSchoolPackagesAndServices(resData)
+        setTotalPages(resData.pageInfo.totalPages)
+      }
+    } catch (e: any) {
+      console.log(e)
+      if (e.code == "ECONNABORTED") {
+        return setSchoolPackagesAndServices({
           "success": false,
           "message": "Request timed out.",
         })
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
-          return setSelectedPackagesAndServices({
+          return setSchoolPackagesAndServices({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
-          return setSelectedPackagesAndServices({
+          return setSchoolPackagesAndServices({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         }
     }
-  };
+  }
 
   return (
     <BodyWrapper title={'Packages and Services'}
-      rightHandSide={selectedPackagesAndServices?.data && <button className='btn btn-custom btn-sm'
-        onClick={() => {
-          setModalType('add-packages-and-services')
-          handleShow()
-        }}>Create New <IoIosAdd className='btn-icon' /></button>}>
+      subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}>
 
-      {selectedPackagesAndServices?.success === false && !selectedPackagesAndServices?.data &&
+      {schoolPackagesAndServices?.success === false && !schoolPackagesAndServices?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
-          <div>{selectedPackagesAndServices?.message}</div>
+          <div>{schoolPackagesAndServices?.message}</div>
         </Alert>}
 
-      {selectedPackagesAndServices?.data &&
+      {/*  Only display if selected school is not null*/}
+      {selectedSchool !== null && schoolPackagesAndServices?.data &&
         <>
           <div className='search-area mb-3'>
             <Form>
@@ -147,41 +177,37 @@ function AdminPackagesAndServices() {
                     <Button type="submit" onClick={(e: any) => {
                       e.preventDefault()
                       setPage(1)
-                      getPackagesAndServicesHandler()
+                      getSchoolPackagesAndServicesHandler()
                     }} hidden>Search</Button>
                   </InputGroup>
                 </Col>
               </Row>
             </Form>
           </div>
-          {selectedPackagesAndServices.data.length !== 0 &&
+          {schoolPackagesAndServices.data.length !== 0 &&
             <div className="table-responsive">
               <table className='table table-hover table-sm'>
                 <thead>
                   <tr>
                     <th>No.</th>
-                    <th>Service Name</th>
-                    <th>Content</th>
-                    <th>Amount</th>
-                    <th>Duration (Days)</th>
+                    <th>Package/Service Name</th>
+                    <th>Status</th>
                     <th></th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {selectedPackagesAndServices.data.map((item: any, index: any) => {
+                  {schoolPackagesAndServices.data.map((item: any, index: number) => {
                     return (
                       <tr key={item.id}>
                         <td>{item.sn}</td>
                         <td>{item.name}</td>
-                        <td>{item.packagesAndServicesContent}</td>
-                        <td>{item.amount}</td>
-                        <td>{item.duration}</td>
-                        <td ><IoMdCreate onClick={() => {
-                          modalDataHandler(item.id, 'edit-packages-and-services')
+                        <td>{item.status}</td>
+                        <td ><BsEye onClick={() => {
+                          modalDataHandler(item.id, 'view-school-packages-and-services-docs')
                         }} /></td>
-                        <td><HiTrash onClick={() => {
-                          modalDataHandler(item.id, 'delete-packages-and-services')
+                        <td><BsCloudUpload onClick={() => {
+                          // modalDataHandler(item.id, 'upload-school-packages-and-services-docs')
                         }} /></td>
                       </tr>
                     )
@@ -189,20 +215,18 @@ function AdminPackagesAndServices() {
                 </tbody>
               </table>
             </div>}
-          {selectedPackagesAndServices.data.length == 0 &&
+
+          {schoolPackagesAndServices.data.length == 0 &&
             <Alert className='form-feedback-message' variant={"info"} dismissible>
-              <div>{selectedPackagesAndServices?.message}</div>
+              <div>{schoolPackagesAndServices?.message}</div>
             </Alert>}
-          {selectedPackagesAndServices.data.length !== 0 &&
+
+          {schoolPackagesAndServices.data.length !== 0 &&
             <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
-          {modalType && <AdminPackagesAndServicesModal show={show} handleClose={handleClose} handleShow={handleShow}
-            modalType={modalType} modalDataId={modalDataId} loadPackagesAndServices={getPackagesAndServicesHandler} />}
+          {/* {modalType && <AdminSchoolPackagesAndServicesModal show={show} handleClose={handleClose} handleShow={handleShow}
+            modalType={modalType} modalDataId={modalDataId} schoolId={schoolId} loadSchoolPackagesAndServices={getSchoolPackagesAndServicesHandler} />} */}
         </>
       }
     </BodyWrapper>
   )
 }
-
-AdminPackagesAndServices.propTypes = {}
-
-export default AdminPackagesAndServices
