@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Row, Col, Card } from 'react-bootstrap';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import BodyWrapper from '../../components/BodyWrapper';
 import EditSchoolProfile from '../../components/EditSchoolProfile';
@@ -15,6 +16,7 @@ function AdminViewSchoolProfile() {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const [selectedSchool, setSelectedSchool] = useState<any>(null)
+  console.log(selectedSchool)
 
   const getSchoolHandler = async () => {
     try {
@@ -62,6 +64,17 @@ function AdminViewSchoolProfile() {
           <div className='compartment'>
             {selectedSchool !== null && <EditSchoolProfilePic selectedSchool={selectedSchool} />}
           </div>
+        </Col>
+      </Row>
+
+      <Row className='mb-3'>
+        <Col md={'12'}>
+          {selectedSchool !== null &&
+            <div className="profile-links">
+              <Link to={`/schools/${selectedSchool.id}/packages-and-services`}>Packages and Services</Link>
+              <Link to={`/schools/${selectedSchool.id}/service-providers`}>Service Provicers</Link>
+            </div>
+          }
         </Col>
       </Row>
       <Row>

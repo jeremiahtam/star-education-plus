@@ -6,6 +6,7 @@ import { stateLoggedInUserType } from '../../types/type-definitions';
 import personIcon from '../images/person-icon.png'
 import ChangeProfilePicModal from './ChangeProfilePicModal';
 import { BsPencilFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 function EditSchoolProfilePic(props: any) {
   const backEndImageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
@@ -99,15 +100,6 @@ function EditSchoolProfilePic(props: any) {
           </Dropdown>
         </div>
       </Row>
-      {/* <ButtonToolbar className='gap-2'>
-        <Button type='button' className='mr-3'
-          disabled={props.selectedSchool.profile_pic == null || "" ? true : false}
-          onClick={() => deleteProfilePicHandler()}
-          variant="outline-danger">Delete</Button>
-        <Button variant="primary" type='button' onClick={() => {
-          modalDataHandler(props.selectedSchool.id, 'upload-profile-pic')
-        }} >Upload</Button>
-      </ButtonToolbar> */}
       {modalType && <ChangeProfilePicModal show={show} handleClose={handleClose} handleShow={handleShow}
         modalType={modalType} modalDataId={modalDataId} setProfilePic={(pic: string) => setProfilePic(pic)} />}
     </div>

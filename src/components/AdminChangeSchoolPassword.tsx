@@ -16,7 +16,8 @@ function AdminChangeSchoolPassword(props: any) {
   const changeSchoolPasswordHandler = async (
     values: any,
     setSubmitting: any,
-    setErrors: any
+    setErrors: any,
+    resetForm: any
   ) => {
     try {
       const res = await axios.put(
@@ -38,6 +39,7 @@ function AdminChangeSchoolPassword(props: any) {
           setChangePasswordResponse(resData)
         }
       } else {
+        resetForm()
         setChangePasswordResponse(resData)
       }
     } catch (e: any) {
@@ -47,11 +49,16 @@ function AdminChangeSchoolPassword(props: any) {
           success: false,
           message: 'Time out'
         })
-      }
-      if (e?.response?.data !== undefined) {
-        const errorData = e.response.data;
-        setErrors(errorData.errors);
-      }
+      } else
+        if (e?.response?.data !== undefined) {
+          const errorData = e.response.data;
+          setErrors(errorData.errors);
+        } else {
+          setChangePasswordResponse({
+            success: false,
+            message: 'Something went wrong'
+          })
+        }
     }
     setSubmitting(false);
   };
@@ -66,8 +73,7 @@ function AdminChangeSchoolPassword(props: any) {
         password: Yup.string().required('Enter a password').min(8, 'Enter a minimum of 8 characters'),
       })}
       onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
-        await changeSchoolPasswordHandler(values, setSubmitting, setErrors)
-        resetForm()
+        await changeSchoolPasswordHandler(values, setSubmitting, setErrors, resetForm)
         setTimeout(() => setChangePasswordResponse(null), 5000)
       }}
     >

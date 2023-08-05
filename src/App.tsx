@@ -72,7 +72,7 @@ function App() {
         element: <AdminResources />,
       },
       {
-        path: '/document-upload',
+        path: '/uploads/:schoolId/:orderedItemsId',
         element: <AdminDocumentUpload />,
       },
       {

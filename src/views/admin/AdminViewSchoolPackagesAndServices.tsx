@@ -12,6 +12,7 @@ import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 import { useNavigate, useParams } from "react-router-dom";
 import { BsCloudUpload, BsEye } from 'react-icons/bs';
+import { ImCancelCircle } from 'react-icons/im';
 
 export default function AdminViewSchoolPackagesAndServices() {
 
@@ -20,21 +21,6 @@ export default function AdminViewSchoolPackagesAndServices() {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const [selectedSchool, setSelectedSchool] = useState<any>(null)
-
-  //Modal COntrol
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const [modalType, setModalType] = useState<string | null>(null);
-  const [modalDataId, setModalDataId] = useState<number | null>(null) /* modal dataId */
-
-  const modalDataHandler = useCallback((_dataId: number, _modalType: string) => {
-    handleShow()
-    setModalDataId(_dataId)
-    setModalType(_modalType)
-    console.log(`${_dataId} ${_modalType}`)
-  }, [setModalType, setModalDataId])
 
   const [schoolPackagesAndServices, setSchoolPackagesAndServices] = useState<any>()
 
@@ -142,8 +128,8 @@ export default function AdminViewSchoolPackagesAndServices() {
   }
 
   return (
-    <BodyWrapper title={'Packages and Services'}
-      subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}>
+    <BodyWrapper title={selectedSchool !== null ? selectedSchool.school_name : ''}
+      subTitle={'Packages and Services'}>
 
       {schoolPackagesAndServices?.success === false && !schoolPackagesAndServices?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
@@ -193,7 +179,7 @@ export default function AdminViewSchoolPackagesAndServices() {
                     <th>Package/Service Name</th>
                     <th>Status</th>
                     <th></th>
-                    <th></th>
+                    {/* <th></th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -203,12 +189,16 @@ export default function AdminViewSchoolPackagesAndServices() {
                         <td>{item.sn}</td>
                         <td>{item.name}</td>
                         <td>{item.status}</td>
-                        <td ><BsEye onClick={() => {
-                          modalDataHandler(item.id, 'view-school-packages-and-services-docs')
-                        }} /></td>
-                        <td><BsCloudUpload onClick={() => {
-                          // modalDataHandler(item.id, 'upload-school-packages-and-services-docs')
-                        }} /></td>
+                        <td >
+                          {item.status == 'paid' ?
+                            <Link to={`/uploads/${selectedSchool.id}/${item.id}`}
+                              state={{ data: item, category: 'Packages and Services' }}>
+                              <BsEye />
+                            </Link>
+                            :
+                            <ImCancelCircle />
+                          }
+                        </td>
                       </tr>
                     )
                   })}
@@ -223,8 +213,6 @@ export default function AdminViewSchoolPackagesAndServices() {
 
           {schoolPackagesAndServices.data.length !== 0 &&
             <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
-          {/* {modalType && <AdminSchoolPackagesAndServicesModal show={show} handleClose={handleClose} handleShow={handleShow}
-            modalType={modalType} modalDataId={modalDataId} schoolId={schoolId} loadSchoolPackagesAndServices={getSchoolPackagesAndServicesHandler} />} */}
         </>
       }
     </BodyWrapper>

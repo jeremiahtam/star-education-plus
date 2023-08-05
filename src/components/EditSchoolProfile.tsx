@@ -99,7 +99,7 @@ function EditSchoolProfile(props: any) {
         values
       }) => (
         <FormikForm method="POST" id="add-school" name="add-school">
-          <h6 className='form-heading'>Edit Profile</h6>
+          <h6 className='form-heading'>Profile</h6>
           {updateProfileResponse?.success &&
             <Alert className='form-feedback-message' onClose={() => setUpdateProfileResponse(null)}
               variant={updateProfileResponse?.success == true ? "success" : "danger"}

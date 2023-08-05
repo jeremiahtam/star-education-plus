@@ -95,6 +95,7 @@
   font-size: 0.8em;
   font-weight: 600;
 }
+
 /* 
 .form-extras {
   color: rgba(4, 70, 121, 0.808);
@@ -495,11 +496,12 @@ ul ul a {
   justify-content: space-between;
 }
 
-.body-wrapper-heading-left .title{
+.body-wrapper-heading-left .title {
   font-weight: bolder;
   font-size: 24px;
 }
-.body-wrapper-heading-left .sub-title{}
+
+.body-wrapper-heading-left .sub-title {}
 
 .body-wrapper-heading-right {}
 
@@ -663,12 +665,17 @@ ul ul a {
   transition: all .2s ease;
   vertical-align: middle;
 }
+
 .profile-pic-section .image-outter-box .image-box img:hover {
-  -webkit-transform:scale(1.5); /* Safari and Chrome */
-  -moz-transform:scale(1.5); /* Firefox */
-  -ms-transform:scale(1.5); /* IE 9 */
-  -o-transform:scale(1.5); /* Opera */
-  transform:scale(1.5);
+  -webkit-transform: scale(1.5);
+  /* Safari and Chrome */
+  -moz-transform: scale(1.5);
+  /* Firefox */
+  -ms-transform: scale(1.5);
+  /* IE 9 */
+  -o-transform: scale(1.5);
+  /* Opera */
+  transform: scale(1.5);
 }
 
 .profile-pic-section .image-outter-box .dropdown {
@@ -805,7 +812,24 @@ ul ul a {
   ---------------------------------*/
 .compartment {
   padding: 30px;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   background-color: #ffffff;
   box-shadow: 0 0 40px rgba(51, 51, 51, .1) !important;
+}
+
+.profile-links {
+  /* border: solid #000; */
+}
+
+.profile-links>a {
+  padding: 3px;
+  margin-right: 10px;
+  text-decoration: none;
+  font-size: small;
+  font-weight: 700;
+  color: #0F1925;
+}
+
+.profile-links>a:hover {
+  text-decoration: underline;
 }

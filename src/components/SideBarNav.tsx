@@ -105,12 +105,6 @@ const SideBarNav = (props: any) => {
             <div hidden={sidebarHide}> Resources</div>
           </Link>
         </li>
-        {/* <li className={splitLocation[1] == 'service-providers' ? 'active' : ''}>
-          <Link to="/service-providers">
-            <FaGlobe className="icon" />
-            <div hidden={sidebarHide}> Service Providers</div>
-          </Link>
-        </li> */}
         <li className={splitLocation[1] == 'document-upload' ? 'active' : ''}>
           <Link to="/document-upload">
             <FaFileUpload className="icon" />
