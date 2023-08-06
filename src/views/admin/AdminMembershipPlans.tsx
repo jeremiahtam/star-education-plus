@@ -12,7 +12,6 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 
-
 function AdminMembershipPlans(props: any) {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
