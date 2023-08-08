@@ -11,6 +11,7 @@ import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiEye, HiTrash } from 'react-icons/hi';
+import InvoiceModal from '../../components/InvoiceModal';
 
 
 function AdminInvoices() {
@@ -97,14 +98,7 @@ function AdminInvoices() {
   }
 
   return (
-    <BodyWrapper title='Invoices'
-    // rightHandSide={invoices?.data && <button className='btn btn-custom btn-sm'
-    //   onClick={() => {
-    //     setModalType('add-membership-plan')
-    //     handleShow()
-    //   }}>Create New <IoIosAdd className='btn-icon' /></button>}
-    >
-
+    <BodyWrapper title='Invoices'>
       {invoices?.success === false && !invoices?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{invoices?.message}</div>
@@ -167,8 +161,11 @@ function AdminInvoices() {
                       <td><div>{item.billingAddress}</div></td>
                       <td>{item.status}</td>
                       <td>{item.deadlineDate} {item.deadlineTime}</td>
-                      <td><a href='#'><HiEye onClick={() => {
-                      }} /></a></td>
+                      <td>
+                        <HiEye onClick={() =>
+                          modalDataHandler(item.id, 'view-invoice')}
+                        />
+                      </td>
                     </tr>
                   )
                 })}
@@ -183,13 +180,11 @@ function AdminInvoices() {
 
         {invoices.data.length !== 0 &&
           <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
-        {modalType && <CustomModal show={show} handleClose={handleClose} handleShow={handleShow}
-          modalType={modalType} modalDataId={modalDataId} loadMembershipPlan={getInvoicesHandler} />}
+        {modalType && <InvoiceModal show={show} handleClose={handleClose} handleShow={handleShow}
+          modalType={modalType} modalDataId={modalDataId} />}
       </>}
     </BodyWrapper>
   )
 }
-
-AdminInvoices.propTypes = {}
 
 export default AdminInvoices

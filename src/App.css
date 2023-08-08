@@ -833,3 +833,88 @@ ul ul a {
 .profile-links>a:hover {
   text-decoration: underline;
 }
+
+/* ---------------------------------
+  INVOICE
+  ---------------------------------*/
+.invoice-body {
+  background: #FDFDFD;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.invoice-body .invoice-heading {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  justify-content: space-between;
+  background-color: #0F1925;
+  color: #fff;
+}
+
+.invoice-body .right-heading {
+  color: #fff;
+}
+
+.invoice-body .right-heading img {
+  max-width: 150px;
+}
+
+.invoice-body .invoice-row-two {
+  padding: 5px 10px;
+}
+
+.invoice-body .invoice-row-two .item .title {
+  color: #161616;
+  font-weight: 600;
+  font-size: 0.9em;
+  margin-bottom: 3px;
+}
+
+.invoice-body .invoice-row-two .item .content {
+  color: #525252;
+  font-size: 0.9em;
+}
+.invoice-body .invoice-row-three {
+  padding: 5px 10px;
+}
+
+.invoice-body .invoice-row-three .item .title {
+  color: #161616;
+  font-weight: 600;
+  font-size: 0.9em;
+  margin-bottom: 3px;
+}
+
+.invoice-body .invoice-row-three .item .content {
+  color: #525252;
+  font-size: 0.9em;
+}
+.invoice-body .invoice-row-four {
+  padding: 5px 10px;
+}
+.invoice-body .invoice-row-four .item .title {
+  color: #161616;
+  font-weight: 600;
+  font-size: 0.9em;
+  margin-bottom: 3px;
+}
+
+.invoice-body .invoice-row-five .item .content {
+  color: #525252;
+  font-size: 0.9em;
+}
+.invoice-body .invoice-row-five {
+  padding: 5px 10px;
+}
+.invoice-body .invoice-row-five .item .title {
+  color: #161616;
+  font-weight: 600;
+  font-size: 0.9em;
+  margin-bottom: 3px;
+}
+
+.invoice-body .invoice-row-five .item .content {
+  color: #525252;
+  font-size: 0.9em;
+}

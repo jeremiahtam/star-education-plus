@@ -195,6 +195,4 @@ function AdminBroadcasts(props: any) {
   )
 }
 
-AdminBroadcasts.propTypes = {}
-
 export default AdminBroadcasts
