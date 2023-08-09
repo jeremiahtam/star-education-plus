@@ -6,7 +6,7 @@ function InvoiceModal(props: any) {
     <Modal show={props.show} onHide={props.handleClose}>
       {props.modalType == 'view-invoice' ?
         <ViewInvoiceModal show={props.show} handleClose={props.handleClose} handleShow={props.handleShow}
-          modalType={props.modalType} modalDataId={props.modalDataId} /> :
+          modalType={props.modalType} modalDataContent={props.modalDataContent} /> :
         ''
       }
     </Modal>

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import { Link } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert, Badge } from 'react-bootstrap';
 import AddMembershipPlanModal from '../../components/AddMembershipPlanModal';
 import CustomModal from '../../components/MembershipPlanModal';
 import axios from 'axios';
@@ -24,14 +24,14 @@ function AdminInvoices() {
   const handleShow = () => setShow(true);
 
   const [modalType, setModalType] = useState<string | null>(null);
-  const [modalDataId, setModalDataId] = useState<number | null>(null) /* modal dataId */
+  const [modalDataContent, setModalDataContent] = useState<any>(null) /* modal dataId */
 
-  const modalDataHandler = useCallback((_dataId: number, _modalType: string) => {
+  const modalDataHandler = useCallback((_dataContent: any, _modalType: string) => {
     handleShow()
-    setModalDataId(_dataId)
+    setModalDataContent(_dataContent)
     setModalType(_modalType)
-    console.log(`${_dataId} ${_modalType}`)
-  }, [setModalType, setModalDataId])
+    // console.log(`${_dataContent} ${_modalType}`)
+  }, [setModalType, setModalDataContent])
 
   const [invoices, setInvoices] = useState<any>()
 
@@ -159,11 +159,18 @@ function AdminInvoices() {
                       <td>{item.invoiceNumber}</td>
                       <td>{item.schoolName}</td>
                       <td><div>{item.billingAddress}</div></td>
-                      <td>{item.status}</td>
+                      <td>
+                        <Badge
+                          bg={item.status == 'paid' ?
+                            'success' : item.status == 'pending' ?
+                              'info' : 'danger'}>
+                          {item.status}
+                        </Badge>
+                      </td>
                       <td>{item.deadlineDate} {item.deadlineTime}</td>
                       <td>
                         <HiEye onClick={() =>
-                          modalDataHandler(item.id, 'view-invoice')}
+                          modalDataHandler(item, 'view-invoice')}
                         />
                       </td>
                     </tr>
@@ -181,7 +188,7 @@ function AdminInvoices() {
         {invoices.data.length !== 0 &&
           <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
         {modalType && <InvoiceModal show={show} handleClose={handleClose} handleShow={handleShow}
-          modalType={modalType} modalDataId={modalDataId} />}
+          modalType={modalType} modalDataContent={modalDataContent} />}
       </>}
     </BodyWrapper>
   )

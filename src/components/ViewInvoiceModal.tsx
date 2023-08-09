@@ -1,8 +1,7 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
-import { Button, Modal, Form, Alert, Row, Col, Table } from 'react-bootstrap';
-import CustomModal from './BroadcastModal';
+import { Button, Modal, Form, Alert, Row, Col, Table, Badge } from 'react-bootstrap';
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios'
@@ -16,50 +15,46 @@ function ViewInvoiceModal(props: any) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
-  // const invoiceDataHandler = async (
-  //   values: any,
-  //   setSubmitting: any,
-  //   setErrors: any
-  // ) => {
-  //   // try {
-  //   //   const res = await axios.post(
-  //   //     `${baseUrl}/api/create-broadcast`,
-  //   //     values,
-  //   //     {
-  //   //       headers: {
-  //   //         Accept: "application/json",
-  //   //         Authorization: `Bearer ${userInfoData.token}`,
-  //   //       },
-  //   //       timeout: 30000,
-  //   //     }
-  //   //   );
-
-  //   //   const resData = res.data;
-  //   //   console.log(resData);
-  //   //   if (resData.success == false) {
-  //   //     if (resData.errors !== undefined) {
-  //   //       setErrors(resData.errors);
-  //   //     } else {
-
-  //   //     }
-  //   //   } else {
-  //   //     props.handleClose()
-  //   //     props.loadBroadcast()
-  //   //   }
-  //   // } catch (e: any) {
-  //   //   console.log(e);
-  //   //   if (e.code == "ECONNABORTED") {
-
-  //   //   }
-  //   //   if (e?.response?.data !== undefined) {
-  //   //     const errorData = e.response.data;
-  //   //     setErrors(errorData.errors);
-  //   //   }
-  //   // }
-  //   setSubmitting(false);
-  // };
-
   const componentRef = useRef(null);
+  const invoiceData = props.modalDataContent
+
+  useEffect(() => {
+    getItemsOnInvoice()
+    console.log(invoiceData)
+  }, [])
+
+
+  const [selectedInvoiceItems, setSelectedInvoiceItems] = useState<any[]>([])
+
+  const getItemsOnInvoice = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/api/get-ordered-items-by-invoice-id`,
+        {
+          params: {
+            invoiceId: props.modalDataContent.id
+          },
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${userInfoData.token}`,
+          },
+          timeout: 30000,
+        });
+
+      const resData = res.data;
+      console.log(resData.data);
+      if (resData.success == false) {
+      } else {
+        setSelectedInvoiceItems(resData.data)
+      }
+    } catch (e: any) {
+      console.log(e);
+      if (e.code == "ECONNABORTED") {
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+      }
+    }
+  };
 
   return (
     <>
@@ -77,15 +72,21 @@ function ViewInvoiceModal(props: any) {
           <Row className='invoice-row-two'>
             <Col md={'3'} sm={'3'} className='item'>
               <div className='title'>Bill No</div>
-              <div className='content'>#123456</div>
+              <div className='content'>#{invoiceData.invoiceNumber}</div>
             </Col>
             <Col md={'3'} sm={'3'} className='item'>
               <div className='title'>Date Issued</div>
-              <div className='content'>Title</div>
+              <div className='content'>{invoiceData.date}</div>
             </Col>
-            <Col md={'3'} sm={'3'} className='item'>
-              <div className='title'>Due On</div>
-              <div className='content'>Title</div>
+            <Col md={'6'} sm={'6'} className='item'>
+              <div className='title'>Due On
+                <Badge
+                  bg={invoiceData.status == 'paid' ?
+                    'success' : invoiceData.status == 'pending' ?
+                      'info' : 'danger'}>
+                  {invoiceData.status}
+                </Badge></div>
+              <div className='content'>{invoiceData.deadlineDate} {invoiceData.deadlineTime}</div>
             </Col>
           </Row>
           <Row className='invoice-row-three'>
@@ -99,11 +100,7 @@ function ViewInvoiceModal(props: any) {
             </Col>
             <Col md={'6'} sm={'6'} className='item'>
               <div className='title'>Bill To</div>
-              <div className='content'>
-                London High girls college
-                5, packam estate, west London
-                United Kingdom 77900
-              </div>
+              <div className='content'>{invoiceData.billingAddress}</div>
             </Col>
           </Row>
           <Row className='invoice-row-four'>
@@ -113,25 +110,24 @@ function ViewInvoiceModal(props: any) {
                 <Table size='sm' bordered hover variant="">
                   <thead>
                     <tr>
-                      <th>Bill Name</th>
-                      <th>Type</th>
+                      <th>Name</th>
+                      <th>Category</th>
                       <th>Amount</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Packages/Services</td>
-                      <td>Plumbing</td>
-                      <td>2344</td>
-                    </tr>
-                    <tr>
-                      <td>Packages/Services</td>
-                      <td>Plumbing</td>
-                      <td>2344</td>
-                    </tr>
+                    {selectedInvoiceItems.map((item, index) => {
+                      return (
+                        <tr key={item.id}>
+                          <td>{item.itemName}</td>
+                          <td>{item.itemCategory}</td>
+                          <td>{item.itemAmount}</td>
+                        </tr>
+                      )
+                    })}
                     <tr>
                       <td colSpan={2}>Total</td>
-                      <td>34000</td>
+                      <td>{invoiceData.total}</td>
                     </tr>
                   </tbody>
                 </Table>
