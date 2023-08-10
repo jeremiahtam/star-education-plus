@@ -79,13 +79,9 @@ function ViewInvoiceModal(props: any) {
               <div className='content'>{invoiceData.date}</div>
             </Col>
             <Col md={'6'} sm={'6'} className='item'>
-              <div className='title'>Due On
-                <Badge
-                  bg={invoiceData.status == 'paid' ?
-                    'success' : invoiceData.status == 'pending' ?
-                      'info' : 'danger'}>
-                  {invoiceData.status}
-                </Badge></div>
+              <div className='title'>Due On <Badge bg={invoiceData.status == 'paid' ?
+                'success' : invoiceData.status == 'pending' ?
+                  'info' : 'danger'}>{invoiceData.status}</Badge></div>
               <div className='content'>{invoiceData.deadlineDate} {invoiceData.deadlineTime}</div>
             </Col>
           </Row>

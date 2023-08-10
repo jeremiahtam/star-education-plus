@@ -108,7 +108,7 @@ function ViewSchoolPackagesAndServicesDocsModal(props: any) {
       <Formik
         enableReinitialize
         initialValues={{
-          documentName: selectedDocument?.documentName,
+          documentName: selectedDocument ? selectedDocument?.documentName : '',
         }}
         validationSchema={Yup.object({
           documentName: Yup.string()

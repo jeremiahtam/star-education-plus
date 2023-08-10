@@ -2,26 +2,25 @@ import { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
 import { Button, Modal, Form, InputGroup, Row, Col } from 'react-bootstrap';
-import MembershipPlanModal from './MembershipPlanModal';
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';
 
-function EditMembershipPlanModal(props: any) {
+function EditResourcesModal(props: any) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
-  const [selectedMembershipPlan, setSelectedMembershipPlan] = useState<any>({})
+  const [selectedResources, setSelectedResources] = useState<any>({})
 
   useEffect(() => {
-    getMembershipPlanHandler()
+    getResourcesHandler()
   }, [])
 
-  const getMembershipPlanHandler = async () => {
+  const getResourcesHandler = async () => {
     try {
-      const res = await axios.get(`${baseUrl}/api/get-membership-plan`,
+      const res = await axios.get(`${baseUrl}/api/get-resources`,
         {
           params: {
             id: props.modalDataId
@@ -38,7 +37,7 @@ function EditMembershipPlanModal(props: any) {
       if (resData.success == false) {
 
       } else {
-        setSelectedMembershipPlan(resData.data)
+        setSelectedResources(resData.data)
       }
     } catch (e: any) {
       console.log(e);
@@ -50,14 +49,14 @@ function EditMembershipPlanModal(props: any) {
     }
   };
 
-  const editMembershipPlanHandler = async (
+  const editResourcesHandler = async (
     values: any,
     setSubmitting: any,
     setErrors: any
   ) => {
     try {
       const res = await axios.put(
-        `${baseUrl}/api/edit-membership-plan/${props.modalDataId}`,
+        `${baseUrl}/api/edit-resources/${props.modalDataId}`,
         values,
         {
           headers: {
@@ -76,7 +75,7 @@ function EditMembershipPlanModal(props: any) {
         }
       } else {
         props.handleClose()
-        props.loadMembershipPlan()
+        props.loadResources()
       }
     } catch (e: any) {
       console.log(e);
@@ -95,16 +94,16 @@ function EditMembershipPlanModal(props: any) {
       <Formik
         enableReinitialize
         initialValues={{
-          name: selectedMembershipPlan ? selectedMembershipPlan?.name : '',
-          membershipPlanContent: selectedMembershipPlan ? selectedMembershipPlan?.membershipPlanContent : '',//?.replace(/\n/g, "<br>"),
-          duration: selectedMembershipPlan ? selectedMembershipPlan?.duration : '',
-          amount: selectedMembershipPlan ? selectedMembershipPlan?.amount : ''
+          name: selectedResources ? selectedResources?.name : '',
+          resourcesContent: selectedResources ? selectedResources?.resourcesContent : '',
+          duration: selectedResources ? selectedResources?.duration : '',
+          amount: selectedResources ? selectedResources?.amount : ''
         }}
         validationSchema={Yup.object({
           name: Yup.string().required('Enter a name'),
-          membershipPlanContent: Yup.string()
+          resourcesContent: Yup.string()
             .min(8, "Must be more than eight characters")
-            .required('Membership plan ontent cannot be empty'),
+            .required('Resources content cannot be empty'),
           duration: Yup.number().typeError('Enter a number')
             .required('Duration cannot be empty!')
             .integer('Please enter a whole number')
@@ -119,20 +118,20 @@ function EditMembershipPlanModal(props: any) {
         })}
 
         onSubmit={(values, { setSubmitting, setErrors }) => {
-          editMembershipPlanHandler(values, setSubmitting, setErrors)
+          editResourcesHandler(values, setSubmitting, setErrors)
         }}
       >
         {({
           isSubmitting,
         }) => (
-          <FormikForm method="POST" id="edit-membership-plan" name="edit-membership-plan">
+          <FormikForm method="POST" id="edit-resources" name="edit-resources">
             <Modal.Header closeButton>
-              <Modal.Title>Edit Membership Plan</Modal.Title>
+              <Modal.Title>Edit Resources</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form.Group className="mb-3"  >
                 <Form.Label className='form-labels'>Name</Form.Label>
-                <Field className="form-control custom-text-input" type="text" placeholder="Name of plan" name='name' id='name'
+                <Field className="form-control custom-text-input" type="text" placeholder="Name of resource" name='name' id='name'
                   disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="name" />
@@ -140,10 +139,10 @@ function EditMembershipPlanModal(props: any) {
               </Form.Group>
               <Form.Group className="mb-3" >
                 <Form.Label className='form-labels'>Content</Form.Label>
-                <Field className="form-control custom-text-input" placeholder='Full details of membership plan' as="textarea" rows={4}
-                  style={{ whiteSpace: "pre-wrap" }} name='membershipPlanContent' id='membershipPlanContent' disabled={isSubmitting} />
+                <Field className="form-control custom-text-input" placeholder='Full details of resources' as="textarea" rows={4}
+                  style={{ whiteSpace: "pre-wrap" }} name='resourcesContent' id='resourcesContent' disabled={isSubmitting} />
                 <div className="form-error">
-                  <ErrorMessage name="membershipPlanContent" />
+                  <ErrorMessage name="resourcesContent" />
                 </div>
               </Form.Group>
               <Row className="align-items-center">
@@ -182,4 +181,4 @@ function EditMembershipPlanModal(props: any) {
   )
 }
 
-export default EditMembershipPlanModal
+export default EditResourcesModal

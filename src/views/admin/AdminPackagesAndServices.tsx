@@ -202,7 +202,4 @@ function AdminPackagesAndServices() {
     </BodyWrapper>
   )
 }
-
-AdminPackagesAndServices.propTypes = {}
-
 export default AdminPackagesAndServices

@@ -95,10 +95,10 @@ function EditPackagesAndServicesModal(props: any) {
       <Formik
         enableReinitialize
         initialValues={{
-          name: selectedPackagesAndServices?.name,
-          packagesAndServicesContent: selectedPackagesAndServices?.packagesAndServicesContent,//?.replace(/\n/g, "<br>"),
-          duration: selectedPackagesAndServices?.duration,
-          amount: selectedPackagesAndServices?.amount
+          name: selectedPackagesAndServices ? selectedPackagesAndServices?.name : '',
+          packagesAndServicesContent: selectedPackagesAndServices ? selectedPackagesAndServices?.packagesAndServicesContent : '',
+          duration: selectedPackagesAndServices ? selectedPackagesAndServices?.duration : '',
+          amount: selectedPackagesAndServices ? selectedPackagesAndServices?.amount : ''
         }}
         validationSchema={Yup.object({
           name: Yup.string().required('Enter a name'),
@@ -141,7 +141,7 @@ function EditPackagesAndServicesModal(props: any) {
               <Form.Group className="mb-3" >
                 <Form.Label className='form-labels'>Content</Form.Label>
                 <Field className="form-control custom-text-input" placeholder='Full details of packages and services' as="textarea" rows={4}
-                 style={{ whiteSpace: "pre-wrap" }} name='packagesAndServicesContent' id='packagesAndServicesContent' disabled={isSubmitting} />
+                  style={{ whiteSpace: "pre-wrap" }} name='packagesAndServicesContent' id='packagesAndServicesContent' disabled={isSubmitting} />
                 <div className="form-error">
                   <ErrorMessage name="packagesAndServicesContent" />
                 </div>

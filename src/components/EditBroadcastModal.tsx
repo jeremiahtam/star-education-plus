@@ -95,8 +95,8 @@ function EditBroadcastModal(props: any) {
       <Formik
         enableReinitialize
         initialValues={{
-          title: selectedBroadcast?.title,
-          body: selectedBroadcast?.body
+          title: selectedBroadcast ? selectedBroadcast?.title : '',
+          body: selectedBroadcast ? selectedBroadcast?.body : ''
         }}
         validationSchema={Yup.object({
           title: Yup.string().required('Title cannot be empty!'),
@@ -136,7 +136,7 @@ function EditBroadcastModal(props: any) {
             </Modal.Body>
             <Modal.Footer>
               <Button className="btn-custom-outline" onClick={props.handleClose}>  Close </Button>
-              <Button className="btn-custom"  type='submit'>Submit</Button>
+              <Button className="btn-custom" type='submit'>Submit</Button>
             </Modal.Footer>
           </FormikForm>)}
       </Formik>
