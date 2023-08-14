@@ -1,20 +1,21 @@
 import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Link } from "react-router-dom";
-import BodyWrapper from '../../components/BodyWrapper'
-import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
 import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
-import AdminResourcesModal from '../../components/AdminResourcesModal';
+import AdminResourcesDocsModal from '../../components/AdminResourcesDocsModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
-import { useNavigate, useParams } from "react-router-dom";
-import { ImCancelCircle } from 'react-icons/im';
-import { BsEye } from 'react-icons/bs';
+import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
+import { BsCloudUpload, BsEye } from 'react-icons/bs'; import BodyWrapper from '../../components/BodyWrapper'
+import { IoIosAdd, IoMdCreate, IoMdDownload, IoMdSearch } from 'react-icons/io';
+import fileDownload from 'js-file-download'
 
-function AdminResources() {
+function AdminResourcesDocumentUpload() {
+  const location = useLocation()
+
+  const { resourcesId } = useParams()
   const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -34,95 +35,114 @@ function AdminResources() {
     console.log(`${_dataId} ${_modalType}`)
   }, [setModalType, setModalDataId])
 
+  const [resourcesDocs, setResourcesDocs] = useState<any>()
+
   // Pagination control
   const [page, setPage] = useState<number>(1)
   const [itemsPerPage, setItemsPerPage] = useState<number | null>(2)
   const [totalPages, setTotalPages] = useState<number | null>(null)
-
   // Search 
   const [search, setSearch] = useState<string>('')
 
-  // resources 
-  const [selectedResources, setSelectedResources] = useState<any>(null)
-
   useEffect(() => {
-    if (selectedResources !== null) {
-      if (search === '') {
-        getResourcesHandler()
-      }
+    if (search === '') {
+      getResourcesDocsHandler()
     }
   }, [search])
 
   useEffect(() => {
-    if (selectedResources !== null) {
-      getResourcesHandler()
-    }
+    getResourcesDocsHandler()
   }, [userInfoData, page, itemsPerPage])
 
-  useEffect(() => {
-    getResourcesHandler()
-  }, [userInfoData])
-
-  const getResourcesHandler = async () => {
+  const downloadFileHandler = async (fileName: string, saveFileName: string) => {
     try {
-      const res = await axios.get(`${baseUrl}/api/all-resources`,
+      const res = await axios.get(`${baseUrl}/api/download-resources-file/${fileName}`,
         {
-          params: {
-            search,
-            itemsPerPage: itemsPerPage,
-            page: page
-          },
+          responseType: 'blob',
           headers: {
-            Accept: "application/json",
             Authorization: `Bearer ${userInfoData.token}`,
           },
           timeout: 30000,
+          validateStatus: (s) => s <= 500,
         });
-
       const resData = res.data;
-      console.log(resData);
-      if (resData.success == false) {
-        return setSelectedResources(resData)
-      } else {
-        setSelectedResources(resData)
-        setTotalPages(resData.pageInfo.totalPages)
-      }
+      console.log(resData)
+      const extension = fileName.split('.').pop();
+      fileDownload(resData, `${saveFileName}.${extension}`)
     } catch (e: any) {
       console.log(e);
       if (e.code == "ECONNABORTED") {
-        return setSelectedResources({
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+        // setResourcesDocs(null)
+      }
+    }
+  };
+
+
+  const getResourcesDocsHandler = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/api/all-resources-documents`, {
+        params: {
+          search,
+          itemsPerPage,
+          page,
+          resourcesId
+        },
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${userInfoData.token}`,
+        },
+        timeout: 30000,
+      });
+      const resData = res.data;
+      console.log(resData)
+      if (resData.success == false) {
+        return setResourcesDocs(resData)
+      } else {
+        setResourcesDocs(resData)
+        setTotalPages(resData.pageInfo.totalPages)
+      }
+    } catch (e: any) {
+      console.log(e)
+      if (e.code == "ECONNABORTED") {
+        return setResourcesDocs({
           "success": false,
           "message": "Request timed out.",
         })
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
-          return setSelectedResources({
+          return setResourcesDocs({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
-          return setSelectedResources({
+          return setResourcesDocs({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         }
     }
-  };
+  }
   return (
-    <BodyWrapper title={'Resources'}
-      rightHandSide={selectedResources?.data && <button className='btn btn-custom btn-sm'
+    <BodyWrapper title={'Resources Documents'} rightHandSide={resourcesDocs?.data &&
+      <button className='btn btn-custom btn-sm'
         onClick={() => {
-          setModalType('add-resources')
+          setModalType('add-resources-docs')
           handleShow()
         }}>Create New <IoIosAdd className='btn-icon' /></button>}>
 
-      {selectedResources?.success === false && !selectedResources?.data &&
+      {location?.state !== null &&
+        <div className=''>{location.state.category} | {location.state.data.name}</div>}
+
+      {resourcesDocs?.success === false && !resourcesDocs?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
-          <div>{selectedResources?.message}</div>
+          <div>{resourcesDocs?.message}</div>
         </Alert>}
 
-      {selectedResources?.data &&
+      {resourcesDocs?.data &&
         <>
           <div className='search-area mb-3'>
             <Form>
@@ -148,47 +168,41 @@ function AdminResources() {
                     <Button type="submit" onClick={(e: any) => {
                       e.preventDefault()
                       setPage(1)
-                      getResourcesHandler()
+                      getResourcesDocsHandler()
                     }} hidden>Search</Button>
                   </InputGroup>
                 </Col>
               </Row>
             </Form>
           </div>
-          {selectedResources.data.length !== 0 &&
+          {resourcesDocs.data.length !== 0 &&
             <div className="table-responsive">
               <table className='table table-hover table-sm'>
                 <thead>
                   <tr>
                     <th>No.</th>
-                    <th>Resource Name</th>
-                    <th>Content</th>
-                    <th>Amount</th>
-                    <th>Duration (Days)</th>
+                    <th>Document Name</th>
                     <th></th>
                     <th></th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {selectedResources.data.map((item: any, index: any) => {
+                  {resourcesDocs.data.map((item: any, index: number) => {
                     return (
                       <tr key={item.id}>
                         <td>{item.sn}</td>
-                        <td>{item.name}</td>
-                        <td>{item.resourcesContent}</td>
-                        <td>{item.amount}</td>
-                        <td>{item.duration}</td>
+                        <td>{item.documentName}</td>
                         <td>
-                          <Link to={`/resources/${item.id}`}>
-                            <BsEye />
-                          </Link>
+                          <IoMdDownload
+                            onClick={() => downloadFileHandler(item.nameInStorage, item.documentName)}
+                          />
                         </td>
                         <td ><IoMdCreate onClick={() => {
-                          modalDataHandler(item.id, 'edit-resources')
+                          modalDataHandler(item.id, 'edit-resources-docs')
                         }} /></td>
                         <td><HiTrash onClick={() => {
-                          modalDataHandler(item.id, 'delete-resources')
+                          modalDataHandler(item.id, 'delete-resources-docs')
                         }} /></td>
                       </tr>
                     )
@@ -196,17 +210,23 @@ function AdminResources() {
                 </tbody>
               </table>
             </div>}
-          {selectedResources.data.length == 0 &&
+
+          {resourcesDocs.data.length == 0 &&
             <Alert className='form-feedback-message' variant={"info"} dismissible>
-              <div>{selectedResources?.message}</div>
+              <div>{resourcesDocs?.message}</div>
             </Alert>}
-          {selectedResources.data.length !== 0 &&
+
+          {resourcesDocs.data.length !== 0 &&
             <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
-          {modalType && <AdminResourcesModal show={show} handleClose={handleClose} handleShow={handleShow}
-            modalType={modalType} modalDataId={modalDataId} loadResourcesDocs={getResourcesHandler} />}
+          {modalType && <AdminResourcesDocsModal show={show} handleClose={handleClose} handleShow={handleShow}
+            modalType={modalType} modalDataId={modalDataId} resourcesId={resourcesId}
+            loadResourcesDocs={getResourcesDocsHandler} />}
         </>
       }
     </BodyWrapper>
   )
 }
-export default AdminResources
+
+AdminResourcesDocumentUpload.propTypes = {}
+
+export default AdminResourcesDocumentUpload

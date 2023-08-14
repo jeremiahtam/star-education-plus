@@ -15,6 +15,7 @@ import AdminInvoices from './views/admin/AdminInvoices';
 import AdminMessages from './views/admin/AdminMessages';
 import AdminViewSchoolProfile from './views/admin/AdminViewSchoolProfile';
 import AdminViewSchoolPackagesAndServices from './views/admin/AdminViewSchoolPackagesAndServices';
+import AdminResourcesDocumentUpload from './views/admin/AdminResourcesDocumentUpload';
 
 function App() {
   const adminRouter = createBrowserRouter([
@@ -69,7 +70,18 @@ function App() {
       },
       {
         path: '/resources',
-        element: <AdminResources />,
+        errorElement: <ErrorPage />,
+        // element: <AdminResources />,
+        children: [{
+          path: '/resources',
+          element: <AdminResources />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: '/resources/:resourcesId',
+          element: <AdminResourcesDocumentUpload />,
+          errorElement: <ErrorPage />
+        }]
       },
       {
         path: '/uploads/:schoolId/:orderedItemsId',
