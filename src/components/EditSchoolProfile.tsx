@@ -148,9 +148,9 @@ function EditSchoolProfile(props: any) {
                 } id='status' name='status'
                   value={values.status}>
                   <option value={''}>-- select status --</option>
-                  <option value="Pending Review">Pending Review</option>
-                  <option value="Approved">Approved</option>
-                  <option value="Suspended">Suspended</option>
+                  <option value="pending review">Pending Review</option>
+                  <option value="approved">Approved</option>
+                  <option value="suspended">Suspended</option>
                 </Form.Select>
                 <div className="form-error">
                   <ErrorMessage name="status" />

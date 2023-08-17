@@ -165,6 +165,7 @@ function AdminResources() {
                     <th>Content</th>
                     <th>Amount</th>
                     <th>Duration (Days)</th>
+                    <th>Status</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -178,7 +179,8 @@ function AdminResources() {
                         <td>{item.name}</td>
                         <td>{item.resourcesContent}</td>
                         <td>{item.amount}</td>
-                        <td>{item.duration}</td>
+                        <td>{item.duration == null ? '-' : item.duration}</td>
+                        <td>{item.status}</td>
                         <td>
                           <Link to={`/resources/${item.id}`}>
                             <BsEye />

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import { Link } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert, Badge } from 'react-bootstrap';
 // import AdminSchoolPackagesAndServicesModal from '../../components/AdminSchoolPackagesAndServicesModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -188,10 +188,15 @@ export default function AdminViewSchoolPackagesAndServices() {
                       <tr key={item.id}>
                         <td>{item.sn}</td>
                         <td>{item.name}</td>
-                        <td>{item.status}</td>
+                        <td><Badge
+                          bg={item.status == 'paid' ?
+                            'success' : item.status == 'pending' ?
+                              'info' : 'danger'}>
+                          {item.status}
+                        </Badge></td>
                         <td >
                           {item.status == 'paid' ?
-                            <Link to={`/uploads/${selectedSchool.id}/${item.id}`}
+                            <Link to={`/packages-and-services-uploads/${selectedSchool.id}/${item.id}`}
                               state={{ data: item, category: 'Packages and Services' }}>
                               <BsEye />
                             </Link>

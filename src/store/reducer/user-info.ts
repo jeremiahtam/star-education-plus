@@ -1,7 +1,7 @@
 import { LOAD_USER_DATA, ADD_USER_DATA, DELETE_USER_DATA } from "../actions/user-info";
 
 const initialState = {
-  loggedInUserData: null,//contains {'userType':'','token':'','email':'','userId':''}
+  loggedInUserData: undefined,//contains {'userType':'','token':'','email':'','userId':''}
 }
 
 const userInfoReducer = (state = initialState, action: any) => {

@@ -63,7 +63,8 @@ function AddPackagesAndServicesModal(props: any) {
           name: '',
           packagesAndServicesContent: '',
           duration: '',
-          amount: ''
+          amount: '',
+          status: ''
         }}
         validationSchema={Yup.object({
           name: Yup.string().required('Enter a name'),
@@ -71,7 +72,7 @@ function AddPackagesAndServicesModal(props: any) {
             .min(8, "Must be more than eight characters")
             .required('Packages and Services content cannot be empty'),
           duration: Yup.number().typeError('Enter a number')
-            .required('Duration cannot be empty!')
+            // .required('Duration cannot be empty!')
             .integer('Please enter a whole number')
             .positive('Enter a positive number').min(1, 'Please enter at least a digit'),
           amount: Yup.number().typeError('Enter a number')
@@ -81,6 +82,7 @@ function AddPackagesAndServicesModal(props: any) {
               "Amount cannot have more than 2 digits after decimal",
               (amount: any) => /^\d+(\.\d{1,2})?$/.test(amount)
             ),
+          status: Yup.string().required('Select status'),
         })}
 
         onSubmit={(values, { setSubmitting, setErrors }) => {
@@ -88,7 +90,9 @@ function AddPackagesAndServicesModal(props: any) {
         }}
       >
         {({
-          isSubmitting
+          isSubmitting,
+          setFieldValue,
+          values
         }) => (
           <FormikForm method="POST" id="add-packages-and-services" name="add-packages-and-services">
             <Modal.Header closeButton>
@@ -117,6 +121,7 @@ function AddPackagesAndServicesModal(props: any) {
                     <Form.Label className='form-labels'>Duration (Days)</Form.Label>
                     <Field className="form-control custom-text-input" type="number" placeholder="Duration (Days)" name='duration' id='duration'
                       disabled={isSubmitting} />
+                    <Form.Text className='text-muted'>Leave empty if no limit</Form.Text>
                     <div className="form-error">
                       <ErrorMessage name="duration" />
                     </div>
@@ -132,6 +137,22 @@ function AddPackagesAndServicesModal(props: any) {
                     </InputGroup>
                     <div className="form-error">
                       <ErrorMessage name="amount" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col xs="auto" lg={'6'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label className='form-labels'>Status</Form.Label>
+                    <Form.Select className='custom-text-input'
+                      onChange={(selectedOption: any) =>
+                        setFieldValue('status', selectedOption.target.value)
+                      } id='status' name='status' value={values.status}>
+                      <option value={''}>-- select status --</option>
+                      <option value="inactive">Inactive</option>
+                      <option value="active">Active</option>
+                    </Form.Select>
+                    <div className="form-error">
+                      <ErrorMessage name="status" />
                     </div>
                   </Form.Group>
                 </Col>

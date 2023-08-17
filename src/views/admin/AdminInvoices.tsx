@@ -173,6 +173,11 @@ function AdminInvoices() {
                           modalDataHandler(item, 'view-invoice')}
                         />
                       </td>
+                      <td>
+                        <IoMdCreate onClick={() =>
+                          modalDataHandler(item.id, 'edit-invoice')}
+                        />
+                      </td>
                     </tr>
                   )
                 })}
@@ -188,7 +193,7 @@ function AdminInvoices() {
         {invoices.data.length !== 0 &&
           <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
         {modalType && <InvoiceModal show={show} handleClose={handleClose} handleShow={handleShow}
-          modalType={modalType} modalDataContent={modalDataContent} />}
+          modalType={modalType} modalDataContent={modalDataContent} getInvoicesHandler={getInvoicesHandler()} />}
       </>}
     </BodyWrapper>
   )

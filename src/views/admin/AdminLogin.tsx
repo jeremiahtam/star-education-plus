@@ -64,7 +64,7 @@ const AdminLogin = (props: any) => {
   }, [])
 
   useEffect(() => {
-    if (userInfoData !== null) {
+    if (userInfoData !== null && userInfoData !== undefined) {
       if (userInfoData.userType == 'admin') {
         navigate('/dashboard')
       }

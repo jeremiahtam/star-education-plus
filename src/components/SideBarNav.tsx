@@ -69,7 +69,8 @@ const SideBarNav = (props: any) => {
         <Image src={sidebarHide == false ? SEPLogo : SEPlogo129} height={35} />
       </div>
       <ul className="list-unstyled components">
-        <li className={splitLocation[1] == 'dashboard' ? 'active' : ''}>
+        <li className={!splitLocation[1] ? 'active' :
+          splitLocation[1] == 'dashboard' ? 'active' : ''}>
           <Link to='/dashboard'>
             <BiSolidDashboard className="icon" />
             <div hidden={sidebarHide}> Dashboard</div>

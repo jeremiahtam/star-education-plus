@@ -52,7 +52,7 @@ function AdminViewSchoolProfile() {
   };
 
   useEffect(() => {
-    if (userInfoData !== null) {
+    if (userInfoData !== null && userInfoData !== undefined) {
       getSchoolHandler()
     }
   }, [userInfoData])

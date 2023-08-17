@@ -18,9 +18,9 @@ const AdminDashboard = () => {
   }, [])
 
   useEffect(() => {
-    if (userInfoData === null || userInfoData === undefined) {
+    if (userInfoData === null) {//only if it is NULL***
       console.log(userInfoData)
-      // navigate('/admin-login')
+      navigate('/admin-login')
     } else {
       // navigate('/dashboard')
     }

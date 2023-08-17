@@ -10,103 +10,42 @@ import AdminSchools from './views/admin/AdminSchools';
 import AdminPackagesAndServices from './views/admin/AdminPackagesAndServices';
 import AdminResources from './views/admin/AdminResources';
 import AdminServiceProviders from './views/admin/AdminServiceProviders';
-import AdminDocumentUpload from './views/admin/AdminDocumentUpload';
+import AdminPackagesAndServicesDocumentUpload from './views/admin/AdminPackagesAndServicesDocumentUpload';
 import AdminInvoices from './views/admin/AdminInvoices';
 import AdminMessages from './views/admin/AdminMessages';
 import AdminViewSchoolProfile from './views/admin/AdminViewSchoolProfile';
 import AdminViewSchoolPackagesAndServices from './views/admin/AdminViewSchoolPackagesAndServices';
 import AdminResourcesDocumentUpload from './views/admin/AdminResourcesDocumentUpload';
+import { Route, Routes } from "react-router-dom"
 
 function App() {
-  const adminRouter = createBrowserRouter([
-    {
-      path: "/admin-login",
-      element: <AdminLogin />,
-      errorElement: <ErrorPage />,
-    },
-    {
-      path: '/',
-      element: <AdminDashboard />,
-      errorElement: <ErrorPage />,
-      children: [{
-        path: '/dashboard',
-        element: <AdminMetrics />,
-      },
-      {
-        path: '/broadcasts',
-        element: <AdminBroadcasts />,
-      },
-      {
-        path: '/membership-plans',
-        element: <AdminMembershipPlans />,
-      },
-      {
-        path: '/schools',
-        errorElement: <ErrorPage />,
-        children: [{
-          path: '/schools',
-          element: <AdminSchools />,
-          errorElement: <ErrorPage />
-        },
-        {
-          path: '/schools/:schoolId',
-          element: <AdminViewSchoolProfile />,
-          errorElement: <ErrorPage />
-        },
-        {
-          path: '/schools/:schoolId/service-providers',
-          element: <AdminServiceProviders />,
-          errorElement: <ErrorPage />
-        },
-        {
-          path: '/schools/:schoolId/packages-and-services',
-          element: <AdminViewSchoolPackagesAndServices />,
-          errorElement: <ErrorPage />
-        }]
-      },
-      {
-        path: '/packages-and-services',
-        element: <AdminPackagesAndServices />,
-      },
-      {
-        path: '/resources',
-        errorElement: <ErrorPage />,
-        // element: <AdminResources />,
-        children: [{
-          path: '/resources',
-          element: <AdminResources />,
-          errorElement: <ErrorPage />
-        },
-        {
-          path: '/resources/:resourcesId',
-          element: <AdminResourcesDocumentUpload />,
-          errorElement: <ErrorPage />
-        }]
-      },
-      {
-        path: '/uploads/:schoolId/:orderedItemsId',
-        element: <AdminDocumentUpload />,
-      },
-      {
-        path: '/invoices',
-        element: <AdminInvoices />,
-      },
-      {
-        path: '/messages',
-        element: <AdminMessages />,
-      },
-      {
-        path: "/error-page",
-        element: <ErrorPage />,
-      },
-      ]
-    }
-  ]);
-
-  // const i = userInfoData === null ? adminRouter : schoolRouter
-
   return (
-    <RouterProvider router={adminRouter} />
+    <Routes>
+      <Route path='/admin-login' element={<AdminLogin />} />
+      <Route path='/' element={<AdminDashboard />}>
+        <Route path='/' element={<AdminMetrics />} />
+        <Route path='/dashboard' element={<AdminMetrics />} />
+        <Route path='/broadcasts' element={<AdminBroadcasts />} />
+        <Route path='/membership-plans' element={<AdminMembershipPlans />} />
+        <Route path='/schools' >
+          <Route path='/schools' element={<AdminSchools />} />
+          <Route path='/schools/:schoolId' element={<AdminViewSchoolProfile />} />
+          <Route path='/schools/:schoolId/service-providers' element={<AdminServiceProviders />} />
+          <Route path='/schools/:schoolId/packages-and-services'
+            element={<AdminViewSchoolPackagesAndServices />} />
+        </Route>
+        <Route path='/packages-and-services' element={<AdminPackagesAndServices />} />
+        <Route path='/resources' >
+          <Route path='/resources' element={<AdminResources />} />
+          <Route path='/resources/:resourcesId' element={<AdminResourcesDocumentUpload />} />
+        </Route>
+        <Route path='/packages-and-services-uploads/:schoolId/:orderedItemsId'
+          element={<AdminPackagesAndServicesDocumentUpload />} />
+        <Route path='/invoices' element={<AdminInvoices />} />
+        <Route path='/messages' element={<AdminMessages />} />
+      </Route>
+      <Route path="*" element={<ErrorPage />} />
+    </Routes>
   );
 }
 
