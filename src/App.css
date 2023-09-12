@@ -875,6 +875,7 @@ ul ul a {
   color: #525252;
   font-size: 0.9em;
 }
+
 .invoice-body .invoice-row-three {
   padding: 5px 10px;
 }
@@ -890,9 +891,11 @@ ul ul a {
   color: #525252;
   font-size: 0.9em;
 }
+
 .invoice-body .invoice-row-four {
   padding: 5px 10px;
 }
+
 .invoice-body .invoice-row-four .item .title {
   color: #161616;
   font-weight: 600;
@@ -904,9 +907,11 @@ ul ul a {
   color: #525252;
   font-size: 0.9em;
 }
+
 .invoice-body .invoice-row-five {
   padding: 5px 10px;
 }
+
 .invoice-body .invoice-row-five .item .title {
   color: #161616;
   font-weight: 600;
@@ -917,4 +922,58 @@ ul ul a {
 .invoice-body .invoice-row-five .item .content {
   color: #525252;
   font-size: 0.9em;
+}
+
+/* ---------------------------------
+  SCHOOL LOGIN
+  ---------------------------------*/
+.school-login {
+  background: url('./images/login-bg.jpeg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  & .school-login-row {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .school-login-form-box {
+    border-radius: 8px;
+    background: #F5F5F5;
+    padding: 0 !important;
+    overflow: hidden;
+    /* box-shadow: 0px 4px 4px 0px #6F6F6F; */
+  }
+}
+
+/* .school-login-row {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
+.school-login-row .school-login-form-box {
+  border-radius: 8px;
+  background: #F5F5F5;
+  padding: 0 !important;
+  overflow: hidden;
+  /* box-shadow: 0px 4px 4px 0px #6F6F6F; */
+}
+
+.school-login-row .school-login-form-box .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #030432;
+  padding: 10px 5px;
+}
+
+.school-login-row .school-login-form-box .main-login-box {
+  padding: 20px;
 }

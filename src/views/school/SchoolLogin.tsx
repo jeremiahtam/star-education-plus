@@ -1,9 +1,92 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
+import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+// import { useSelector } from 'react-redux';
+import { Link, useNavigate } from "react-router-dom";
+// import { insertUserData } from '../../store/actions/user-info';
+// import axios from 'axios'
+// import { store } from '../../store/root-reducer';
+// import { stateLoggedInUserType } from '../../../types/type-definitions';
+// import { loadUserData } from '../../store/actions/user-info';
+import { Col, Spinner, Image, Form, Container } from 'react-bootstrap';
+import SEPLogo from '../../images/SEP-Logo-White-Final.png'
+// import SEPLogo129 from '../../images/logo192.png'
+
 
 const SchoolLogin = (props: any) => {
+
   return (
-    <div>Login</div>
+    <Container fluid className='school-login'>
+      <Container>
+        <div className='row school-login-row'>
+          <div className='col-lg-4 col-md-5 school-login-form-box'>
+            <div className='logo'>
+              <Image src={SEPLogo} height={30} />
+            </div>
+            <div className='main-login-box'>
+              <div className="form-heading">Welcome Back</div>
+              <div className="form-sub-heading">Enter your details to access your dashboard</div>
+              <Formik
+                initialValues={{
+                  email: '',
+                  password: ''
+                }}
+                validationSchema={Yup.object({
+                  email: Yup.string().email('Invalid email address').required('Email cannot be empty!'),
+                  password: Yup.string()
+                    .max(20, 'Must be 20 characters or less')
+                    .min(8, "Must be more than eight characters")
+                    .required('Password cannot be empty'),
+                })}
+
+                onSubmit={(values, { setSubmitting, setErrors }) => {
+                  // loginHandler(values, setSubmitting, setErrors)
+                }}
+              >
+                {({
+                  isSubmitting,
+                }) => (
+                  <FormikForm method="POST" id="login-form-school" name="login-form-school">
+                    <div className="form-group">
+                      <label htmlFor="email" className='form-labels'>Email address</label>
+                      <Field name="email" disabled={isSubmitting} className="form-control custom-text-input" type="text" placeholder="Email" />
+                      <div className="form-error">
+                        <ErrorMessage name="email" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="password" className='form-labels'>Password</label>
+                      <Field name="password" disabled={isSubmitting} className="form-control custom-text-input" type="password" placeholder="Password" />
+                      <div className="form-error">
+                        <ErrorMessage name="password" />
+                      </div>
+                    </div>
+                    <Form.Group>
+                      <Form.Text className='float-end'>
+                        <Link to={'/recover-password'}>Forgot Password?</Link>
+                      </Form.Text>
+                    </Form.Group>
+                    <Form.Group>
+                      <button className="btn btn-block mb-3 mt-3 form-control btn-custom" type="submit" disabled={!!isSubmitting}>
+                        {isSubmitting ?
+                          (<>
+                            <Spinner animation="border" size='sm' />
+                            <span> Processing..</span>
+                          </>) : (" Login")}
+                      </button>
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Text className=''>
+                        Don't have an account? <Link to={'/signup'}>Signup</Link>
+                      </Form.Text>
+                    </Form.Group>
+                  </FormikForm>)}
+              </Formik>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Container>
   )
 }
 
