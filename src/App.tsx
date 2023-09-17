@@ -29,6 +29,8 @@ import SchoolEnterPasswordRecoveryCode from './views/school/SchoolEnterPasswordR
 import SchoolChangePassword from './views/school/SchoolChangePassword';
 import SchoolDashboard from './views/school/SchoolDashboard';
 import SchoolMetrics from './views/school/SchoolMetrics';
+import AdminPackagesAndServicesAttendance from './views/admin/AdminPackagesAndServicesAttendance';
+import AdminResourcesAttendance from './views/admin/AdminResourcesAttendance';
 
 function App() {
 
@@ -49,7 +51,7 @@ function App() {
           <Route path='/dashboard' element={<AdminMetrics />} />
           <Route path='/broadcasts' element={<AdminBroadcasts />} />
           <Route path='/membership-plans' element={<AdminMembershipPlans />} />
-          <Route path='/schools' >
+          <Route path='/schools'>
             <Route path='/schools' element={<AdminSchools />} />
             <Route path='/schools/:schoolId' element={<AdminViewSchoolProfile />} />
             <Route path='/schools/:schoolId/service-providers' element={<AdminServiceProviders />} />
@@ -59,16 +61,19 @@ function App() {
           <Route path='/packages-and-services' element={<AdminPackagesAndServices />} />
           <Route path='/resources' >
             <Route path='/resources' element={<AdminResources />} />
-            <Route path='/resources/:resourcesId' element={<AdminResourcesDocumentUpload />} />
+            <Route path='/resources/resources-document-upload/:resourcesId' element={<AdminResourcesDocumentUpload />} />
+            {/* <Route path='/resources/resources-attendance/:resourcesId' element={<AdminResourcesAttendance />} /> */}
           </Route>
-          <Route path='/packages-and-services-uploads/:schoolId/:orderedItemsId'
+          <Route path='/packages-and-services-document-upload/:schoolId/:orderedItemsId'
             element={<AdminPackagesAndServicesDocumentUpload />} />
+          {/* <Route path='/packages-and-services-attendance/:schoolId/:orderedItemsId'
+            element={<AdminPackagesAndServicesAttendance />} /> */}
           <Route path='/invoices' element={<AdminInvoices />} />
           <Route path='/messages' element={<AdminMessages />} />
         </Route>}
 
       {/* For schools to login but can be accessed by anyone when*/}
-      <Route path='/login' element={<SchoolLogin />} />
+      <Route path='/' element={<SchoolLogin />} />
       <Route path='/signup' element={<SchoolSignup />} />
       <Route path='/recover-password' element={<SchoolRecoverPassword />} />
       <Route path='/recovery-code' element={<SchoolEnterPasswordRecoveryCode />} />

@@ -182,7 +182,7 @@ function AdminResources() {
                         <td>{item.duration == null ? '-' : item.duration}</td>
                         <td>{item.status}</td>
                         <td>
-                          <Link to={`/resources/${item.id}`}>
+                          <Link to={`/resources/resources-document-upload/${item.id}`}>
                             <BsEye />
                           </Link>
                         </td>

@@ -179,8 +179,8 @@ function AdminSchools(props: any) {
                       <td>{item.schoolName}</td>
                       <td>{item.email}</td>
                       <td>{item.address}</td>
-                      <td><Badge bg={item.status == 'pending review' ? "secondary" :
-                        item.status == 'approved' ? 'success' : 'danger'}>
+                      <td><Badge bg={item.status === 'pending review' ? "secondary" :
+                        item.status === 'approved' ? 'success' : 'danger'}>
                         {item.status}</Badge></td>
                       <td ><IoMdCreate onClick={() => {
                         navigate(`/schools/${item.id}`)

@@ -54,6 +54,7 @@ function AddResourcesDocsModal(props: any) {
       } else {
         // resetForm()
         setUploadDocumentResponse(resData)
+        props.loadResourcesDocs()
       }
     } catch (e: any) {
       console.log(e);

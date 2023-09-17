@@ -1,27 +1,29 @@
 import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Link } from "react-router-dom";
-import BodyWrapper from '../../components/BodyWrapper'
-import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert, Badge } from 'react-bootstrap';
-// import AdminSchoolPackagesAndServicesModal from '../../components/AdminSchoolPackagesAndServicesModal';
+import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import AdminSchoolDocsModal from '../../components/AdminSchoolDocsModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
-import { useNavigate, useParams } from "react-router-dom";
-import { BsCloudUpload, BsEye, BsListCheck, BsUpload } from 'react-icons/bs';
-import { ImCancelCircle } from 'react-icons/im';
-import { FaFileUpload } from 'react-icons/fa';
-import AdminViewSchoolPackagesAndServicesModal from '../../components/AdminViewSchoolPackagesAndServicesModal';
+import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
+import { BsCloudUpload, BsEye } from 'react-icons/bs'; import BodyWrapper from '../../components/BodyWrapper'
+import { IoIosAdd, IoMdCreate, IoMdDownload, IoMdSearch } from 'react-icons/io';
+import fileDownload from 'js-file-download'
 
-export default function AdminViewSchoolPackagesAndServices() {
+function AdminPackagesAndServicesDocumentAttendance() {
+  const location = useLocation()
 
-  const { schoolId } = useParams()
+  if (location.state.category) {
+    console.log(location.state.category)
+    console.log(location.state.data.name)
+  }
+  const { schoolId, orderedItemsId } = useParams()
   const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+  const [selectedSchool, setSelectedSchool] = useState<any>(null)
 
   //Modal COntrol
   const [show, setShow] = useState(false);
@@ -38,10 +40,7 @@ export default function AdminViewSchoolPackagesAndServices() {
     console.log(`${_dataId} ${_modalType}`)
   }, [setModalType, setModalDataId])
 
-
-  const [selectedSchool, setSelectedSchool] = useState<any>(null)
-
-  const [schoolPackagesAndServices, setSchoolPackagesAndServices] = useState<any>()
+  const [schoolOrderedDocs, setSchoolOrderedDocs] = useState<any>()
 
   // Pagination control
   const [page, setPage] = useState<number>(1)
@@ -53,20 +52,46 @@ export default function AdminViewSchoolPackagesAndServices() {
   useEffect(() => {
     if (selectedSchool !== null) {
       if (search === '') {
-        getSchoolPackagesAndServicesHandler()
+        getSchoolDocsHandler()
       }
     }
   }, [search])
 
   useEffect(() => {
     if (selectedSchool !== null) {
-      getSchoolPackagesAndServicesHandler()
+      getSchoolDocsHandler()
     }
   }, [userInfoData, page, itemsPerPage, selectedSchool])
 
   useEffect(() => {
     getSchoolHandler()
   }, [userInfoData])
+
+  const downloadFileHandler = async (fileName: string, saveFileName: string) => {
+    try {
+      const res = await axios.get(`${baseUrl}/api/download-file/${fileName}`,
+        {
+          responseType: 'blob',
+          headers: {
+            Authorization: `Bearer ${userInfoData.token}`,
+          },
+          timeout: 30000,
+          validateStatus: (s) => s <= 500,
+        });
+      const resData = res.data;
+      console.log(resData)
+      const extension = fileName.split('.').pop();
+      fileDownload(resData, `${saveFileName}.${extension}`)
+    } catch (e: any) {
+      console.log(e);
+      if (e.code == "ECONNABORTED") {
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+        setSelectedSchool(null)
+      }
+    }
+  };
 
   const getSchoolHandler = async () => {
     try {
@@ -100,14 +125,14 @@ export default function AdminViewSchoolPackagesAndServices() {
     }
   };
 
-  const getSchoolPackagesAndServicesHandler = async () => {
+  const getSchoolDocsHandler = async () => {
     try {
-      const res = await axios.get(`${baseUrl}/api/get-school-packages-and-services`, {
+      const res = await axios.get(`${baseUrl}/api/get-ordered-item-documents`, {
         params: {
           search,
-          itemsPerPage: itemsPerPage,
-          page: page,
-          schoolId: schoolId
+          itemsPerPage,
+          page,
+          orderedItemsId
         },
         headers: {
           Accept: "application/json",
@@ -118,45 +143,53 @@ export default function AdminViewSchoolPackagesAndServices() {
       const resData = res.data;
       console.log(resData)
       if (resData.success == false) {
-        return setSchoolPackagesAndServices(resData)
+        return setSchoolOrderedDocs(resData)
       } else {
-        setSchoolPackagesAndServices(resData)
+        setSchoolOrderedDocs(resData)
         setTotalPages(resData.pageInfo.totalPages)
       }
     } catch (e: any) {
       console.log(e)
       if (e.code == "ECONNABORTED") {
-        return setSchoolPackagesAndServices({
+        return setSchoolOrderedDocs({
           "success": false,
           "message": "Request timed out.",
         })
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
-          return setSchoolPackagesAndServices({
+          return setSchoolOrderedDocs({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
-          return setSchoolPackagesAndServices({
+          return setSchoolOrderedDocs({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         }
     }
   }
-
   return (
-    <BodyWrapper title={selectedSchool !== null ? selectedSchool.school_name : ''}
-      subTitle={'Packages and Services'}>
+    <BodyWrapper title={'Documents'}
+      subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}
+      rightHandSide={selectedSchool !== null && schoolOrderedDocs?.data &&
+        <button className='btn btn-custom btn-sm'
+          onClick={() => {
+            setModalType('add-school-packages-and-services-docs')
+            handleShow()
+          }}>Create New <IoIosAdd className='btn-icon' /></button>}>
 
-      {schoolPackagesAndServices?.success === false && !schoolPackagesAndServices?.data &&
+      {location?.state !== null &&
+        <div className=''>{location.state.category} | {location.state.data.name}</div>}
+
+      {schoolOrderedDocs?.success === false && !schoolOrderedDocs?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
-          <div>{schoolPackagesAndServices?.message}</div>
+          <div>{schoolOrderedDocs?.message}</div>
         </Alert>}
 
       {/*  Only display if selected school is not null*/}
-      {selectedSchool !== null && schoolPackagesAndServices?.data &&
+      {selectedSchool !== null && schoolOrderedDocs?.data &&
         <>
           <div className='search-area mb-3'>
             <Form>
@@ -182,73 +215,63 @@ export default function AdminViewSchoolPackagesAndServices() {
                     <Button type="submit" onClick={(e: any) => {
                       e.preventDefault()
                       setPage(1)
-                      getSchoolPackagesAndServicesHandler()
+                      getSchoolDocsHandler()
                     }} hidden>Search</Button>
                   </InputGroup>
                 </Col>
               </Row>
             </Form>
           </div>
-          {schoolPackagesAndServices.data.length !== 0 &&
+          {schoolOrderedDocs.data.length !== 0 &&
             <div className="table-responsive">
               <table className='table table-hover table-sm'>
                 <thead>
                   <tr>
                     <th>No.</th>
-                    <th>Package/Service Name</th>
-                    <th>Date</th>
-                    <th>Category</th>
-                    <th>Status</th>
+                    <th>Document Name</th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {schoolPackagesAndServices.data.map((item: any, index: number) => {
+                  {schoolOrderedDocs.data.map((item: any, index: number) => {
                     return (
                       <tr key={item.id}>
                         <td>{item.sn}</td>
-                        <td>{item.name}</td>
-                        <td>{item.date}</td>
-                        <td>{item.category}</td>
+                        <td>{item.documentName}</td>
                         <td>
-                          <Badge bg={item.status == 'paid' ?
-                            'success' : item.status == 'pending' ?
-                              'info' : 'danger'}>
-                            {item.status}
-                          </Badge>
+                          <IoMdDownload
+                            onClick={() => downloadFileHandler(item.nameInStorage, item.documentName)}
+                          />
                         </td>
-                        <td >
-                          {item.status === 'paid' ?
-                            item.category === 'document' ?
-                              <Link to={`/packages-and-services-document-upload/${selectedSchool.id}/${item.id}`}
-                                state={{ data: item, category: 'Packages and Services' }}>
-                                <BsUpload />
-                              </Link>
-                              :
-                              <BsListCheck
-                                onClick={() => modalDataHandler(item.id, 'mark-packages-and-services-attendance')}
-                              />
-                            :
-                            <ImCancelCircle />
-                          }
-                        </td>
+                        <td ><IoMdCreate onClick={() => {
+                          modalDataHandler(item.id, 'edit-school-packages-and-services-docs')
+                        }} /></td>
+                        <td><HiTrash onClick={() => {
+                          modalDataHandler(item.id, 'delete-school-packages-and-services-docs')
+                        }} /></td>
                       </tr>
                     )
                   })}
                 </tbody>
               </table>
             </div>}
-          {schoolPackagesAndServices.data.length == 0 &&
+
+          {schoolOrderedDocs.data.length == 0 &&
             <Alert className='form-feedback-message' variant={"info"} dismissible>
-              <div>{schoolPackagesAndServices?.message}</div>
+              <div>{schoolOrderedDocs?.message}</div>
             </Alert>}
-          {schoolPackagesAndServices.data.length !== 0 &&
+
+          {schoolOrderedDocs.data.length !== 0 &&
             <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
-          {modalType && <AdminViewSchoolPackagesAndServicesModal show={show} handleClose={handleClose} handleShow={handleShow}
-            modalType={modalType} modalDataId={modalDataId} loadSchoolPackagesAndServices={getSchoolPackagesAndServicesHandler}
-          />}
+          {modalType && <AdminSchoolDocsModal show={show} handleClose={handleClose} handleShow={handleShow}
+            modalType={modalType} modalDataId={modalDataId} orderedItemsId={orderedItemsId}
+            loadSchoolDocs={getSchoolDocsHandler} />}
         </>
       }
     </BodyWrapper>
   )
 }
+
+export default AdminPackagesAndServicesDocumentAttendance

@@ -164,6 +164,7 @@ function AdminPackagesAndServices() {
                     <th>Content</th>
                     <th>Amount</th>
                     <th>Duration (Days)</th>
+                    <th>Category</th>
                     <th>Status</th>
                     <th></th>
                     <th></th>
@@ -178,6 +179,7 @@ function AdminPackagesAndServices() {
                         <td>{item.packagesAndServicesContent}</td>
                         <td>{item.amount}</td>
                         <td>{item.duration == null ? '-' : item.duration}</td>
+                        <td>{item.category}</td>
                         <td>{item.status}</td>
                         <td ><IoMdCreate onClick={() => {
                           modalDataHandler(item.id, 'edit-packages-and-services')

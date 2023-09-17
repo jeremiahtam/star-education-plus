@@ -39,8 +39,8 @@ function AddResourcesModal(props: any) {
 
         }
       } else {
+        await props.loadResources()
         props.handleClose()
-        props.loadResources()
       }
     } catch (e: any) {
       console.log(e);
