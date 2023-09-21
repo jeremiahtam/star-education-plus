@@ -762,6 +762,17 @@ ul ul a {
   width: 9em;
 }
 
+.freebies {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.freebies .btn {
+  padding: 2px 5px !important;
+}
+
 /* ---------------------------------
   ERROR PAGE
   ---------------------------------*/

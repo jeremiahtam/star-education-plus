@@ -6,7 +6,8 @@ import DeleteMembershipPlanModal from './DeleteMembershipPlanModal';
 
 function MembershipPlanModal(props: any) {
   return (
-    <Modal show={props.show} onHide={props.handleClose}>
+    <Modal show={props.show} onHide={props.handleClose}
+      size={props.modalType == 'delete-membership-plan' ? undefined : 'lg'}>
       {props.modalType == 'add-membership-plan' ?
         <AddMembershipPlanModal handleClose={props.handleClose} loadMembershipPlan={props.loadMembershipPlan} /> :
         props.modalType == 'edit-membership-plan' ?
