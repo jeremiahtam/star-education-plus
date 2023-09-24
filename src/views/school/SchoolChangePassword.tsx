@@ -2,18 +2,70 @@ import React, { useEffect } from 'react'
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 // import { useSelector } from 'react-redux';
-import { Link, useNavigate } from "react-router-dom";
-// import { insertUserData } from '../../store/actions/user-info';
-// import axios from 'axios'
-// import { store } from '../../store/root-reducer';
-// import { stateLoggedInUserType } from '../../../types/type-definitions';
-// import { loadUserData } from '../../store/actions/user-info';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { deleteUserData, insertUserData } from '../../store/actions/user-info';
+import axios from 'axios'
+import { store } from '../../store/root-reducer';
+import { stateLoggedInUserType } from '../../../types/type-definitions';
+import { loadUserData } from '../../store/actions/user-info';
 import { Col, Spinner, Image, Form, Container } from 'react-bootstrap';
 import SEPLogo from '../../images/SEP-Logo-White-Final.png'
-// import SEPLogo129 from '../../images/logo192.png'
+import SEPLogo129 from '../../images/logo192.png'
 
 
 function SchoolChangePassword() {
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email;
+  const token = location.state?.token;
+
+  const changePasswordHandler = async (
+    values: any,
+    setSubmitting: any,
+    setErrors: any
+  ) => {
+    try {
+      values = {
+        ...values, ...{
+          email, token
+        }
+      }
+      const res = await axios.post(`${baseUrl}/api/reset-password`,
+        values,
+        {
+          headers: {
+            "Accept": "application/json"
+          },
+          timeout: 30000,
+        }
+      );
+      const resData = res.data;
+      console.log(resData);
+      if (resData.success == false) {
+        if (resData.errors !== undefined) {
+          setErrors(resData.errors);
+        } else {
+          //output the error message
+        }
+      } else {
+        navigate('/')
+      }
+    } catch (e: any) {
+      console.log(e);
+      if (e.code == "ECONNABORTED") {
+        setSubmitting(false);
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+        setErrors(errorData.errors);
+        if (errorData.message == "Unauthenticated") {
+          store.dispatch(deleteUserData());
+        }
+      }
+    }
+    setSubmitting(false);
+  };
 
   return (
     <Container fluid className='school-login'>
@@ -29,14 +81,14 @@ function SchoolChangePassword() {
               <Formik
                 initialValues={{
                   password: '',
-                  repeat_password: '',
+                  password_confirmation: '',
                 }}
                 validationSchema={Yup.object({
                   password: Yup.string()
                     .max(20, 'Must be 20 characters or less')
                     .min(8, "Must be more than eight characters")
                     .required('Password cannot be empty'),
-                  repeat_password: Yup.string()
+                  password_confirmation: Yup.string()
                     .max(20, 'Must be 20 characters or less')
                     .required('Password cannot be empty')
                     .test('passwords-match', 'Passwords must match', function (value) {
@@ -45,7 +97,7 @@ function SchoolChangePassword() {
                 })}
 
                 onSubmit={(values, { setSubmitting, setErrors }) => {
-                  // loginHandler(values, setSubmitting, setErrors)
+                  changePasswordHandler(values, setSubmitting, setErrors)
                 }}
               >
                 {({
@@ -61,9 +113,9 @@ function SchoolChangePassword() {
                     </div>
                     <div className="form-group">
                       <label htmlFor="repeat-password" className='form-labels'>Repeat Password</label>
-                      <Field name="repeat_password" disabled={isSubmitting} className="form-control custom-text-input" type="password" placeholder="Repeat Password" />
+                      <Field name="password_confirmation" disabled={isSubmitting} className="form-control custom-text-input" type="password" placeholder="Repeat Password" />
                       <div className="form-error">
-                        <ErrorMessage name="repeat_password" />
+                        <ErrorMessage name="password_confirmation" />
                       </div>
                     </div>
                     <Form.Group>

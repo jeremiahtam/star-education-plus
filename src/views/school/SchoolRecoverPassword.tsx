@@ -1,20 +1,69 @@
 import React, { useEffect } from 'react'
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
-// import { insertUserData } from '../../store/actions/user-info';
-// import axios from 'axios'
-// import { store } from '../../store/root-reducer';
-// import { stateLoggedInUserType } from '../../../types/type-definitions';
-// import { loadUserData } from '../../store/actions/user-info';
+import { deleteUserData, insertUserData } from '../../store/actions/user-info';
+import axios from 'axios'
+import { store } from '../../store/root-reducer';
+import { stateLoggedInUserType } from '../../../types/type-definitions';
+import { loadUserData } from '../../store/actions/user-info';
 import { Col, Spinner, Image, Form, Container } from 'react-bootstrap';
 import SEPLogo from '../../images/SEP-Logo-White-Final.png'
-// import SEPLogo129 from '../../images/logo192.png'
+import SEPLogo129 from '../../images/logo192.png'
 
 
 
 const SchoolRecoverPassword = (props: any) => {
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+  const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+  const navigate = useNavigate();
+
+  const recoverPasswordHandler = async (
+    values: any,
+    setSubmitting: any,
+    setErrors: any
+  ) => {
+    try {
+      const res = await axios.post(`${baseUrl}/api/recover-password`,
+        values,
+        {
+          headers: {
+            "Accept": "application/json"
+          },
+          timeout: 30000,
+        }
+      );
+      const resData = res.data;
+      console.log(resData);
+      if (resData.success == false) {
+        if (resData.errors !== undefined) {
+          setErrors(resData.errors);
+        } else {
+          //output the error message
+        }
+      } else {
+        navigate('/enter-recovery-code', {
+          state: {
+            email: values.email
+          }
+        })
+      }
+    } catch (e: any) {
+      console.log(e);
+      if (e.code == "ECONNABORTED") {
+        setSubmitting(false);
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+        setErrors(errorData.errors);
+        if (errorData.message == "Unauthenticated") {
+          store.dispatch(deleteUserData());
+        }
+      }
+    }
+    setSubmitting(false);
+  };
 
   return (
     <Container fluid className='school-login'>
@@ -37,7 +86,7 @@ const SchoolRecoverPassword = (props: any) => {
                 })}
 
                 onSubmit={(values, { setSubmitting, setErrors }) => {
-                  // recoverPasswordHandler(values, setSubmitting, setErrors)
+                  recoverPasswordHandler(values, setSubmitting, setErrors)
                 }}
               >
                 {({

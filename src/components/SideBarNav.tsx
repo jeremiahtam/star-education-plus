@@ -5,7 +5,7 @@ import { ImStack } from 'react-icons/im'
 import { FaGlobe, FaFileUpload, FaFileInvoice } from 'react-icons/fa'
 import { RiLogoutBoxLine } from 'react-icons/ri'
 import { BiSolidDashboard, BiSolidPackage } from 'react-icons/bi'
-import { MdSchool, MdCardMembership } from 'react-icons/md'
+import { MdSchool, MdCardMembership, MdOutlineHomeRepairService } from 'react-icons/md'
 import { useSelector } from 'react-redux'
 import { navToggleClassStateType } from '../../types/type-definitions'
 import { Image } from 'react-bootstrap';
@@ -29,7 +29,7 @@ const SideBarNav = (props: any) => {
   const logoutHandler = async () => {
     try {
       const res = await axios.post(
-        `${baseUrl}/api/admin-logout`,
+        `${baseUrl}/api/logout`,
         {},
         {
           headers: {
@@ -48,7 +48,7 @@ const SideBarNav = (props: any) => {
         }
       } else {
         store.dispatch(deleteUserData());
-        navigate('/admin-login')
+        navigate(userInfoData?.userType == 'school' ? '/' : '/admin-login')
       }
     } catch (e: any) {
       console.log(e);
@@ -69,60 +69,109 @@ const SideBarNav = (props: any) => {
         <Image src={sidebarHide == false ? SEPLogo : SEPlogo129} height={35} />
       </div>
       <ul className="list-unstyled components">
-        <li className={!splitLocation[1] ? 'active' :
-          splitLocation[1] == 'dashboard' ? 'active' : ''}>
-          <Link to='/dashboard'>
-            <BiSolidDashboard className="icon" />
-            <div hidden={sidebarHide}> Dashboard</div>
-          </Link>
-        </li>
-        <li className={splitLocation[1] == 'broadcasts' ? 'active' : ''}>
-          <Link to="/broadcasts">
-            <BsBroadcastPin className="icon" />
-            <div hidden={sidebarHide}> Broadcasts</div>
-          </Link>
-        </li>
-        <li className={splitLocation[1] == 'membership-plans' ? 'active' : ''}>
-          <Link to="/membership-plans">
-            <MdCardMembership className="icon" />
-            <div hidden={sidebarHide}> Membership Plans</div>
-          </Link>
-        </li>
-        <li className={splitLocation[1] == 'schools' ? 'active' : ''}>
-          <Link to="/schools">
-            <MdSchool className="icon" />
-            <div hidden={sidebarHide}> Schools</div>
-          </Link>
-        </li>
-        <li className={splitLocation[1] == 'packages-and-services' ? 'active' : ''}>
-          <Link to="/packages-and-services">
-            <BiSolidPackage className="icon" />
-            <div hidden={sidebarHide}> Packages & Services</div>
-          </Link>
-        </li>
-        <li className={splitLocation[1] == 'resources' ? 'active' : ''}>
-          <Link to="/resources" >
-            <ImStack className="icon" />
-            <div hidden={sidebarHide}> Resources</div>
-          </Link>
-        </li>
-        {/* <li className={splitLocation[1] == 'document-upload' ? 'active' : ''}>
-          <Link to="/document-upload">
-            <FaFileUpload className="icon" />
-            <div hidden={sidebarHide}> Document Upload</div>
-          </Link>
-        </li> */}
-        <li className={splitLocation[1] == 'invoices' ? 'active' : ''}>
-          <Link to="/invoices">
-            <FaFileInvoice className="icon" />
-            <div hidden={sidebarHide}> Invoices</div></Link>
-        </li>
-        <li className={splitLocation[1] == 'messages' ? 'active' : ''}>
-          <Link to="/messages">
-            <SiGooglechat className="icon" />
-            <div hidden={sidebarHide}> Messages</div>
-          </Link>
-        </li>
+        {/** Admin menu  */}
+        {userInfoData?.userType == 'admin' && <>
+          <li className={!splitLocation[1] ? 'active' :
+            splitLocation[1] == 'dashboard' ? 'active' : ''}>
+            <Link to='/dashboard'>
+              <BiSolidDashboard className="icon" />
+              <div hidden={sidebarHide}> Dashboard</div>
+            </Link>
+          </li>
+          <li className={splitLocation[1] == 'broadcasts' ? 'active' : ''}>
+            <Link to="/broadcasts">
+              <BsBroadcastPin className="icon" />
+              <div hidden={sidebarHide}> Broadcasts</div>
+            </Link>
+          </li>
+          <li className={splitLocation[1] == 'membership-plans' ? 'active' : ''}>
+            <Link to="/membership-plans">
+              <MdCardMembership className="icon" />
+              <div hidden={sidebarHide}> Membership Plans</div>
+            </Link>
+          </li>
+          <li className={splitLocation[1] == 'schools' ? 'active' : ''}>
+            <Link to="/schools">
+              <MdSchool className="icon" />
+              <div hidden={sidebarHide}> Schools</div>
+            </Link>
+          </li>
+          <li className={splitLocation[1] == 'packages-and-services' ? 'active' : ''}>
+            <Link to="/packages-and-services">
+              <BiSolidPackage className="icon" />
+              <div hidden={sidebarHide}> Packages & Services</div>
+            </Link>
+          </li>
+          <li className={splitLocation[1] == 'resources' ? 'active' : ''}>
+            <Link to="/resources" >
+              <ImStack className="icon" />
+              <div hidden={sidebarHide}> Resources</div>
+            </Link>
+          </li>
+
+          <li className={splitLocation[1] == 'invoices' ? 'active' : ''}>
+            <Link to="/invoices">
+              <FaFileInvoice className="icon" />
+              <div hidden={sidebarHide}> Invoices</div></Link>
+          </li>
+          {/* <li className={splitLocation[1] == 'messages' ? 'active' : ''}>
+            <Link to="/messages">
+              <SiGooglechat className="icon" />
+              <div hidden={sidebarHide}> Messages</div>
+            </Link>
+          </li> */}
+        </>}
+        {/* school use menu */}
+        {userInfoData?.userType == 'school' && <>
+          <li className={!splitLocation[1] ? 'active' :
+            splitLocation[1] == 'dashboard' ? 'active' : ''}>
+            <Link to='/dashboard'>
+              <BiSolidDashboard className="icon" />
+              <div hidden={sidebarHide}> Dashboard</div>
+            </Link>
+          </li>
+          {/* <li className={splitLocation[1] == 'broadcasts' ? 'active' : ''}>
+            <Link to="/broadcasts">
+              <BsBroadcastPin className="icon" />
+              <div hidden={sidebarHide}> Broadcasts</div>
+            </Link>
+          </li>
+          <li className={splitLocation[1] == 'membership-plans' ? 'active' : ''}>
+            <Link to="/membership-plans">
+              <MdCardMembership className="icon" />
+              <div hidden={sidebarHide}> Membership Plans</div>
+            </Link>
+          </li>*/}
+          <li className={splitLocation[1] == 'service-providers' ? 'active' : ''}>
+            <Link to="/service-providers">
+              <MdOutlineHomeRepairService className="icon" />
+              <div hidden={sidebarHide}> Service Providers</div>
+            </Link>
+          </li>
+          <li className={splitLocation[1] == 'packages-and-services' ? 'active' : ''}>
+            <Link to="/packages-and-services">
+              <BiSolidPackage className="icon" />
+              <div hidden={sidebarHide}> Packages & Services</div>
+            </Link>
+          </li>
+          <li className={splitLocation[1] == 'resources' ? 'active' : ''}>
+            <Link to="/resources" >
+              <ImStack className="icon" />
+              <div hidden={sidebarHide}> Resources</div>
+            </Link>
+          </li>
+          <li className={splitLocation[1] == 'invoices' ? 'active' : ''}>
+            <Link to="/invoices">
+              <FaFileInvoice className="icon" />
+              <div hidden={sidebarHide}> Invoices</div></Link>
+          </li>
+          {/* <li className={splitLocation[1] == 'messages' ? 'active' : ''}>
+            <Link to="/messages">
+              <SiGooglechat className="icon" />
+              <div hidden={sidebarHide}> Messages</div>
+            </Link>
+          </li> */}
+        </>}
       </ul>
       <ul className="list-unstyled CTAs">
         <li>

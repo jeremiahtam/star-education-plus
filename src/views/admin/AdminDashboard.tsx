@@ -37,7 +37,4 @@ const AdminDashboard = () => {
   )
 }
 
-AdminDashboard.propTypes = {
-}
-
 export default AdminDashboard

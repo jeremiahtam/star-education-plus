@@ -14,7 +14,7 @@ import { HiEye, HiTrash } from 'react-icons/hi';
 import InvoiceModal from '../../components/InvoiceModal';
 
 
-function AdminInvoices() {
+function SchoolInvoices() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -54,11 +54,12 @@ function AdminInvoices() {
 
   const getInvoicesHandler = async () => {
     try {
-      const res = await axios.get(`${baseUrl}/api/all-invoices`, {
+      const res = await axios.get(`${baseUrl}/api/school-invoices`, {
         params: {
           search,
           itemsPerPage: itemsPerPage,
-          page: page
+          page: page,
+          schoolId: userInfoData.userId
         },
         headers: {
           Accept: "application/json",
@@ -144,11 +145,11 @@ function AdminInvoices() {
                 <tr>
                   <th>No.</th>
                   <th>Invoice Number</th>
-                  <th>School Name</th>
-                  <th>Address</th>
+                  {/* <th>School Name</th> */}
+                  {/* <th>Address</th> */}
                   <th>Status</th>
                   <th>Deadline</th>
-                  <th></th>
+                  {/* <th></th> */}
                 </tr>
               </thead>
               <tbody>
@@ -157,8 +158,8 @@ function AdminInvoices() {
                     <tr key={item.id}>
                       <td>{item.sn}</td>
                       <td>{item.invoiceNumber}</td>
-                      <td>{item.schoolName}</td>
-                      <td><div>{item.billingAddress}</div></td>
+                      {/* <td>{item.schoolName}</td> */}
+                      {/* <td><div>{item.billingAddress}</div></td> */}
                       <td>
                         <Badge
                           bg={item.status == 'paid' ?
@@ -173,11 +174,11 @@ function AdminInvoices() {
                           modalDataHandler(item, 'view-invoice')}
                         />
                       </td>
-                      <td>
+                      {/* <td>
                         <IoMdCreate onClick={() =>
                           modalDataHandler(item.id, 'edit-invoice')}
                         />
-                      </td>
+                      </td> */}
                     </tr>
                   )
                 })}
@@ -199,4 +200,4 @@ function AdminInvoices() {
   )
 }
 
-export default AdminInvoices
+export default SchoolInvoices

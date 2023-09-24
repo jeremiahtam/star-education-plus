@@ -4,8 +4,10 @@ import BodyWrapper from '../../components/BodyWrapper'
 import { ImStack } from 'react-icons/im'
 import AdminMetricBox from '../../components/AdminMetricBox';
 import axios from 'axios';
+import { store } from '../../store/root-reducer';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
+import { deleteUserData } from '../../store/actions/user-info';
 
 const AdminMetrics = () => {
 
@@ -46,16 +48,24 @@ const AdminMetrics = () => {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated") {
+            store.dispatch(deleteUserData());
+          }
           return setInvoiceStatistics({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
+          const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated") {
+            store.dispatch(deleteUserData());
+          }
           return setInvoiceStatistics({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         }
+
     }
   }
 

@@ -31,9 +31,11 @@ import SchoolDashboard from './views/school/SchoolDashboard';
 import SchoolMetrics from './views/school/SchoolMetrics';
 import AdminPackagesAndServicesAttendance from './views/admin/AdminPackagesAndServicesAttendance';
 import AdminResourcesAttendance from './views/admin/AdminResourcesAttendance';
+import SchoolInvoices from './views/school/SchoolInvoices';
+import SchoolPackagesAndServices from './views/school/SchoolPackagesAndServices';
+import SchoolResources from './views/school/SchoolResources';
 
 function App() {
-
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   useEffect(() => {
     store.dispatch(loadUserData())
@@ -74,9 +76,9 @@ function App() {
 
       {/* For schools to login but can be accessed by anyone when*/}
       <Route path='/' element={<SchoolLogin />} />
-      <Route path='/signup' element={<SchoolSignup />} />
+      {/* <Route path='/signup' element={<SchoolSignup />} /> */}
       <Route path='/recover-password' element={<SchoolRecoverPassword />} />
-      <Route path='/recovery-code' element={<SchoolEnterPasswordRecoveryCode />} />
+      <Route path='/enter-recovery-code' element={<SchoolEnterPasswordRecoveryCode />} />
       <Route path='/change-password' element={<SchoolChangePassword />} />
 
       {/* For schools only. Can be accessed by after school logs in*/}
@@ -84,6 +86,10 @@ function App() {
         <Route path='/' element={<SchoolDashboard />}>
           <Route path='/' element={<SchoolMetrics />} />
           <Route path='/dashboard' element={<SchoolMetrics />} />
+          <Route path='/packages-and-services' element={<SchoolPackagesAndServices />} />
+          <Route path='/invoices' element={<SchoolInvoices />} />
+          <Route path='/resources' element={<SchoolResources />} />
+          {/* <Route path='/resources' element={<SchoolResources />} /> */}
         </Route>}
 
       <Route path="*" element={<ErrorPage />} />

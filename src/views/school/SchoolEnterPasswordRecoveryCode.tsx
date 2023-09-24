@@ -1,21 +1,77 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-// import { useSelector } from 'react-redux';
-import { Link, useNavigate } from "react-router-dom";
-// import { insertUserData } from '../../store/actions/user-info';
-// import axios from 'axios'
-// import { store } from '../../store/root-reducer';
-// import { stateLoggedInUserType } from '../../../types/type-definitions';
-// import { loadUserData } from '../../store/actions/user-info';
+import { useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { deleteUserData, insertUserData } from '../../store/actions/user-info';
+import axios from 'axios'
+import { store } from '../../store/root-reducer';
+import { stateLoggedInUserType } from '../../../types/type-definitions';
+import { loadUserData } from '../../store/actions/user-info';
 import { Col, Spinner, Image, Form, Container, Row } from 'react-bootstrap';
 import SEPLogo from '../../images/SEP-Logo-White-Final.png'
 // import SEPLogo129 from '../../images/logo192.png'
 import OtpInput from 'react-otp-input';
 
 function SchoolEnterPasswordRecoveryCode() {
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+  const navigate = useNavigate();
 
-  const [otp, setOtp] = useState('');
+  const location = useLocation();
+  const email = location.state?.email;
+
+  const recoverCodeHandler = async (
+    values: any,
+    setSubmitting: any,
+    setErrors: any
+  ) => {
+    values = {
+      ...values, ...{ email }
+    }
+    try {
+      const res = await axios.post(`${baseUrl}/api/confirm-password-reset-token`,
+        values,
+        {
+          headers: {
+            "Accept": "application/json"
+          },
+          timeout: 30000,
+        }
+      );
+      const resData = res.data;
+      console.log(resData);
+      if (resData.success == false) {
+        if (resData.errors !== undefined) {
+          setErrors(resData.errors);
+        } else {
+          //output the error message
+        }
+      } else {
+        navigate('/change-password', {
+          state: {
+            token: values.token,
+            email
+          }
+        })
+      }
+    } catch (e: any) {
+      console.log(e);
+      if (e.code == "ECONNABORTED") {
+        setSubmitting(false);
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+        setErrors(errorData.errors);
+        if (errorData.message == "Unauthenticated") {
+          store.dispatch(deleteUserData());
+        }
+      }
+    }
+    setSubmitting(false);
+  };
+
+
+  const [token, setToken] = useState('');
 
   return (
     <Container fluid className='school-login'>
@@ -30,19 +86,19 @@ function SchoolEnterPasswordRecoveryCode() {
               <div className="form-sub-heading">Please enter the code sent to your email address </div>
               <Formik
                 initialValues={{
-                  otp: '',
+                  token: '',
                 }}
                 validationSchema={Yup.object({
-                  otp: Yup.string().required("Reset code is required")
+                  token: Yup.string().required("Reset code is required")
                     .matches(/^[0-9]+$/, "Must be only digits")
                     .min(5, "Must be exactly 5 digits")
                     .max(5, "Must be exactly 5 digits"),
                 })}
 
                 onSubmit={(values, { setSubmitting, setErrors }) => {
-                  // console.log(values)
-                  // setSubmitting(false)
-                  // recoverPasswordHandler(values, setSubmitting, setErrors)
+                  console.log(values)
+                  setSubmitting(false)
+                  recoverCodeHandler(values, setSubmitting, setErrors)
                 }}
               >
                 {({
@@ -53,10 +109,10 @@ function SchoolEnterPasswordRecoveryCode() {
                     <div className="form-group">
                       <label htmlFor="email" className='form-labels'>Enter Code</label>
                       <OtpInput
-                        value={otp}
+                        value={token}
                         onChange={(val) => {
-                          setOtp(val)
-                          setFieldValue('otp', val)
+                          setToken(val)
+                          setFieldValue('token', val)
                         }}
                         numInputs={5}
                         renderSeparator={<span>-</span>}
@@ -73,7 +129,7 @@ function SchoolEnterPasswordRecoveryCode() {
                       />
 
                       <div className="form-error">
-                        <ErrorMessage name="otp" />
+                        <ErrorMessage name="token" />
                       </div>
                     </div>
                     <Form.Group>
