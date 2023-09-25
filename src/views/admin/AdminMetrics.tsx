@@ -48,7 +48,7 @@ const AdminMetrics = () => {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
-          if (errorData.message == "Unauthenticated") {
+          if (errorData.message == "Unauthenticated.") {
             store.dispatch(deleteUserData());
           }
           return setInvoiceStatistics({
@@ -57,7 +57,7 @@ const AdminMetrics = () => {
           })
         } else {
           const errorData = e.response.data;
-          if (errorData.message == "Unauthenticated") {
+          if (errorData.message == "Unauthenticated.") {
             store.dispatch(deleteUserData());
           }
           return setInvoiceStatistics({

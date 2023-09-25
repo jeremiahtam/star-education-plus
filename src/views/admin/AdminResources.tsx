@@ -13,6 +13,8 @@ import { HiTrash } from 'react-icons/hi';
 import { useNavigate, useParams } from "react-router-dom";
 import { ImCancelCircle } from 'react-icons/im';
 import { BsEye } from 'react-icons/bs';
+import { deleteUserData } from '../../store/actions/user-info';
+import { store } from '../../store/root-reducer';
 
 function AdminResources() {
   const navigate = useNavigate()
@@ -90,23 +92,29 @@ function AdminResources() {
     } catch (e: any) {
       console.log(e);
       if (e.code == "ECONNABORTED") {
+        const errorData = e.response.data;
+        if (errorData.message == "Unauthenticated.") {
+          store.dispatch(deleteUserData());
+        }
         return setSelectedResources({
           "success": false,
           "message": "Request timed out.",
         })
-      } else
-        if (e?.response?.data !== undefined) {
-          const errorData = e.response.data;
-          return setSelectedResources({
-            "success": false,
-            "message": "Error. Something went wrong.",
-          })
-        } else {
-          return setSelectedResources({
-            "success": false,
-            "message": "Error. Something went wrong.",
-          })
+      } else if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+        if (errorData.message == "Unauthenticated.") {
+          store.dispatch(deleteUserData());
         }
+        return setSelectedResources({
+          "success": false,
+          "message": "Error. Something went wrong.",
+        })
+      } else {
+        return setSelectedResources({
+          "success": false,
+          "message": "Error. Something went wrong.",
+        })
+      }
     }
   };
   return (

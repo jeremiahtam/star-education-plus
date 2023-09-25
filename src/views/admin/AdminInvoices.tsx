@@ -12,6 +12,8 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiEye, HiTrash } from 'react-icons/hi';
 import InvoiceModal from '../../components/InvoiceModal';
+import { deleteUserData } from '../../store/actions/user-info';
+import { store } from '../../store/root-reducer';
 
 
 function AdminInvoices() {
@@ -84,11 +86,18 @@ function AdminInvoices() {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setInvoices({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
+          const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setInvoices({
             "success": false,
             "message": "Error. Something went wrong.",

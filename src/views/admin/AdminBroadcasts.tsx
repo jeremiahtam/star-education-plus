@@ -10,6 +10,8 @@ import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import CustomModal from '../../components/BroadcastModal';
 import { HiTrash } from 'react-icons/hi';
+import { deleteUserData } from '../../store/actions/user-info';
+import { store } from '../../store/root-reducer';
 
 function AdminBroadcasts(props: any) {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -90,11 +92,18 @@ function AdminBroadcasts(props: any) {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setBroadcasts({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
+          const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setBroadcasts({
             "success": false,
             "message": "Error. Something went wrong.",

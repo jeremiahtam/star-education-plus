@@ -15,6 +15,8 @@ import { BsCloudUpload, BsEye, BsListCheck, BsUpload } from 'react-icons/bs';
 import { ImCancelCircle } from 'react-icons/im';
 import { FaFileUpload } from 'react-icons/fa';
 import AdminViewSchoolPackagesAndServicesModal from '../../components/AdminViewSchoolPackagesAndServicesModal';
+import { store } from '../../store/root-reducer';
+import { deleteUserData } from '../../store/actions/user-info';
 
 export default function AdminViewSchoolPackagesAndServices() {
 
@@ -95,6 +97,9 @@ export default function AdminViewSchoolPackagesAndServices() {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
+        if (errorData.message == "Unauthenticated.") {
+          store.dispatch(deleteUserData());
+        }
         setSelectedSchool(null)
       }
     }
@@ -133,11 +138,18 @@ export default function AdminViewSchoolPackagesAndServices() {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setSchoolPackagesAndServices({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
+          const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setSchoolPackagesAndServices({
             "success": false,
             "message": "Error. Something went wrong.",

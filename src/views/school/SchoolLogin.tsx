@@ -53,7 +53,7 @@ const SchoolLogin = (props: any) => {
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
         setErrors(errorData.errors);
-        if (errorData.message == "Unauthenticated") {
+        if (errorData.message == "Unauthenticated.") {
           store.dispatch(deleteUserData());
         }
       }

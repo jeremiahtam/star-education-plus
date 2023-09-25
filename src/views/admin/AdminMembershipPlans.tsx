@@ -11,6 +11,8 @@ import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
+import { deleteUserData } from '../../store/actions/user-info';
+import { store } from '../../store/root-reducer';
 
 function AdminMembershipPlans(props: any) {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -82,11 +84,18 @@ function AdminMembershipPlans(props: any) {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setMembershipPlans({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
+          const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setMembershipPlans({
             "success": false,
             "message": "Error. Something went wrong.",

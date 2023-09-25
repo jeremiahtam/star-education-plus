@@ -11,6 +11,8 @@ import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
 import { BsCloudUpload, BsEye } from 'react-icons/bs'; import BodyWrapper from '../../components/BodyWrapper'
 import { IoIosAdd, IoMdCreate, IoMdDownload, IoMdSearch } from 'react-icons/io';
 import fileDownload from 'js-file-download'
+import { deleteUserData } from '../../store/actions/user-info';
+import { store } from '../../store/root-reducer';
 
 function AdminPackagesAndServicesDocumentAttendance() {
   const location = useLocation()
@@ -88,6 +90,9 @@ function AdminPackagesAndServicesDocumentAttendance() {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
+        if (errorData.message == "Unauthenticated.") {
+          store.dispatch(deleteUserData());
+        }
         setSelectedSchool(null)
       }
     }
@@ -120,6 +125,9 @@ function AdminPackagesAndServicesDocumentAttendance() {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
+        if (errorData.message == "Unauthenticated.") {
+          store.dispatch(deleteUserData());
+        }
         setSelectedSchool(null)
       }
     }
@@ -158,11 +166,18 @@ function AdminPackagesAndServicesDocumentAttendance() {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setSchoolOrderedDocs({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
+          const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setSchoolOrderedDocs({
             "success": false,
             "message": "Error. Something went wrong.",

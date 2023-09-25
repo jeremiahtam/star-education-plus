@@ -11,6 +11,8 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 import { useNavigate, useParams } from "react-router-dom";
+import { deleteUserData } from '../../store/actions/user-info';
+import { store } from '../../store/root-reducer';
 
 function AdminServiceProviders() {
   const { schoolId } = useParams()
@@ -88,6 +90,9 @@ function AdminServiceProviders() {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
+        if (errorData.message == "Unauthenticated.") {
+          store.dispatch(deleteUserData());
+        }
         setSelectedSchool(null)
       }
     }

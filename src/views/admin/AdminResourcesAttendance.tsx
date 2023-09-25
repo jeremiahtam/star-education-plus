@@ -11,6 +11,8 @@ import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
 import { BsCloudUpload, BsEye } from 'react-icons/bs'; import BodyWrapper from '../../components/BodyWrapper'
 import { IoIosAdd, IoMdCreate, IoMdDownload, IoMdSearch } from 'react-icons/io';
 import fileDownload from 'js-file-download'
+import { store } from '../../store/root-reducer';
+import { deleteUserData } from '../../store/actions/user-info';
 
 function AdminResourcesAttendance() {
   const location = useLocation()
@@ -75,6 +77,9 @@ function AdminResourcesAttendance() {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
+        if (errorData.message == "Unauthenticated.") {
+          store.dispatch(deleteUserData());
+        }
         // setResourcesDocs(null)
       }
     }
@@ -111,19 +116,25 @@ function AdminResourcesAttendance() {
           "success": false,
           "message": "Request timed out.",
         })
-      } else
-        if (e?.response?.data !== undefined) {
-          const errorData = e.response.data;
-          return setResourcesDocs({
-            "success": false,
-            "message": "Error. Something went wrong.",
-          })
-        } else {
-          return setResourcesDocs({
-            "success": false,
-            "message": "Error. Something went wrong.",
-          })
+      } else if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+        if (errorData.message == "Unauthenticated.") {
+          store.dispatch(deleteUserData());
         }
+        return setResourcesDocs({
+          "success": false,
+          "message": "Error. Something went wrong.",
+        })
+      } else {
+        const errorData = e.response.data;
+        if (errorData.message == "Unauthenticated.") {
+          store.dispatch(deleteUserData());
+        }
+        return setResourcesDocs({
+          "success": false,
+          "message": "Error. Something went wrong.",
+        })
+      }
     }
   }
   return (

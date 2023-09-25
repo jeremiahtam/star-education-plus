@@ -11,6 +11,8 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 import { useNavigate, useParams } from "react-router-dom";
+import { deleteUserData } from '../../store/actions/user-info';
+import { store } from '../../store/root-reducer';
 
 function AdminPackagesAndServices() {
   const navigate = useNavigate()
@@ -95,12 +97,18 @@ function AdminPackagesAndServices() {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setSelectedPackagesAndServices({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
-          return setSelectedPackagesAndServices({
+          const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          } return setSelectedPackagesAndServices({
             "success": false,
             "message": "Error. Something went wrong.",
           })

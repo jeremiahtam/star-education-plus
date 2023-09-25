@@ -10,6 +10,8 @@ import CustomPagination from '../../components/CustomPagination';
 import SchoolModal from '../../components/SchoolModal';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
+import { deleteUserData } from '../../store/actions/user-info';
+import { store } from '../../store/root-reducer';
 
 function AdminSchools(props: any) {
   const navigate = useNavigate();
@@ -92,11 +94,18 @@ function AdminSchools(props: any) {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setSchools({
             "success": false,
             "message": "Error. Something went wrong.",
           })
         } else {
+          const errorData = e.response.data;
+          if (errorData.message == "Unauthenticated.") {
+            store.dispatch(deleteUserData());
+          }
           return setSchools({
             "success": false,
             "message": "Error. Something went wrong.",

@@ -9,6 +9,8 @@ import BodyWrapper from '../../components/BodyWrapper';
 import EditSchoolProfile from '../../components/EditSchoolProfile';
 import AdminChangeSchoolPassword from '../../components/AdminChangeSchoolPassword';
 import EditSchoolProfilePic from '../../components/EditSchoolProfilePic';
+import { store } from '../../store/root-reducer';
+import { deleteUserData } from '../../store/actions/user-info';
 
 function AdminViewSchoolProfile() {
   const { schoolId } = useParams()
@@ -46,6 +48,9 @@ function AdminViewSchoolProfile() {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
+        if (errorData.message == "Unauthenticated.") {
+          store.dispatch(deleteUserData());
+        }
         setSelectedSchool(null)
       }
     }
