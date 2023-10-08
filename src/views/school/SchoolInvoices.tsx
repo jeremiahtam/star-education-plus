@@ -146,7 +146,7 @@ function SchoolInvoices() {
                   <th>No.</th>
                   <th>Invoice Number</th>
                   {/* <th>School Name</th> */}
-                  {/* <th>Address</th> */}
+                  <th>Address</th>
                   <th>Status</th>
                   <th>Deadline</th>
                   {/* <th></th> */}
@@ -159,7 +159,7 @@ function SchoolInvoices() {
                       <td>{item.sn}</td>
                       <td>{item.invoiceNumber}</td>
                       {/* <td>{item.schoolName}</td> */}
-                      {/* <td><div>{item.billingAddress}</div></td> */}
+                      <td><div>{item.billingAddress}</div></td>
                       <td>
                         <Badge
                           bg={item.status == 'paid' ?

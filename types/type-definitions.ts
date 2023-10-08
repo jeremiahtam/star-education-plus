@@ -12,8 +12,11 @@ export interface stateLoggedInUserType {
     loggedInUserData: {
       token: string,
       phoneNumber: string,
+      email: string,
       userId: number,
-      userType: string
+      userType: string,
+      userFullname: string,
+      userProfilePic: string
     };
   };
 }

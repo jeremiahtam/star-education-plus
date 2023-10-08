@@ -121,7 +121,7 @@
 }
 
 /* ---------------------------------------------------
-  NAVIGATION
+  TOP NAVIGATION
 ----------------------------------------------------- */
 p {
   font-size: 0.9em;
@@ -163,6 +163,58 @@ a:focus {
   height: 1px;
   border-bottom: 1px dashed #ddd;
   margin: 40px 0;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.right-top-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.right-top-nav .cart-box {
+  margin-right: 30px;
+  position: relative;
+
+  .cart-badge {
+    left: 15px;
+    position: absolute;
+    opacity: .9;
+  }
+
+  .cart-badge:hover {
+    opacity: 1;
+  }
+}
+
+#top-nav-dropdown {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#top-nav-dropdown[aria-expanded="true"] {
+  background-color: transparent !important;
+  font-weight: 600;
+}
+
+#top-nav-dropdown .image-box {
+  border: solid 1px #a8a8a8;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 3px;
+
+  img {
+    width: auto;
+    height: auto;
+  }
 }
 
 /* ---------------------------------------------------
@@ -316,7 +368,7 @@ ul ul a {
   border-bottom: 1px solid rgba(235, 235, 235, 0.514);
 } */
 
-#content .title .text {
+/* #content .title .text {
   font-weight: 700;
   border-bottom: 2px solid #00146d;
   padding: 10px 15px;
@@ -348,7 +400,7 @@ ul ul a {
 .personal-info-form .label {
   font-weight: 700;
   font-size: 0.9em;
-}
+} */
 
 /* ---------------------------------------------------
   MEDIAQUERIES
@@ -987,4 +1039,250 @@ ul ul a {
 
 .school-login-row .school-login-form-box .main-login-box {
   padding: 20px;
+}
+
+/* ----------------------------------------------------
+  CARDS FOR PACKAGES AND SERVICES/MEMBERSHIP PLANS/RESOURCES
+  ----------------------------------------------------*/
+.price-card {
+  border-radius: 8px !important;
+  padding: 2%;
+  border-color: #86868680;
+  border-bottom: solid 8px #0F1925 !important;
+}
+
+.price-card:hover {
+  box-shadow: 0px 3px 15px #a7a7a7;
+}
+
+.price-card .price-card-sub-title {
+  font-weight: 600;
+  color: #525252;
+  font-size: small;
+}
+
+.price-card .price-card-title {
+  font-weight: 900;
+  font-size: xx-large;
+  text-align: left !important;
+  color: #0F1925 !important;
+  /* color: #ca302b !important; */
+}
+
+.price-card .price-card-border {
+  border-top: solid 1px #86868680;
+}
+
+.price-card .price-card-text {
+  color: #0F1925;
+}
+
+.price-card .price-card-text>a {
+  /* text-decoration: none; */
+  color: #301aaf;
+  cursor: pointer;
+}
+
+.price-card .btn {
+  align-self: center;
+}
+
+.card-items-row :nth-child(2n) {
+  .price-card {
+    border-bottom: 8px solid #1b8123 !important;
+  }
+
+  .price-card .btn {
+    background-color: #1b8123 !important;
+    border: solid 1px #1b8123 !important;
+  }
+
+  .price-card .btn:hover {
+    color: #1b8123 !important;
+    background-color: #ffffff !important;
+    border: solid 1px #1b8123 !important;
+  }
+}
+
+.card-items-row :nth-child(3n) {
+  .price-card {
+    border-bottom: 8px solid #c930c9 !important;
+  }
+
+  .price-card .btn {
+    background-color: #c930c9 !important;
+    border: solid 1px #c930c9 !important;
+  }
+
+  .price-card .btn:hover {
+    color: #c930c9 !important;
+    background-color: #ffffff !important;
+    border: solid 1px #c930c9 !important;
+  }
+}
+
+/* ----------------------------------------------------
+  CARDS FOR SCHOOL BROADCASTS
+  ----------------------------------------------------*/
+.broadcast-card {
+  border-radius: 8px !important;
+  padding: 2%;
+  border-color: #86868680;
+  border-bottom: solid 8px #0F1925 !important;
+}
+
+.broadcast-card:hover {
+  box-shadow: 0px 3px 15px #a7a7a7;
+}
+
+.broadcast-card .broadcast-card-sub-title {
+  font-weight: 600;
+  color: #525252;
+  font-size: 1em;
+}
+
+.broadcast-card .broadcast-card-border {
+  border-top: solid 1px #86868680;
+}
+
+.broadcast-card .broadcast-card-text {
+  color: #0F1925;
+}
+
+.broadcast-card .broadcast-card-text>a {
+  /* text-decoration: none; */
+  color: #301aaf;
+  cursor: pointer;
+}
+
+.card-items-row :nth-child(2n) {
+  .broadcast-card {
+    border-bottom: 8px solid #1b8123 !important;
+  }
+}
+
+.card-items-row :nth-child(3n) {
+  .broadcast-card {
+    border-bottom: 8px solid #c930c9 !important;
+  }
+}
+
+/* ----------------------------------------------------
+  CARDS FOR SCHOOL DASHBOARD
+  ----------------------------------------------------*/
+.dashboard-broadcasts-card {
+  border-radius: 8px !important;
+  background-color: #ffffff !important;
+  overflow: hidden;
+}
+
+.dashboard-broadcasts-card .card-body {
+  padding: 0px;
+}
+
+.dashboard-broadcasts-card .card-header {
+  font-weight: 800;
+  background-color: #fff;
+}
+
+.dashboard-broadcasts-card .card-footer {
+  background-color: #fff;
+  border: none;
+  font-size: smaller;
+}
+
+.dashboard-broadcasts-card .card-title {
+  font-size: small;
+  font-weight: 500;
+}
+
+.dashboard-broadcasts-card .broadcast-item {
+  padding: 10px;
+  border-bottom: 1px solid #c9c9c980;
+}
+
+.dashboard-broadcasts-card .broadcast-item:hover {
+  background-color: #f1f1f1;
+}
+
+.dashboard-broadcasts-card .broadcast-item.unread {
+  background-color: #dfdfdf7a;
+}
+
+.dashboard-broadcasts-card .broadcast-item.unread .card-title {
+  color: #373aff;
+  font-weight: 900;
+}
+
+/* ----------------------------------------------------
+  CARDS FOR CHECKOUT
+  ----------------------------------------------------*/
+.checkout-card {
+  border-radius: 8px !important;
+  padding: 2%;
+  border-color: #86868680;
+  border-bottom: solid 8px #0F1925 !important;
+}
+
+.checkout-card:hover {
+  box-shadow: 0px 3px 15px #a7a7a7;
+}
+
+.checkout-card .checkout-card-sub-title {
+  font-weight: 600;
+  color: #525252;
+  font-size: 1em;
+}
+
+.checkout-card .checkout-card-border {
+  border-top: solid 1px #86868680;
+}
+
+.checkout-card .checkout-card-text {
+  color: #0F1925;
+}
+
+.checkout-card .checkout-card-text>a {
+  color: #301aaf;
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------
+  CARDS FOR CHECKOUT ITEMS
+  ----------------------------------------------------*/
+
+.checkout-items-card {
+  border-radius: 8px !important;
+  padding: 2%;
+  border-color: #86868680;
+  /* border-bottom: solid 8px #0F1925 !important; */
+}
+
+.checkout-items-card:hover {
+  box-shadow: 0px 3px 15px #a7a7a7;
+}
+
+.checkout-items-card .checkout-items-card-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.checkout-items-card .checkout-items-card-sub-title {
+  font-weight: 600;
+  color: #525252;
+  font-size: 1em;
+}
+
+.checkout-items-card .checkout-items-card-border {
+  border-top: solid 1px #86868680;
+}
+
+.checkout-items-card .checkout-items-card-text {
+  color: #0F1925;
+}
+
+.checkout-items-card .checkout-items-card-text>a {
+  color: #301aaf;
+  cursor: pointer;
 }

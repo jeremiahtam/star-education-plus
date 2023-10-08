@@ -130,7 +130,7 @@ const SideBarNav = (props: any) => {
               <div hidden={sidebarHide}> Dashboard</div>
             </Link>
           </li>
-          {/* <li className={splitLocation[1] == 'broadcasts' ? 'active' : ''}>
+          <li className={splitLocation[1] == 'broadcasts' ? 'active' : ''}>
             <Link to="/broadcasts">
               <BsBroadcastPin className="icon" />
               <div hidden={sidebarHide}> Broadcasts</div>
@@ -141,7 +141,7 @@ const SideBarNav = (props: any) => {
               <MdCardMembership className="icon" />
               <div hidden={sidebarHide}> Membership Plans</div>
             </Link>
-          </li>*/}
+          </li>
           <li className={splitLocation[1] == 'service-providers' ? 'active' : ''}>
             <Link to="/service-providers">
               <MdOutlineHomeRepairService className="icon" />
@@ -163,7 +163,7 @@ const SideBarNav = (props: any) => {
           <li className={splitLocation[1] == 'invoices' ? 'active' : ''}>
             <Link to="/invoices">
               <FaFileInvoice className="icon" />
-              <div hidden={sidebarHide}> Invoices</div></Link>
+              <div hidden={sidebarHide}> My Invoices</div></Link>
           </li>
           {/* <li className={splitLocation[1] == 'messages' ? 'active' : ''}>
             <Link to="/messages">

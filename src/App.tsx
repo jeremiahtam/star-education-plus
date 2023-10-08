@@ -34,6 +34,13 @@ import AdminResourcesAttendance from './views/admin/AdminResourcesAttendance';
 import SchoolInvoices from './views/school/SchoolInvoices';
 import SchoolPackagesAndServices from './views/school/SchoolPackagesAndServices';
 import SchoolResources from './views/school/SchoolResources';
+import SchoolServiceProviders from './views/school/SchoolServiceProviders';
+import SchoolProfile from './views/school/SchoolProfile';
+import SchoolMembershipPlans from './views/school/SchoolMembershipPlans';
+import SchoolBroadcastss from './views/school/SchoolBroadcasts';
+import SchoolResourcesList from './views/school/SchoolResourcesList';
+import SchoolMembershipPlansHistory from './views/school/SchoolMembershipPlansHistory';
+import SchoolCheckout from './views/school/SchoolCheckout';
 
 function App() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -86,10 +93,19 @@ function App() {
         <Route path='/' element={<SchoolDashboard />}>
           <Route path='/' element={<SchoolMetrics />} />
           <Route path='/dashboard' element={<SchoolMetrics />} />
+          <Route path='/broadcasts' element={<SchoolBroadcastss />} />
+          <Route path='/membership-plans' element={<SchoolMembershipPlans />} />
+          <Route path='/membership-plans-history' element={<SchoolMembershipPlansHistory />} />
           <Route path='/packages-and-services' element={<SchoolPackagesAndServices />} />
+
+          <Route path='/resources' >
+            <Route path='/resources' element={<SchoolResources />} />
+            <Route path='/resources/:resourcesId' element={<SchoolResourcesList />} />
+          </Route>
+          <Route path='/service-providers' element={<SchoolServiceProviders />} />
+          <Route path='/checkout' element={<SchoolCheckout />} />
           <Route path='/invoices' element={<SchoolInvoices />} />
-          <Route path='/resources' element={<SchoolResources />} />
-          {/* <Route path='/resources' element={<SchoolResources />} /> */}
+          <Route path='/profile' element={<SchoolProfile />} />
         </Route>}
 
       <Route path="*" element={<ErrorPage />} />

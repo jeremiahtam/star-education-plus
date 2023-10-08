@@ -20,19 +20,19 @@ function SchoolServiceProviders() {
   // const [selectedSchool, setSelectedSchool] = useState<any>(null)
 
   //Modal COntrol
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
-  const [modalType, setModalType] = useState<string | null>(null);
-  const [modalDataId, setModalDataId] = useState<number | null>(null) /* modal dataId */
+  // const [modalType, setModalType] = useState<string | null>(null);
+  // const [modalDataId, setModalDataId] = useState<number | null>(null) /* modal dataId */
 
-  const modalDataHandler = useCallback((_dataId: number, _modalType: string) => {
-    handleShow()
-    setModalDataId(_dataId)
-    setModalType(_modalType)
-    console.log(`${_dataId} ${_modalType}`)
-  }, [setModalType, setModalDataId])
+  // const modalDataHandler = useCallback((_dataId: number, _modalType: string) => {
+  //   handleShow()
+  //   setModalDataId(_dataId)
+  //   setModalType(_modalType)
+  //   console.log(`${_dataId} ${_modalType}`)
+  // }, [setModalType, setModalDataId])
 
   const [serviceProviders, setServiceProviders] = useState<any>()
 
@@ -179,8 +179,8 @@ function SchoolServiceProviders() {
 
           {serviceProviders.data.length !== 0 &&
             <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
-          {modalType && <AdminServiceProvidersModal show={show} handleClose={handleClose} handleShow={handleShow}
-            modalType={modalType} modalDataId={modalDataId} schoolId={schoolId} loadServiceProviders={getServiceProvidersHandler} />}
+          {/* {modalType && <AdminServiceProvidersModal show={show} handleClose={handleClose} handleShow={handleShow}
+            modalType={modalType} modalDataId={modalDataId} schoolId={schoolId} loadServiceProviders={getServiceProvidersHandler} />} */}
         </>
       }
     </BodyWrapper>
