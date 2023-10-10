@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap';
 import AddBroadcastModal from './AddBroadcastModal';
 import EditBroadcastModal from './EditBroadcastModal';
 import DeleteBroadcastModal from './DeleteBroadcastModal';
+import ViewBroadcastModal from './ViewBroadcastModal';
 
 function BroadcastModal(props: any) {
   return (
@@ -15,7 +16,10 @@ function BroadcastModal(props: any) {
           props.modalType == 'delete-broadcast' ?
             <DeleteBroadcastModal modalDataId={props.modalDataId}
               handleClose={props.handleClose} loadBroadcast={props.loadBroadcast} /> :
-            ''
+            props.modalType == 'view-broadcast' ?
+              <ViewBroadcastModal modalDataContent={props.modalDataContent}
+                handleClose={props.handleClose} loadBroadcast={props.loadBroadcast} /> :
+              ''
       }
     </Modal>
   )

@@ -755,7 +755,7 @@ ul ul a {
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
-  background: #F4F4F4;
+  /* background: #F4F4F4; */
   padding: 5px 4px;
 }
 

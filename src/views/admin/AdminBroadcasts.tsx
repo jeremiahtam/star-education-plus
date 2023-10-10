@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
-import CustomModal from '../../components/BroadcastModal';
+import BroadcastModal from '../../components/BroadcastModal';
 import { HiTrash } from 'react-icons/hi';
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
@@ -197,7 +197,7 @@ function AdminBroadcasts(props: any) {
 
         {broadcasts.data.length !== 0 &&
           <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
-        {modalType && <CustomModal show={show} handleClose={handleClose} handleShow={handleShow}
+        {modalType && <BroadcastModal show={show} handleClose={handleClose} handleShow={handleShow}
           modalType={modalType} modalDataId={modalDataId} loadBroadcast={getBroadcastsHandler} />}
       </>}
     </BodyWrapper >
