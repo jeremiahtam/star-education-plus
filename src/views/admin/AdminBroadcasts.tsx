@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
-import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
+import { IoMdSearch, IoMdCreate } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { MdOutlineClear } from "react-icons/md";
 import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';

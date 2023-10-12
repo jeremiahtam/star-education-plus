@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Link } from "react-router-dom";
+import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
-import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { IoMdSearch, IoMdCreate, IoIosAdd } from "react-icons/io";
+import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
 import AdminPackagesAndServicesModal from '../../components/AdminPackagesAndServicesModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -10,7 +9,7 @@ import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 

@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
+import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import { Link } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
-import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { IoMdSearch, IoMdCreate, IoIosAdd } from "react-icons/io";
+import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
 import AdminResourcesModal from '../../components/AdminResourcesModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -10,14 +10,11 @@ import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
-import { useNavigate, useParams } from "react-router-dom";
-import { ImCancelCircle } from 'react-icons/im';
 import { BsEye } from 'react-icons/bs';
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 
 function AdminResources() {
-  const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 

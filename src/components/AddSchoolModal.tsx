@@ -1,13 +1,10 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom";
-import { Button, Modal, Form, Row, Col, InputGroup } from 'react-bootstrap';
+import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';
 import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
 
 function AddSchoolModal(props: any) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;

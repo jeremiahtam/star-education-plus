@@ -1,8 +1,4 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom";
-import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
-import { Button, Modal, Form, Alert } from 'react-bootstrap';
-import CustomModal from './BroadcastModal';
+import { Button, Modal, Form } from 'react-bootstrap';
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios'
@@ -81,7 +77,7 @@ function AddBroadcastModal(props: any) {
             <Modal.Header closeButton>
               <Modal.Title>Add Broadcast</Modal.Title>
             </Modal.Header>
-            <Modal.Body>             
+            <Modal.Body>
               <Form.Group className="mb-3"  >
                 <Form.Label className='form-labels'>Title</Form.Label>
                 <Field className="form-control custom-text-input" type="text" placeholder="Enter a title" name='title' id='title'

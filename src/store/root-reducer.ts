@@ -2,11 +2,13 @@ import ReduxThunk from "redux-thunk";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import userInfoReducer from "./reducer/user-info";
 import navReducer from "./reducer/nav";
+import shoppingCart from './reducer/shopping-cart'
 
 //setup redux
 const appReducer = combineReducers({
     userInfo: userInfoReducer,
-    navToggle: navReducer
+    navToggle: navReducer,
+    cart: shoppingCart,
 })
 
 export const rootReducer = (state: any, action: any) => {

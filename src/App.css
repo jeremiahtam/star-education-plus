@@ -1286,3 +1286,18 @@ ul ul a {
   color: #301aaf;
   cursor: pointer;
 }
+
+/**
+PDF VIEWER
+*/
+.pdf-view-box {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+@media print {
+  .pdf-container {
+    display: none;
+  }
+}

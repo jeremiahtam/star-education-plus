@@ -37,7 +37,7 @@ import SchoolResources from './views/school/SchoolResources';
 import SchoolServiceProviders from './views/school/SchoolServiceProviders';
 import SchoolProfile from './views/school/SchoolProfile';
 import SchoolMembershipPlans from './views/school/SchoolMembershipPlans';
-import SchoolBroadcastss from './views/school/SchoolBroadcasts';
+import SchoolBroadcasts from './views/school/SchoolBroadcasts';
 import SchoolResourcesList from './views/school/SchoolResourcesList';
 import SchoolMembershipPlansHistory from './views/school/SchoolMembershipPlansHistory';
 import SchoolCheckout from './views/school/SchoolCheckout';
@@ -93,7 +93,7 @@ function App() {
         <Route path='/' element={<SchoolDashboard />}>
           <Route path='/' element={<SchoolMetrics />} />
           <Route path='/dashboard' element={<SchoolMetrics />} />
-          <Route path='/broadcasts' element={<SchoolBroadcastss />} />
+          <Route path='/broadcasts' element={<SchoolBroadcasts />} />
           <Route path='/membership-plans' element={<SchoolMembershipPlans />} />
           <Route path='/membership-plans-history' element={<SchoolMembershipPlansHistory />} />
           <Route path='/packages-and-services' element={<SchoolPackagesAndServices />} />

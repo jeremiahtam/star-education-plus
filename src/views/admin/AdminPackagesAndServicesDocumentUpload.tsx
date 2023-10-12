@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import{ ChangeEvent, useEffect, useState, useCallback } from 'react'
+import { Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
 import AdminSchoolDocsModal from '../../components/AdminSchoolDocsModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'

@@ -1,16 +1,13 @@
-import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Link } from "react-router-dom";
+import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
-import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert, Badge } from 'react-bootstrap';
-import AddMembershipPlanModal from '../../components/AddMembershipPlanModal';
-import CustomModal from '../../components/MembershipPlanModal';
+import { IoMdSearch, IoMdCreate } from "react-icons/io";
+import { Button, Form, Row, Col, InputGroup, Alert, Badge } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
-import { HiEye, HiTrash } from 'react-icons/hi';
+import { HiEye } from 'react-icons/hi';
 import InvoiceModal from '../../components/InvoiceModal';
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';

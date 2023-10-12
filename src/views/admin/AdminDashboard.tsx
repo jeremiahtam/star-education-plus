@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { Navigate, Outlet, redirect, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import TopNav from "../../components/TopNav"
 import SideBarNav from "../../components/SideBarNav"
 import { useSelector } from 'react-redux'
 import { navToggleClassStateType, stateLoggedInUserType } from '../../../types/type-definitions'
 import { store } from '../../store/root-reducer'
-import { insertUserData, loadUserData } from '../../store/actions/user-info'
+import { loadUserData } from '../../store/actions/user-info'
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
