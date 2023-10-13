@@ -1,11 +1,11 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch } from "react-icons/io";
-import { Button, Form, Card, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Button, Form, Card, Row, Col, InputGroup, Alert, ToastContainer, Toast } from 'react-bootstrap';
 import AdminResourcesModal from '../../components/AdminResourcesModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
-import { stateLoggedInUserType } from '../../../types/type-definitions';
+import { stateCart, stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { FaArrowRight, FaOpencart } from 'react-icons/fa'
@@ -13,11 +13,15 @@ import { BiPackage } from 'react-icons/bi'
 import { useNavigate } from "react-router-dom";
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
+import { addResource } from '../../store/actions/shopping-cart';
 
 function SchoolResources() {
   const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+
+  //Resources available in cart
+  const cartResources = useSelector((state: stateCart) => state.cart.resources)
 
   //Modal COntrol
   const [show, setShow] = useState(false);
@@ -33,6 +37,9 @@ function SchoolResources() {
     setModalType(_modalType)
     console.log(`${_dataContent} ${_modalType}`)
   }, [setModalType, setModalDataContent])
+
+  //Toast information
+  const [showToast, setShowToast] = useState(false);
 
   // Pagination control
   const [page, setPage] = useState<number>(1)
@@ -163,11 +170,7 @@ function SchoolResources() {
               {selectedResources.data.map((item: any, index: any) => {
                 return (
                   <Col lg={3} md={4} className='mb-3' key={index}>
-                    <Card className='price-card'
-                      onClick={() => {
-                        navigate(`/resources/${item.id}`)
-                      }}
-                    >
+                    <Card className='price-card'>
                       <Card.Body>
                         <Card.Subtitle className="mb-2 price-card-sub-title">
                           <BiPackage /> {item.name}
@@ -189,9 +192,21 @@ function SchoolResources() {
                             <FaArrowRight /> View Purchase
                           </Button>
                           :
-                          <Button className='btn-block mb-3 form-control btn-custom' onClick={() => {
-
-                          }}>
+                          <Button className='btn-block mb-3 form-control btn-custom'
+                            onClick={() => {
+                              const isFound = cartResources.some((element: any) => {
+                                if (element.id === item.id) {
+                                  return true;
+                                }
+                                return false;
+                              });
+                              console.log(isFound)
+                              if (isFound == true) {
+                                setShowToast(true)
+                              } else {
+                                store.dispatch(addResource(item))
+                              }
+                            }}>
                             <FaOpencart /> Purchase
                           </Button>
                         }
@@ -212,6 +227,18 @@ function SchoolResources() {
           {modalType && <AdminResourcesModal show={show} handleClose={handleClose} handleShow={handleShow}
             modalType={modalType} modalDataContent={modalDataContent} />}
 
+          <ToastContainer
+            className="p-3"
+            position={'middle-center'}
+            style={{ zIndex: 1 }}
+          >
+            <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+              <Toast.Header closeButton={false}>
+                <strong className="me-auto">Oops!</strong>
+              </Toast.Header>
+              <Toast.Body>You already added that item.</Toast.Body>
+            </Toast>
+          </ToastContainer>
         </>}
     </BodyWrapper>
   )

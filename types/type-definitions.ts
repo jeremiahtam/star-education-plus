@@ -20,3 +20,12 @@ export interface stateLoggedInUserType {
     };
   };
 }
+
+// cart type definition
+export interface stateCart {
+  cart: {
+    resources: Array<object>,
+    membershipPlan: Array<object>,
+    packagesAndServices: Array<object>,
+  };
+}

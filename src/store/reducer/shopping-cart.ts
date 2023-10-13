@@ -21,16 +21,23 @@ const shoppingCart = (state = initialState, action: any) => {
         ...state,
         membershipPlan: action.loggedInUserInfo
       };
+
     case ADD_RESOURCES:
       return {
         ...state,
-        resources: action.loggedInUserInfo
+        resources: [
+          ...state.resources,
+          action.resourceData
+        ]
       };
+
     case REMOVE_RESOURCES:
+      let newArr = state.resources.filter((item: any) => item.id !== action.resourceData.id)
       return {
         ...state,
-        resources: action.loggedInUserInfo
+        resources: newArr
       };
+      
     case ADD_PACKAGES_AND_SERVICES:
       return {
         ...state,

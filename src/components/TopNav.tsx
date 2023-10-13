@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { toggleNav } from '../store/actions/nav'
 import { NavDropdown, Image, Col, Row, Badge } from 'react-bootstrap';
 import SEPlogo129 from '../images/logo192.png'
-import { stateLoggedInUserType } from '../../types/type-definitions';
+import { stateCart, stateLoggedInUserType } from '../../types/type-definitions';
 import personIcon from '../images/person-icon.png'
 import { useSelector } from 'react-redux'
 import { PiShoppingCartThin } from 'react-icons/pi';
@@ -13,6 +13,12 @@ import { Link } from 'react-router-dom';
 const TopNav = (props: any) => {
   const backEndImageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+
+  //cart items
+  const cartResources = useSelector((state: stateCart) => state.cart.resources)
+  const cartPackagesAndServices = useSelector((state: stateCart) => state.cart.packagesAndServices)
+  const cartMembershipPlans = useSelector((state: stateCart) => state.cart.membershipPlan)
+
 
   const dispatch = useDispatch();
   const toggleNavBar = useCallback(() => {
@@ -32,7 +38,10 @@ const TopNav = (props: any) => {
             <div className='cart-box'>
               <Link to={'/checkout'}>
                 <PiShoppingCartThin className='cart-icon' size={30} />
-                <Badge bg="danger" className='cart-badge' pill>3</Badge>
+                {cartResources.length + cartMembershipPlans.length + cartPackagesAndServices.length > 0 &&
+                  <Badge bg="danger" className='cart-badge' pill>
+                    {cartResources.length + cartMembershipPlans.length + cartPackagesAndServices.length}
+                  </Badge>}
               </Link>
             </div>}
           <NavDropdown
@@ -44,7 +53,6 @@ const TopNav = (props: any) => {
                       personIcon : `${backEndImageBaseUrl}/${userInfoData.userProfilePic}`}
                   />
                 </div>
-                {/* <div>Martin Odegaard</div> */}
               </div>
             }
           >
