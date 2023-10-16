@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 import { addResource } from '../../store/actions/shopping-cart';
+import ToastComponent from '../../components/ToastComponent';
 
 function SchoolResources() {
   const navigate = useNavigate()
@@ -227,18 +228,14 @@ function SchoolResources() {
           {modalType && <AdminResourcesModal show={show} handleClose={handleClose} handleShow={handleShow}
             modalType={modalType} modalDataContent={modalDataContent} />}
 
-          <ToastContainer
-            className="p-3"
-            position={'middle-center'}
-            style={{ zIndex: 1 }}
-          >
-            <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
-              <Toast.Header closeButton={false}>
-                <strong className="me-auto">Oops!</strong>
-              </Toast.Header>
-              <Toast.Body>You already added that item.</Toast.Body>
-            </Toast>
-          </ToastContainer>
+          <ToastComponent
+            onClose={() => setShowToast(false)}
+            show={showToast}
+            delay={3000}
+            autohide={true}
+            title='Oops!'
+            body='You already added that item.'
+          />
         </>}
     </BodyWrapper>
   )

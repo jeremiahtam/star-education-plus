@@ -13,13 +13,13 @@ const shoppingCart = (state = initialState, action: any) => {
   switch (action.type) {
     case ADD_MEMBERSHIP_PLAN:
       return {
-        ...state,
-        membershipPlan: action.loggedInUserInfo
+        // ...state,
+        // membershipPlan: action.loggedInUserInfo
       };
     case REMOVE_MEMBERSHIP_PLAN:
       return {
-        ...state,
-        membershipPlan: action.loggedInUserInfo
+        // ...state,
+        // membershipPlan: action.loggedInUserInfo
       };
 
     case ADD_RESOURCES:
@@ -32,22 +32,31 @@ const shoppingCart = (state = initialState, action: any) => {
       };
 
     case REMOVE_RESOURCES:
-      let newArr = state.resources.filter((item: any) => item.id !== action.resourceData.id)
+      let newResourceArr = state.resources.filter((item: any) => item.id !== action.resourceData.id)
       return {
         ...state,
-        resources: newArr
+        resources: newResourceArr
       };
-      
+
     case ADD_PACKAGES_AND_SERVICES:
       return {
         ...state,
-        packagesAndServices: action.loggedInUserInfo
+        packagesAndServices: [
+          ...state.packagesAndServices,
+          action.packagesAndServicesData
+        ]
       };
+
     case REMOVE_PACKAGES_AND_SERVICES:
+      let newArr = state.packagesAndServices.filter((item: any) => {
+        return item.id !== action.packagesAndServicesData.id
+      })
+
       return {
         ...state,
-        packagesAndServices: action.loggedInUserInfo
+        packagesAndServices: newArr
       };
+
     default:
   }
   return state

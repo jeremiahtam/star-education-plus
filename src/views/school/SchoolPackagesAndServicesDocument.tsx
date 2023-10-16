@@ -1,4 +1,4 @@
-import{ ChangeEvent, useEffect, useState, useCallback } from 'react'
+import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import { Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
 import AdminSchoolDocsModal from '../../components/AdminSchoolDocsModal';
 import axios from 'axios';
@@ -14,18 +14,18 @@ import fileDownload from 'js-file-download'
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 
-function AdminPackagesAndServicesDocumentUpload() {
+function SchoolPackagesAndServicesDocument() {
   const location = useLocation()
 
   if (location.state.category) {
     // console.log(location.state.category)
     // console.log(location.state.data.name)
   }
-  const { schoolId, orderedItemsId } = useParams()
+  const { orderedItemsId } = useParams()
   const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
-  const [selectedSchool, setSelectedSchool] = useState<any>(null)
+  // const [selectedSchool, setSelectedSchool] = useState<any>(null)
 
   //Modal COntrol
   const [show, setShow] = useState(false);
@@ -52,22 +52,14 @@ function AdminPackagesAndServicesDocumentUpload() {
   const [search, setSearch] = useState<string>('')
 
   useEffect(() => {
-    if (selectedSchool !== null) {
-      if (search === '') {
-        getSchoolDocsHandler()
-      }
+    if (search === '') {
+      getSchoolDocsHandler()
     }
   }, [search])
 
   useEffect(() => {
-    if (selectedSchool !== null) {
-      getSchoolDocsHandler()
-    }
-  }, [userInfoData, page, itemsPerPage, selectedSchool])
-
-  useEffect(() => {
-    getSchoolHandler()
-  }, [userInfoData])
+    getSchoolDocsHandler()
+  }, [userInfoData, page, itemsPerPage])
 
   const downloadFileHandler = async (fileName: string, saveFileName: string) => {
     try {
@@ -90,42 +82,6 @@ function AdminPackagesAndServicesDocumentUpload() {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
-        setSelectedSchool(null)
-      }
-    }
-  };
-
-  const getSchoolHandler = async () => {
-    try {
-      const res = await axios.get(`${baseUrl}/api/get-school-by-id`,
-        {
-          params: {
-            id: schoolId
-          },
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${userInfoData.token}`,
-          },
-          timeout: 30000,
-        });
-
-      const resData = res.data;
-      // console.log(resData);
-      if (resData.success == false) {
-        navigate('/error-page')
-      } else {
-        setSelectedSchool(resData.data)
-      }
-    } catch (e: any) {
-      console.log(e);
-      if (e.code == "ECONNABORTED") {
-      }
-      if (e?.response?.data !== undefined) {
-        const errorData = e.response.data;
-        if (errorData.message == "Unauthenticated.") {
-          store.dispatch(deleteUserData());
-        }
-        setSelectedSchool(null)
       }
     }
   };
@@ -181,10 +137,11 @@ function AdminPackagesAndServicesDocumentUpload() {
       }
     }
   }
+
   return (
     <BodyWrapper title={'Documents'}
-      subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}
-      rightHandSide={selectedSchool !== null && schoolOrderedDocs?.data &&
+      // subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}
+      rightHandSide={schoolOrderedDocs?.data &&
         <button className='btn btn-custom btn-sm'
           onClick={() => {
             setModalType('add-school-packages-and-services-docs')
@@ -200,7 +157,7 @@ function AdminPackagesAndServicesDocumentUpload() {
         </Alert>}
 
       {/*  Only display if selected school is not null*/}
-      {selectedSchool !== null && schoolOrderedDocs?.data &&
+      {schoolOrderedDocs?.data &&
         <>
           <div className='search-area mb-3'>
             <Form>
@@ -241,8 +198,8 @@ function AdminPackagesAndServicesDocumentUpload() {
                     <th>No.</th>
                     <th>Document Name</th>
                     <th></th>
-                    <th></th>
-                    <th></th>
+                    {/* <th></th>
+                    <th></th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -256,12 +213,12 @@ function AdminPackagesAndServicesDocumentUpload() {
                             onClick={() => downloadFileHandler(item.nameInStorage, item.documentName)}
                           />
                         </td>
-                        <td ><IoMdCreate onClick={() => {
+                        {/* <td ><IoMdCreate onClick={() => {
                           modalDataHandler(item.id, 'edit-school-packages-and-services-docs')
-                        }} /></td>
-                        <td><HiTrash onClick={() => {
+                        }} /></td> */}
+                        {/* <td><HiTrash onClick={() => {
                           modalDataHandler(item.id, 'delete-school-packages-and-services-docs')
-                        }} /></td>
+                        }} /></td> */}
                       </tr>
                     )
                   })}
@@ -285,4 +242,4 @@ function AdminPackagesAndServicesDocumentUpload() {
   )
 }
 
-export default AdminPackagesAndServicesDocumentUpload
+export default SchoolPackagesAndServicesDocument

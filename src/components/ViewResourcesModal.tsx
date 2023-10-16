@@ -13,6 +13,7 @@ interface ViewResourcesModalPropType {
     duration: string,
     resourcesContent: string,
     name: string,
+    status: string,
     },
   handleClose: any,
   loadResources?: any

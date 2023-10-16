@@ -41,6 +41,8 @@ import SchoolBroadcasts from './views/school/SchoolBroadcasts';
 import SchoolResourcesList from './views/school/SchoolResourcesList';
 import SchoolMembershipPlansHistory from './views/school/SchoolMembershipPlansHistory';
 import SchoolCheckout from './views/school/SchoolCheckout';
+import SchoolViewPackagesAndServices from './views/school/SchoolViewPackagesAndServices';
+import SchoolPackagesAndServicesDocument from './views/school/SchoolPackagesAndServicesDocument';
 
 function App() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -96,7 +98,14 @@ function App() {
           <Route path='/broadcasts' element={<SchoolBroadcasts />} />
           <Route path='/membership-plans' element={<SchoolMembershipPlans />} />
           <Route path='/membership-plans-history' element={<SchoolMembershipPlansHistory />} />
-          <Route path='/packages-and-services' element={<SchoolPackagesAndServices />} />
+          {/* <Route path='/packages-and-services' element={<SchoolPackagesAndServices />} /> */}
+
+          <Route path='/packages-and-services' >
+            <Route path='/packages-and-services' element={<SchoolPackagesAndServices />} />
+            <Route path='/packages-and-services/:packagesAndServicesId' element={<SchoolViewPackagesAndServices />} />
+            <Route path='/packages-and-services/:packagesAndServicesId/:orderedItemsId'
+              element={<SchoolPackagesAndServicesDocument />} />
+          </Route>
 
           <Route path='/resources' >
             <Route path='/resources' element={<SchoolResources />} />

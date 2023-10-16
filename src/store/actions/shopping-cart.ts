@@ -26,3 +26,21 @@ export const removeResource = (resourceInfo: any) => {
     })
   }
 }
+export const addPackagesAndServices = (packagesAndServicesInfo: any) => {
+  return async (dispatch: Dispatch, getState: any) => {
+    console.log(packagesAndServicesInfo)
+    dispatch({
+      type: ADD_PACKAGES_AND_SERVICES,
+      packagesAndServicesData: packagesAndServicesInfo
+    })
+  }
+}
+
+export const removePackagesAndServices = (packagesAndServicesInfo: any) => {
+  return async (dispatch: Dispatch, getState: any) => {
+    dispatch({
+      type: REMOVE_PACKAGES_AND_SERVICES,
+      packagesAndServicesData: packagesAndServicesInfo
+    })
+  }
+}

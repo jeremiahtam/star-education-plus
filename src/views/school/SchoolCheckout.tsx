@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateCart, stateLoggedInUserType } from '../../../types/type-definitions';
 import { store } from '../../store/root-reducer';
-import { removeResource } from '../../store/actions/shopping-cart';
+import { removePackagesAndServices, removeResource } from '../../store/actions/shopping-cart';
 
 
 function SchoolCheckout() {
@@ -60,7 +60,10 @@ function SchoolCheckout() {
                       <Card.Subtitle className="mb-2 checkout-items-card-text">{item.name}</Card.Subtitle>
                       <Card.Subtitle className="mb-2 checkout-items-card-sub-title">${item.amount}</Card.Subtitle>
                     </div>
-                    <Button className='mb-3' variant='light'>Remove</Button>
+                    <Button className='mb-3' variant='light'
+                      onClick={() => {
+                        store.dispatch(removePackagesAndServices(item))
+                      }}>Remove</Button>
                   </Card.Text>
                 )
               })}
