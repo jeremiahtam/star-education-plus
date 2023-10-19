@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap';
 import AddMembershipPlanModal from './AddMembershipPlanModal';
 import EditMembershipPlanModal from './EditMembershipPlanModal';
 import DeleteMembershipPlanModal from './DeleteMembershipPlanModal';
+import ViewMembershipPlanModal from './ViewMembershipPlanModal';
 
 function MembershipPlanModal(props: any) {
   return (
@@ -16,7 +17,10 @@ function MembershipPlanModal(props: any) {
           props.modalType == 'delete-membership-plan' ?
             <DeleteMembershipPlanModal modalDataId={props.modalDataId}
               handleClose={props.handleClose} loadMembershipPlan={props.loadMembershipPlan} /> :
-            ''
+            props.modalType == 'view-membership-plan' ?
+              <ViewMembershipPlanModal modalDataContent={props.modalDataContent}
+                handleClose={props.handleClose} /> :
+              ''
       }
     </Modal>
   )

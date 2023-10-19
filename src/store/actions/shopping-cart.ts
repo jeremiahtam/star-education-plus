@@ -8,6 +8,25 @@ export const REMOVE_RESOURCES = 'REMOVE_RESOURCES'
 export const ADD_PACKAGES_AND_SERVICES = 'ADD_PACKAGES_AND_SERVICES'
 export const REMOVE_PACKAGES_AND_SERVICES = 'REMOVE_PACKAGES_AND_SERVICES'
 
+export const addMembershipPlan = (membershipPlanInfo: any) => {
+  return async (dispatch: Dispatch, getState: any) => {
+    console.log(membershipPlanInfo)
+    dispatch({
+      type: ADD_MEMBERSHIP_PLAN,
+      membershipPlanData: membershipPlanInfo
+    })
+  }
+}
+
+export const removeMembershipPlan = (membershipPlanInfo: any) => {
+  return async (dispatch: Dispatch, getState: any) => {
+    dispatch({
+      type: REMOVE_MEMBERSHIP_PLAN,
+      membershipPlanData: membershipPlanInfo
+    })
+  }
+}
+
 export const addResource = (resourceInfo: any) => {
   return async (dispatch: Dispatch, getState: any) => {
     console.log(resourceInfo)
@@ -26,6 +45,7 @@ export const removeResource = (resourceInfo: any) => {
     })
   }
 }
+
 export const addPackagesAndServices = (packagesAndServicesInfo: any) => {
   return async (dispatch: Dispatch, getState: any) => {
     console.log(packagesAndServicesInfo)

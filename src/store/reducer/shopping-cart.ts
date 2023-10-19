@@ -4,7 +4,7 @@ import {
 } from "../actions/shopping-cart";
 
 const initialState = {
-  membershipPlan: [],
+  membershipPlans: [],
   resources: [],
   packagesAndServices: [],
 }
@@ -13,14 +13,22 @@ const shoppingCart = (state = initialState, action: any) => {
   switch (action.type) {
     case ADD_MEMBERSHIP_PLAN:
       return {
-        // ...state,
-        // membershipPlan: action.loggedInUserInfo
+        ...state,
+        membershipPlans: [
+          ...state.membershipPlans,
+          action.membershipPlanData
+        ]
       };
+
     case REMOVE_MEMBERSHIP_PLAN:
+      let newMembershipPlansArr = state.membershipPlans.filter((item: any) => {
+        return item.id !== action.membershipPlanData.id
+      })
       return {
-        // ...state,
-        // membershipPlan: action.loggedInUserInfo
+        ...state,
+        membershipPlans: newMembershipPlansArr
       };
+
 
     case ADD_RESOURCES:
       return {

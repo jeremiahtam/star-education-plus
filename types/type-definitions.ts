@@ -25,7 +25,7 @@ export interface stateLoggedInUserType {
 export interface stateCart {
   cart: {
     resources: Array<object>,
-    membershipPlan: Array<object>,
+    membershipPlans: Array<object>,
     packagesAndServices: Array<object>,
   };
 }

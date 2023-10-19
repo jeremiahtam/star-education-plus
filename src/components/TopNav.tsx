@@ -17,7 +17,7 @@ const TopNav = (props: any) => {
   //cart items
   const cartResources = useSelector((state: stateCart) => state.cart.resources)
   const cartPackagesAndServices = useSelector((state: stateCart) => state.cart.packagesAndServices)
-  const cartMembershipPlans = useSelector((state: stateCart) => state.cart.membershipPlan)
+  const cartMembershipPlans = useSelector((state: stateCart) => state.cart.membershipPlans)
 
 
   const dispatch = useDispatch();
