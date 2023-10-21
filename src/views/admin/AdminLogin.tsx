@@ -43,7 +43,7 @@ const AdminLogin = (props: any) => {
           //output the error message
         }
       } else {
-        store.dispatch(insertUserData(resData.data));
+        store.dispatch(insertUserData(resData.data.token));
         navigate('/dashboard')
       }
     } catch (e: any) {

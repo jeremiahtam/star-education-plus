@@ -17,6 +17,10 @@ import { addResource } from '../../store/actions/shopping-cart';
 import ToastComponent from '../../components/ToastComponent';
 
 function SchoolResources() {
+  const pounds = Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+  });
   const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -176,7 +180,7 @@ function SchoolResources() {
                         <Card.Subtitle className="mb-2 price-card-sub-title">
                           <BiPackage /> {item.name}
                         </Card.Subtitle>
-                        <Card.Title className='price-card-title'>${item.amount}</Card.Title>
+                        <Card.Title className='price-card-title'>{pounds.format(item.amount)}</Card.Title>
                         <div className='price-card-border mb-3 mt-3'></div>
                         <Card.Text className='price-card-text'>
                           {item.excerpt}

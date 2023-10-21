@@ -13,6 +13,10 @@ import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 
 function AdminPackagesAndServices() {
+  const pounds = Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+  });
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
@@ -182,7 +186,7 @@ function AdminPackagesAndServices() {
                         <td>{item.sn}</td>
                         <td>{item.name}</td>
                         <td>{item.packagesAndServicesContent}</td>
-                        <td>{item.amount}</td>
+                        <td>{pounds.format(item.amount)}</td>
                         <td>{item.duration == null ? '-' : item.duration}</td>
                         <td>{item.category}</td>
                         <td>{item.status}</td>

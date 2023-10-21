@@ -36,12 +36,6 @@ function SchoolMetrics() {
   const [broadcasts, setBroadcasts] = useState<any>()
 
   useEffect(() => {
-    if (broadcasts !== null) {
-      getBroadcastsHandler()
-    }
-  }, [userInfoData])
-
-  useEffect(() => {
     getBroadcastsHandler()
   }, [userInfoData])
 

@@ -25,6 +25,7 @@ const SchoolDashboard = () => {
       // navigate('/dashboard')
     }
   }, [userInfoData])
+  
   return (
     <div className="wrapper">
       <SideBarNav />

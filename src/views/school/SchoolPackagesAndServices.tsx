@@ -1,24 +1,26 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
-import { IoMdSearch, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Button, Form, Row, Col, InputGroup, Alert, Card, ToastContainer, Toast } from 'react-bootstrap';
+import { IoMdSearch } from "react-icons/io";
+import { Button, Form, Row, Col, InputGroup, Alert, Card } from 'react-bootstrap';
 import AdminPackagesAndServicesModal from '../../components/AdminPackagesAndServicesModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateCart, stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
-import { HiTrash } from 'react-icons/hi';
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 import { BiPackage } from 'react-icons/bi';
 import { FaOpencart } from 'react-icons/fa';
 import ToastComponent from '../../components/ToastComponent';
 import { addPackagesAndServices } from '../../store/actions/shopping-cart';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 function SchoolPackagesAndServices() {
+  const pounds = Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+  });
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const navigate = useNavigate()
@@ -176,7 +178,7 @@ function SchoolPackagesAndServices() {
                         <Card.Subtitle className="mb-2 price-card-sub-title">
                           <BiPackage /> {item.name}
                         </Card.Subtitle>
-                        <Card.Title className='price-card-title'>$34</Card.Title>
+                        <Card.Title className='price-card-title'>{pounds.format(item.amount)}</Card.Title>
                         {/* <Card.Text className='text-warning'>Text</Card.Text> */}
                         <div className='price-card-border mb-3 mt-3'></div>
                         <Card.Text className='price-card-text'>

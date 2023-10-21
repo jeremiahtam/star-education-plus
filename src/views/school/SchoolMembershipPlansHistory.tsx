@@ -87,7 +87,7 @@ function SchoolMembershipPlansHistory(props: any) {
   }
 
   return (
-    <BodyWrapper title='Membership Plans'>
+    <BodyWrapper title='Membership Plan History'>
 
       {membershipPlansHistory?.success === false && !membershipPlansHistory?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
@@ -95,7 +95,7 @@ function SchoolMembershipPlansHistory(props: any) {
         </Alert>}
 
       {membershipPlansHistory?.data && <>
-        <div className='search-area mb-3'>
+        {/* <div className='search-area mb-3'>
           <Form>
             <Row className="justify-content-end">
               <Col md={4} sm={10} className="my-1 search-bar">
@@ -125,7 +125,7 @@ function SchoolMembershipPlansHistory(props: any) {
               </Col>
             </Row>
           </Form>
-        </div>
+        </div> */}
 
         {membershipPlansHistory.data.length !== 0 &&
           <div className="table-responsive">

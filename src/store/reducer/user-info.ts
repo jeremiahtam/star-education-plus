@@ -1,7 +1,7 @@
-import { LOAD_USER_DATA, ADD_USER_DATA, DELETE_USER_DATA } from "../actions/user-info";
+import { LOAD_USER_DATA, ADD_USER_DATA, DELETE_USER_DATA, UPDATE_PROFILE_PIC } from "../actions/user-info";
 
 const initialState = {
-  loggedInUserData: undefined,//contains {'userType':'','token':'','email':'','userId':''}
+  loggedInUserData: { undefined },//contains {'userType':'','token':'','email':'','userId':''}
 }
 
 const userInfoReducer = (state = initialState, action: any) => {
@@ -21,17 +21,14 @@ const userInfoReducer = (state = initialState, action: any) => {
         ...state,
         loggedInUserData: action.loggedInUserInfo
       };
-    // case REMOVE_USER_DATA:
-    //   //remove from the state
-    //   const eduList = state.educationData.data.filter(userEduList=>
-    //     userEduList.id !== action.eduId
-    //   )
-    //   const newData = {...state.educationData,'data':eduList};
-    //   return({
-    //     ...state,
-    //     educationData: newData
-    //   })
-
+    case UPDATE_PROFILE_PIC:
+      return {
+        ...state,
+        loggedInUserData: {
+          ...state.loggedInUserData,
+          userProfilePic: action.profilePicInfo
+        }
+      };
     default:
   }
   return state

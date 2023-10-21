@@ -1,16 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link } from "react-router-dom";
-import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
 import { Button, Modal, Form } from 'react-bootstrap';
-import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
+import { Formik, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';
-import { updateProfilePic } from '../store/actions/user-info';
-import { store } from '../store/root-reducer';
 
-function ChangeProfilePicModal(props: any) {
+function AdminChangeProfilePicModal(props: any) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const FILE_SIZE = 1000 * 1024;//
@@ -45,7 +40,7 @@ function ChangeProfilePicModal(props: any) {
         } else {
         }
       } else {
-        store.dispatch(updateProfilePic(resData.data.profilePicName))
+        props.setProfilePic(resData.data.profilePicName)
         props.handleClose()
       }
     } catch (e: any) {
@@ -122,4 +117,4 @@ function ChangeProfilePicModal(props: any) {
   )
 }
 
-export default ChangeProfilePicModal
+export default AdminChangeProfilePicModal

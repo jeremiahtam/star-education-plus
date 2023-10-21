@@ -43,6 +43,7 @@ import SchoolMembershipPlansHistory from './views/school/SchoolMembershipPlansHi
 import SchoolCheckout from './views/school/SchoolCheckout';
 import SchoolViewPackagesAndServices from './views/school/SchoolViewPackagesAndServices';
 import SchoolPackagesAndServicesDocument from './views/school/SchoolPackagesAndServicesDocument';
+import StartupLoadingPage from './views/StartupLoadingPage';
 
 function App() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -73,19 +74,15 @@ function App() {
           <Route path='/resources' >
             <Route path='/resources' element={<AdminResources />} />
             <Route path='/resources/resources-document-upload/:resourcesId' element={<AdminResourcesDocumentUpload />} />
-            {/* <Route path='/resources/resources-attendance/:resourcesId' element={<AdminResourcesAttendance />} /> */}
           </Route>
           <Route path='/packages-and-services-document-upload/:schoolId/:orderedItemsId'
             element={<AdminPackagesAndServicesDocumentUpload />} />
-          {/* <Route path='/packages-and-services-attendance/:schoolId/:orderedItemsId'
-            element={<AdminPackagesAndServicesAttendance />} /> */}
           <Route path='/invoices' element={<AdminInvoices />} />
           <Route path='/messages' element={<AdminMessages />} />
         </Route>}
 
       {/* For schools to login but can be accessed by anyone when*/}
       <Route path='/' element={<SchoolLogin />} />
-      {/* <Route path='/signup' element={<SchoolSignup />} /> */}
       <Route path='/recover-password' element={<SchoolRecoverPassword />} />
       <Route path='/enter-recovery-code' element={<SchoolEnterPasswordRecoveryCode />} />
       <Route path='/change-password' element={<SchoolChangePassword />} />
@@ -98,7 +95,6 @@ function App() {
           <Route path='/broadcasts' element={<SchoolBroadcasts />} />
           <Route path='/membership-plans' element={<SchoolMembershipPlans />} />
           <Route path='/membership-plans-history' element={<SchoolMembershipPlansHistory />} />
-          {/* <Route path='/packages-and-services' element={<SchoolPackagesAndServices />} /> */}
 
           <Route path='/packages-and-services' >
             <Route path='/packages-and-services' element={<SchoolPackagesAndServices />} />
@@ -117,7 +113,9 @@ function App() {
           <Route path='/profile' element={<SchoolProfile />} />
         </Route>}
 
-      <Route path="*" element={<ErrorPage />} />
+      {/* If the user info is set to null, then the user data has been loaded.
+       Hence, one can load the error page. i.e. Error page can only show once all necessary data has been loaded*/}
+      <Route path="*" element={userInfoData === null ? <ErrorPage /> : <StartupLoadingPage />} />
     </Routes>
   );
 }

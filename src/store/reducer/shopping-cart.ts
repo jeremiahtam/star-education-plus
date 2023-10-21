@@ -1,6 +1,7 @@
 import {
   ADD_MEMBERSHIP_PLAN, REMOVE_MEMBERSHIP_PLAN,
-  ADD_RESOURCES, REMOVE_RESOURCES, ADD_PACKAGES_AND_SERVICES, REMOVE_PACKAGES_AND_SERVICES
+  ADD_RESOURCES, REMOVE_RESOURCES, ADD_PACKAGES_AND_SERVICES,
+  REMOVE_PACKAGES_AND_SERVICES, EMPTY_CART
 } from "../actions/shopping-cart";
 
 const initialState = {
@@ -65,6 +66,8 @@ const shoppingCart = (state = initialState, action: any) => {
         packagesAndServices: newArr
       };
 
+    case EMPTY_CART:
+      return initialState
     default:
   }
   return state

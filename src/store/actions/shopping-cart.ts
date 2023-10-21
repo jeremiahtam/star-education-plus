@@ -7,6 +7,7 @@ export const ADD_RESOURCES = 'ADD_RESOURCES'
 export const REMOVE_RESOURCES = 'REMOVE_RESOURCES'
 export const ADD_PACKAGES_AND_SERVICES = 'ADD_PACKAGES_AND_SERVICES'
 export const REMOVE_PACKAGES_AND_SERVICES = 'REMOVE_PACKAGES_AND_SERVICES'
+export const EMPTY_CART = 'EMPTY_CART'
 
 export const addMembershipPlan = (membershipPlanInfo: any) => {
   return async (dispatch: Dispatch, getState: any) => {
@@ -61,6 +62,13 @@ export const removePackagesAndServices = (packagesAndServicesInfo: any) => {
     dispatch({
       type: REMOVE_PACKAGES_AND_SERVICES,
       packagesAndServicesData: packagesAndServicesInfo
+    })
+  }
+}
+export const emptyCart = () => {
+  return async (dispatch: Dispatch, getState: any) => {
+    dispatch({
+      type: EMPTY_CART,
     })
   }
 }

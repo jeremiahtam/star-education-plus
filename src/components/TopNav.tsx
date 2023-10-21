@@ -8,11 +8,12 @@ import { stateCart, stateLoggedInUserType } from '../../types/type-definitions';
 import personIcon from '../images/person-icon.png'
 import { useSelector } from 'react-redux'
 import { PiShoppingCartThin } from 'react-icons/pi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const TopNav = (props: any) => {
   const backEndImageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+  const navigate = useNavigate()
 
   //cart items
   const cartResources = useSelector((state: stateCart) => state.cart.resources)
@@ -44,21 +45,22 @@ const TopNav = (props: any) => {
                   </Badge>}
               </Link>
             </div>}
-          <NavDropdown
-            title={
-              <div id="top-nav-dropdown">
-                <div className='image-box'>
-                  <Image
-                    src={userInfoData.userProfilePic == null || "" ?
-                      personIcon : `${backEndImageBaseUrl}/${userInfoData.userProfilePic}`}
-                  />
+          {userInfoData.userType == 'school' &&
+            <NavDropdown
+              title={
+                <div id="top-nav-dropdown">
+                  <div className='image-box'>
+                    <Image
+                      src={userInfoData.userProfilePic == null || "" ?
+                        personIcon : `${backEndImageBaseUrl}/${userInfoData.userProfilePic}`}
+                    />
+                  </div>
                 </div>
-              </div>
-            }
-          >
-            <NavDropdown.Item href="/profile"> Profile</NavDropdown.Item>
-            <NavDropdown.Item href="/resources"> Resources</NavDropdown.Item>
-          </NavDropdown>
+              }
+            >
+              <NavDropdown.Item onClick={() => navigate('/profile')}> Profile</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => navigate('/resources')}> Resources</NavDropdown.Item>
+            </NavDropdown>}
         </div>
       </div>
     </nav>

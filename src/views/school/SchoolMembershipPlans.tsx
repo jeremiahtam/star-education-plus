@@ -19,6 +19,11 @@ import { addMembershipPlan } from '../../store/actions/shopping-cart';
 import ToastComponent from '../../components/ToastComponent';
 
 function SchoolMembershipPlans() {
+  const pounds = Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+  });
+
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -168,7 +173,7 @@ function SchoolMembershipPlans() {
                       <Card.Subtitle className="mb-2 price-card-sub-title">
                         <BiPackage /> {item.name}
                       </Card.Subtitle>
-                      <Card.Title className='price-card-title'>$34</Card.Title>
+                      <Card.Title className='price-card-title'>{pounds.format(item.amount)}</Card.Title>
                       {/* <Card.Text className='text-warning'>Text</Card.Text> */}
                       <div className='price-card-border mb-3 mt-3'></div>
                       <Card.Text className='price-card-text'>

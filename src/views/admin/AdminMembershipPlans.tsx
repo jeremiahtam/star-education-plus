@@ -13,6 +13,11 @@ import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 
 function AdminMembershipPlans(props: any) {
+  const pounds = Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+  });
+
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -169,7 +174,7 @@ function AdminMembershipPlans(props: any) {
                     <tr key={item.id}>
                       <td>{item.sn}</td>
                       <td>{item.name}</td>
-                      <td>{item.amount}</td>
+                      <td>{pounds.format(item.amount)}</td>
                       <td><div>{item.membershipPlanContent}</div></td>
                       <td>{item.duration == null ? '-' : item.duration}</td>
                       <td>{item.status}</td>
