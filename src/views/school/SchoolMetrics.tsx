@@ -2,22 +2,20 @@ import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import axios from 'axios';
 import BodyWrapper from '../../components/BodyWrapper'
 import { useSelector } from 'react-redux'
-import { Alert, Badge, Form, Button, Card, Col, Row, InputGroup } from 'react-bootstrap'
-import { FaOpencart } from 'react-icons/fa'
-import { BiPackage } from 'react-icons/bi'
-import { LuSubtitles } from 'react-icons/lu'
+import { Alert, Badge, Card, Col, Row, Image } from 'react-bootstrap'
 import { store } from '../../store/root-reducer';
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import { deleteUserData } from '../../store/actions/user-info';
-import { IoMdSearch } from 'react-icons/io';
-import { MdOutlineClear } from 'react-icons/md';
-import CustomPagination from '../../components/CustomPagination';
 import BroadcastModal from '../../components/BroadcastModal';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import menuItems from '../../data/menuItems';
+import personIcon from '../../images/person-icon.png'
 
 function SchoolMetrics() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
+  const backEndImageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
+  const navigate = useNavigate()
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -92,9 +90,23 @@ function SchoolMetrics() {
   }
 
   return (
-    <BodyWrapper title='Dashboard'>
-      <Row className='card-items-row'>
-        <Col lg={7} md={6} className='mb-3'>
+    <BodyWrapper title={``}>
+      <Row className=''>
+        <Col lg={12}>
+          <div className='dashboard-image-box'>
+            <Image
+              src={userInfoData.userProfilePic == null || "" ?
+                personIcon : `${backEndImageBaseUrl}/${userInfoData.userProfilePic}`}
+            />
+          </div>
+          <div >{`Hi, ${userInfoData.userFullname}.`}</div>
+          <div className='dashboard-sub-heading'>{userInfoData.schoolName}</div>
+        </Col>
+      </Row>
+
+      <Row className=''>
+        <Col lg={8} md={7} className='mb-3'>
+          <div className='dashboard-sub-heading'>Broadcasts</div>
           {broadcasts?.success === false && !broadcasts?.data &&
             <Alert className='form-feedback-message' variant={"danger"} dismissible>
               <div>{broadcasts?.message}</div>
@@ -102,9 +114,7 @@ function SchoolMetrics() {
 
           {broadcasts?.data && <>
             <Card className='dashboard-broadcasts-card'>
-              <Card.Header>Broadcasts</Card.Header>
               <Card.Body>
-
                 {broadcasts.data?.length !== 0 &&
                   <>
                     {broadcasts.data.map((item: any, index: number) => {
@@ -141,8 +151,59 @@ function SchoolMetrics() {
           {modalType && <BroadcastModal show={show} handleClose={handleClose} handleShow={handleShow}
             modalType={modalType} modalDataContent={modalDataContent} />}
         </Col>
+        <Col lg={4} md={5} className='mb-3'>
+          <Card className='right-side-dashboard-card mb-3'>
+            <Card.Body>
+              <Card.Title>Membership Plan</Card.Title>
+              <Card.Text>Basic Plan Expires <Badge bg='primary' className='float-end'>12th May, 2024</Badge></Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className='right-side-dashboard-card mb-3'>
+            <Card.Body>
+              <Card.Title>Membership Tracker</Card.Title>
+              <Card.Text>Seminars attended <Badge bg='info' className='float-end'>24</Badge></Card.Text>
+              <Card.Text>Webinars attended <Badge bg='info' className='float-end'>12</Badge></Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className='right-side-dashboard-card mb-3'>
+            <Card.Body>
+              <Card.Title>Consultant Improvement Partner</Card.Title>
+              <Card.Text>Consultant appointed: John</Card.Text>
+              <Card.Text>Contact details: 12, Lagos</Card.Text>
+              <Card.Text>Current used hours this term <Badge bg='info' className='float-end'>12</Badge></Card.Text>
+            </Card.Body>
+          </Card>
+          <Card className='right-side-dashboard-card mb-3'>
+            <Card.Body>
+              <Card.Title>Contact Personnel</Card.Title>
+              <Card.Text>Downing Street, London</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
 
+      <Row className='dashboard-menu-row'>
+        <div className='dashboard-sub-heading'>Navigation</div>
+        {menuItems.map((item, index) => {
+          const Icon = item.iconName
+          return (
+            <Col lg={3} md={3} className='mb-3' key={index}>
+              <Card className='dashboard-menu-box' onClick={() => {
+                navigate(`/${item.itemLink}`)
+              }}>
+                <Card.Body>
+                  <div className='icon-block' style={{ background: item.bgColor }}>
+                    <Icon size={40} className='icon mb-3' color='#ffffff' />
+                  </div>
+                  <div className='text-block'>
+                    {item.itemName}
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          )
+        })}
+      </Row>
     </BodyWrapper>
   )
 }

@@ -185,7 +185,7 @@ function SchoolResources() {
                         <Card.Text className='price-card-text'>
                           {item.excerpt}
                           <Card.Link onClick={() => {
-                            modalDataHandler(item, 'view-resources')
+                            modalDataHandler(item, 'view-resources-details')
                           }}
                           > view more.</Card.Link>
                         </Card.Text>

@@ -11,7 +11,7 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 import { useNavigate, useParams } from "react-router-dom";
-import { BsCloudUpload, BsEye, BsListCheck, BsUpload } from 'react-icons/bs';
+import { BsCloudUpload, BsDownload, BsEye, BsListCheck, BsUpload } from 'react-icons/bs';
 import { ImCancelCircle } from 'react-icons/im';
 import { FaFileUpload } from 'react-icons/fa';
 import AdminViewSchoolPackagesAndServicesModal from '../../components/AdminViewSchoolPackagesAndServicesModal';
@@ -187,7 +187,7 @@ function SchoolViewPackagesAndServices() {
                             item.category === 'document' ?
                               <Link to={`/packages-and-services/${packagesAndServicesId}/${item.id}`}
                                 state={{ data: item, category: 'Packages and Services' }}>
-                                <BsUpload />
+                                <BsDownload />
                               </Link>
                               :
                               <BsListCheck

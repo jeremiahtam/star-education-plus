@@ -1,38 +1,23 @@
-import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Link } from "react-router-dom";
+import { ChangeEvent, useEffect, useState } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
-import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
-import AdminServiceProvidersModal from '../../components/AdminServiceProvidersModal';
+import { IoMdSearch } from "react-icons/io";
+import { Button, Form, Row, Col, InputGroup, Alert, Card } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
-import { HiTrash } from 'react-icons/hi';
-import { useNavigate, useParams } from "react-router-dom";
+import serviceProvidersList from '../../data/serviceProvidersList';
+import { RiCustomerService2Line } from 'react-icons/ri';
 
 function SchoolServiceProviders() {
-  const { schoolId } = useParams()
-  const navigate = useNavigate()
+  const pounds = Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+  });
+
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
-  // const [selectedSchool, setSelectedSchool] = useState<any>(null)
-
-  //Modal COntrol
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-
-  // const [modalType, setModalType] = useState<string | null>(null);
-  // const [modalDataId, setModalDataId] = useState<number | null>(null) /* modal dataId */
-
-  // const modalDataHandler = useCallback((_dataId: number, _modalType: string) => {
-  //   handleShow()
-  //   setModalDataId(_dataId)
-  //   setModalType(_modalType)
-  //   console.log(`${_dataId} ${_modalType}`)
-  // }, [setModalType, setModalDataId])
 
   const [serviceProviders, setServiceProviders] = useState<any>()
 
@@ -140,38 +125,39 @@ function SchoolServiceProviders() {
               </Row>
             </Form>
           </div>
-          {serviceProviders.data.length !== 0 &&
-            <div className="table-responsive">
-              <table className='table table-hover table-sm'>
-                <thead>
-                  <tr>
-                    <th>No.</th>
-                    <th>Service Name</th>
-                    <th>Expiry Date</th>
-                    {/* <th></th> */}
-                    {/* <th></th> */}
-                  </tr>
-                </thead>
-                <tbody>
-                  {serviceProviders.data.map((item: any, index: number) => {
-                    return (
-                      <tr key={item.id}>
-                        <td>{item.sn}</td>
-                        <td>{item.serviceName}</td>
-                        <td>{item.expiryDate} {item.expiryTime}</td>
-                        {/* <td ><IoMdCreate onClick={() => {
-                          modalDataHandler(item.id, 'edit-service-providers')
-                        }} /></td> */}
-                        {/* <td><HiTrash onClick={() => {
-                          modalDataHandler(item.id, 'delete-service-providers')
-                        }} /></td> */}
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </div>}
 
+          {serviceProviders.data.length !== 0 &&
+            <Row>
+              {serviceProviders.data.map((item: any, index: number) => {
+
+                const result = serviceProvidersList.find((service: any) => {
+                  if (item.serviceName == service.name) {
+                    return service
+                  }
+                });
+                const Icon = result?.icon ? result.icon : RiCustomerService2Line
+                const iconColor = result?.iconColor ? result.iconColor : "#301aaf"
+                return (
+                  <Col lg={3} md={3} className='mb-3' key={index}>
+                    <Card className='school-service-providers-box'>
+                      <Card.Body>
+                        <div className='icon-block'>
+                          <Icon size={40} className='icon' color={iconColor} />
+                        </div>
+                        <div className='text-block'>
+                          <div>{item.serviceName}</div>
+                          {item.companyName && <div>{item.companyName}</div>}
+                          {item.price && <div>{pounds.format(item.price)}</div>}
+                          {item.quantity && <div>Quantity: {item.quantity}</div>}
+                          {item.renewDate && <div>Renew Date: {item.renewDate}</div>}
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>)
+              })
+              }
+            </Row>
+          }
           {serviceProviders.data.length == 0 &&
             <Alert className='form-feedback-message' variant={"info"} dismissible>
               <div>{serviceProviders?.message}</div>
@@ -179,8 +165,6 @@ function SchoolServiceProviders() {
 
           {serviceProviders.data.length !== 0 &&
             <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
-          {/* {modalType && <AdminServiceProvidersModal show={show} handleClose={handleClose} handleShow={handleShow}
-            modalType={modalType} modalDataId={modalDataId} schoolId={schoolId} loadServiceProviders={getServiceProvidersHandler} />} */}
         </>
       }
     </BodyWrapper>

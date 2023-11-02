@@ -140,15 +140,10 @@ function SchoolPackagesAndServicesDocument() {
 
   return (
     <BodyWrapper title={'Documents'}
-      // subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}
-      rightHandSide={schoolOrderedDocs?.data &&
-        <button className='btn btn-custom btn-sm'
-          onClick={() => {
-            setModalType('add-school-packages-and-services-docs')
-            handleShow()
-          }}>Create New <IoIosAdd className='btn-icon' /></button>}>
+    // subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}
+    >
 
-      {location?.state !== null &&
+      {(location?.state?.category !== null && location?.state?.name !== null) &&
         <div className=''>{location.state.category} | {location.state.data.name}</div>}
 
       {schoolOrderedDocs?.success === false && !schoolOrderedDocs?.data &&

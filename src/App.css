@@ -7,8 +7,6 @@
   background-color: #030432 !important;
 }
 
-.text-color {}
-
 .container-box {
   height: 100vh;
   display: flex;
@@ -880,10 +878,6 @@ ul ul a {
   box-shadow: 0 0 40px rgba(51, 51, 51, .1) !important;
 }
 
-.profile-links {
-  /* border: solid #000; */
-}
-
 .profile-links>a {
   padding: 3px;
   margin-right: 10px;
@@ -1013,14 +1007,6 @@ ul ul a {
   }
 }
 
-/* .school-login-row {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-} */
-
 .school-login-row .school-login-form-box {
   border-radius: 8px;
   background: #F5F5F5;
@@ -1048,7 +1034,7 @@ ul ul a {
   border-radius: 8px !important;
   padding: 2%;
   border-color: #86868680;
-  border-bottom: solid 8px #0F1925 !important;
+  border-bottom: solid 8px #a90c45 !important;
 }
 
 .price-card:hover {
@@ -1059,12 +1045,13 @@ ul ul a {
   font-weight: 600;
   color: #525252;
   font-size: small;
+  text-align: center !important;
 }
 
 .price-card .price-card-title {
   font-weight: 900;
-  font-size: xx-large;
-  text-align: left !important;
+  font-size: large;
+  text-align: center !important;
   color: #0F1925 !important;
   /* color: #ca302b !important; */
 }
@@ -1075,6 +1062,7 @@ ul ul a {
 
 .price-card .price-card-text {
   color: #0F1925;
+  text-align: center !important;
 }
 
 .price-card .price-card-text>a {
@@ -1083,8 +1071,23 @@ ul ul a {
   cursor: pointer;
 }
 
+/* .price-card .btn {
+} */
+
+/* .price-card {
+  border-bottom: 8px solid #aa8302 !important;
+} */
+
 .price-card .btn {
   align-self: center;
+  background-color: #a90c45 !important;
+  border: solid 1px #a90c45 !important;
+}
+
+.price-card .btn:hover {
+  color: #a90c45 !important;
+  background-color: #ffffff !important;
+  border: solid 1px #a90c45 !important;
 }
 
 .price-card .view-link {
@@ -1100,35 +1103,35 @@ ul ul a {
 
 .card-items-row :nth-child(2n) {
   .price-card {
-    border-bottom: 8px solid #1b8123 !important;
+    border-bottom: 8px solid #aa8302 !important;
   }
 
   .price-card .btn {
-    background-color: #1b8123 !important;
-    border: solid 1px #1b8123 !important;
+    background-color: #aa8302 !important;
+    border: solid 1px #aa8302 !important;
   }
 
   .price-card .btn:hover {
-    color: #1b8123 !important;
+    color: #aa8302 !important;
     background-color: #ffffff !important;
-    border: solid 1px #1b8123 !important;
+    border: solid 1px #aa8302 !important;
   }
 }
 
 .card-items-row :nth-child(3n) {
   .price-card {
-    border-bottom: 8px solid #c930c9 !important;
+    border-bottom: 8px solid #1d698c !important;
   }
 
   .price-card .btn {
-    background-color: #c930c9 !important;
-    border: solid 1px #c930c9 !important;
+    background-color: #1d698c !important;
+    border: solid 1px #1d698c !important;
   }
 
   .price-card .btn:hover {
-    color: #c930c9 !important;
+    color: #1d698c !important;
     background-color: #ffffff !important;
-    border: solid 1px #c930c9 !important;
+    border: solid 1px #1d698c !important;
   }
 }
 
@@ -1168,23 +1171,69 @@ ul ul a {
 
 .card-items-row :nth-child(2n) {
   .broadcast-card {
-    border-bottom: 8px solid #1b8123 !important;
+    border-bottom: 8px solid #aa8302 !important;
   }
 }
 
 .card-items-row :nth-child(3n) {
   .broadcast-card {
-    border-bottom: 8px solid #c930c9 !important;
+    border-bottom: 8px solid #1d698c !important;
   }
 }
 
 /* ----------------------------------------------------
   CARDS FOR SCHOOL DASHBOARD
   ----------------------------------------------------*/
-.dashboard-broadcasts-card {
-  border-radius: 8px !important;
-  background-color: #ffffff !important;
+.dashboard-image-box {
+  width: 100px;
+  height: 100px;
   overflow: hidden;
+  padding: 5px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  border: 1px solid #f1f1f1;
+
+  >img {
+    max-width: 100px;
+    max-height: 100px;
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+    vertical-align: middle;
+  }
+
+  >img:hover {
+    -webkit-transform: scale(1.5);
+    /* Safari and Chrome */
+    -moz-transform: scale(1.5);
+    /* Firefox */
+    -ms-transform: scale(1.5);
+    /* IE 9 */
+    -o-transform: scale(1.5);
+    /* Opera */
+    transform: scale(1.5);
+  }
+}
+
+.dashboard-sub-heading {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: large;
+  color: #3a3a3a;
+}
+
+.dashboard-broadcasts-card {
+  overflow: hidden;
+  border: 1px solid #ececec !important;
+}
+
+.dashboard-broadcasts-card:hover {
+  box-shadow: 0px 0px 8px #c7c7c7;
 }
 
 .dashboard-broadcasts-card .card-body {
@@ -1209,7 +1258,7 @@ ul ul a {
 
 .dashboard-broadcasts-card .broadcast-item {
   padding: 10px;
-  border-bottom: 1px solid #c9c9c980;
+  border-bottom: 1px solid #ececec !important;
 }
 
 .dashboard-broadcasts-card .broadcast-item:hover {
@@ -1223,6 +1272,44 @@ ul ul a {
 .dashboard-broadcasts-card .broadcast-item.unread .card-title {
   color: #373aff;
   font-weight: 900;
+}
+
+.dashboard-menu-row .dashboard-menu-box {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  background-color: #fff;
+  border: 1px solid #ececec !important;
+}
+
+.dashboard-menu-row .dashboard-menu-box:hover {
+  box-shadow: 0px 0px 8px #c2c2c2;
+}
+
+.dashboard-menu-row .dashboard-menu-box .icon-block {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.dashboard-menu-row .dashboard-menu-box .icon-block>.icon {
+  margin: auto;
+}
+
+.dashboard-menu-row .dashboard-menu-box .text-block {
+  text-align: center;
+  font-weight: 600;
+  margin-top: 10px;
+  color: #1a1a1ac5;
+}
+
+.right-side-dashboard-card {
+  overflow: hidden;
+  border: 1px solid #ececec !important;
 }
 
 /* ----------------------------------------------------
@@ -1310,5 +1397,27 @@ PDF VIEWER
 @media print {
   .pdf-container {
     display: none;
+  }
+}
+
+/* ----------------------------------------------------
+  CARDS FOR SCHOOL SERVICE PROVIDERS
+  ----------------------------------------------------*/
+.school-service-providers-box {
+  .card-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .icon-block {
+      align-items: center;
+      display: flex;
+    }
+
+    .text-block {
+      margin-left: 3px;
+      font-size: 0.9em;
+      font-weight: 800;      
+    }
   }
 }

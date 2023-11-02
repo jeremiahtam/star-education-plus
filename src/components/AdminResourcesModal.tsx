@@ -3,6 +3,7 @@ import AddResourcesModal from './AddResourcesModal';
 import EditResourcesModal from './EditResourcesModal';
 import DeleteResourcesModal from './DeleteResourcesModal';
 import ViewResourcesDocsModal from './ViewResourcesDocsModal';
+import ViewResourcesDetailsModal from './ViewResourcesDetailsModal';
 
 function AdminResourcesModal(props: any) {
   return (
@@ -15,8 +16,10 @@ function AdminResourcesModal(props: any) {
           props.modalType == 'delete-resources' ?
             <DeleteResourcesModal modalDataId={props.modalDataId}
               handleClose={props.handleClose} loadResources={props.loadResources} /> :
-            props.modalType == 'view-resources' ?
-              <ViewResourcesDocsModal modalDataContent={props.modalDataContent} handleClose={props.handleClose} /> :
+            props.modalType == 'view-resources-details' ?
+              <ViewResourcesDetailsModal modalDataContent={props.modalDataContent} handleClose={props.handleClose} /> :
+              props.modalType == 'view-resources' ?
+                <ViewResourcesDocsModal modalDataContent={props.modalDataContent} handleClose={props.handleClose} /> :
                 ''
       }
     </Modal>

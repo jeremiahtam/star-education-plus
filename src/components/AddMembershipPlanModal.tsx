@@ -89,8 +89,6 @@ function AddMembershipPlanModal(props: any) {
     setSubmitting(false);
   };
 
-
-
   return (
     <>
       <Formik

@@ -17,7 +17,8 @@ export interface stateLoggedInUserType {
       userType: string,
       userFullname: string,
       userProfilePic: string,
-      userAddress: string
+      userAddress: string,
+      schoolName: string
     };
   };
 }

@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import serviceProvidersList from '../data/serviceProvidersList';
 
 function AddServiceProvidersModal(props: any) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
-  const [expiryDate, setExpiryDate] = useState()
 
   const addServiceProviderHandler = async (
     values: any,
@@ -66,11 +66,17 @@ function AddServiceProvidersModal(props: any) {
       <Formik
         initialValues={{
           serviceName: '',
-          expiryDate: null,
+          companyName: '',
+          quantity: '',
+          price: '',
+          renewDate: null,
         }}
         validationSchema={Yup.object({
           serviceName: Yup.string().required('Enter a service'),
-          expiryDate: Yup.string().required('Select an expiry date'),
+          companyName: Yup.string(),
+          quantity: Yup.number().typeError('Enter a number').positive('Enter a positive number'),
+          price: Yup.number().typeError('Enter a number').positive('Enter a positive number'),
+          renewDate: Yup.string().required('Select an renew date'),
         })}
 
         onSubmit={(values, { setSubmitting, setErrors }) => {
@@ -92,8 +98,19 @@ function AddServiceProvidersModal(props: any) {
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
                     <Form.Label className='form-labels'>Service Name</Form.Label>
-                    <Field className="form-control custom-text-input" type="text" placeholder="Service Name" name='serviceName' id='serviceName'
-                      disabled={isSubmitting} />
+
+                    <Form.Select className='custom-text-input' name='serviceName'
+                      onChange={(selectedOption: any) => {
+                        setFieldValue('serviceName', selectedOption.target.value)
+                      }}
+                      value={values.serviceName}>
+                      <option value=''>-- select --</option>
+                      {serviceProvidersList.map((item: any, index: number) => {
+                        return (
+                          <option key={index} value={item.name}>{item.name}</option>
+                        )
+                      })}
+                    </Form.Select>
                     <div className="form-error">
                       <ErrorMessage name="serviceName" />
                     </div>
@@ -101,22 +118,52 @@ function AddServiceProvidersModal(props: any) {
                 </Col>
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="expiryDate">Expiry Date</Form.Label>
+                    <Form.Label className='form-labels'>Company Name</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="Company Name" name='companyName' id='companyName'
+                      disabled={isSubmitting} />
+                    <div className="form-error">
+                      <ErrorMessage name="companyName" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col xs="auto" lg={'6'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label className='form-labels'>Price</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="Price" name='price' id='price'
+                      disabled={isSubmitting} />
+                    <div className="form-error">
+                      <ErrorMessage name="price" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col xs="auto" lg={'6'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label className='form-labels'>Quantity</Form.Label>
+                    <Field className="form-control custom-text-input" type="number" placeholder="Quantity" name='quantity' id='quantity'
+                      disabled={isSubmitting} />
+                    <div className="form-error">
+                      <ErrorMessage name="quantity" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col xs="auto" lg={'6'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="renewDate">Renew Date</Form.Label>
                     <InputGroup className="mb-2">
                       <DatePicker
-                        name="expiryDate" disabled={isSubmitting}
+                        name="renewDate" disabled={isSubmitting}
                         className="form-control custom-text-input"
                         placeholderText="DD/MM/YYYY, 00:00PM"
                         showTimeSelect
-                        selected={values.expiryDate}
+                        selected={values.renewDate}
                         onChange={(date: any) => {
-                          setFieldValue('expiryDate', date)
+                          setFieldValue('renewDate', date)
                         }}
                         dateFormat="yyyy-MM-dd HH:mm:ss"
                       />
                     </InputGroup>
                     <div className="form-error">
-                      <ErrorMessage name="expiryDate" />
+                      <ErrorMessage name="renewDate" />
                     </div>
                   </Form.Group>
                 </Col>

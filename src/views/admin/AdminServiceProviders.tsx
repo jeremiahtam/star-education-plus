@@ -15,6 +15,10 @@ import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 
 function AdminServiceProviders() {
+  const pounds = Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+  });
   const { schoolId } = useParams()
   const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
@@ -201,7 +205,10 @@ function AdminServiceProviders() {
                   <tr>
                     <th>No.</th>
                     <th>Service Name</th>
-                    <th>Expiry Date</th>
+                    <th>Company Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Renewal Date</th>
                     <th></th>
                     <th></th>
                   </tr>
@@ -212,7 +219,10 @@ function AdminServiceProviders() {
                       <tr key={item.id}>
                         <td>{item.sn}</td>
                         <td>{item.serviceName}</td>
-                        <td>{item.expiryDate} {item.expiryTime}</td>
+                        <td>{item.companyName ? item.companyName : '-'}</td>
+                        <td>{item.price ? pounds.format(item.price) : '-'}</td>
+                        <td>{item.quantity ? item.quantity : '-'}</td>
+                        <td>{item.renewDate} {item.renewTime}</td>
                         <td ><IoMdCreate onClick={() => {
                           modalDataHandler(item.id, 'edit-service-providers')
                         }} /></td>
