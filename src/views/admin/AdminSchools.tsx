@@ -170,6 +170,9 @@ function AdminSchools(props: any) {
                   <th>School Name</th>
                   <th>Email</th>
                   <th>Address</th>
+                  <th>School Improvement Partner</th>
+                  <th>Consultant Appointed</th>
+                  <th>Consultant Contact</th>
                   <th>Status</th>
                   <th></th>
                   <th></th>
@@ -188,6 +191,9 @@ function AdminSchools(props: any) {
                       <td>{item.schoolName}</td>
                       <td>{item.email}</td>
                       <td>{item.address}</td>
+                      <td>{item.schoolImprovementPartner}</td>
+                      <td>{item.consultantAppointed}</td>
+                      <td>{item.consultantContact}</td>
                       <td><Badge bg={item.status === 'pending review' ? "secondary" :
                         item.status === 'approved' ? 'success' : 'danger'}>
                         {item.status}</Badge></td>

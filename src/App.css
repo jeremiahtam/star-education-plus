@@ -79,43 +79,13 @@
 }
 
 .login-form-box .btn {
-  margin-top: 10px;
-  /* padding: 10px;
-  background-color: #030432;
-  color: #ffffff;
-  border: 1px solid #030432; */
+  margin-top: 10px; 
 }
-
-
 
 .form-error {
   color: #ff5353;
   font-size: 0.8em;
   font-weight: 600;
-}
-
-/* 
-.form-extras {
-  color: rgba(4, 70, 121, 0.808);
-  font-size: 0.9em;
-  font-weight: 700;
-}
-
-.form-extras span {
-  margin-top: 10px;
-}
-
-.form-extras a {
-  color: rgba(4, 70, 121, 0.596);
-  font-weight: 700;
-}
-
-.form-footer {
-  color: #fff;
-}
-
-.form-footer a {
-  color: rgb(241, 241, 241);
 }
 
 /* ---------------------------------------------------
@@ -359,47 +329,6 @@ ul ul a {
   border-bottom: 1px solid rgba(235, 235, 235, 0.514);
 }
 
-/* #content .title {
-  background-color: #fff;
-  padding: 10px 15px;
-  margin-top: 50px;
-  border-bottom: 1px solid rgba(235, 235, 235, 0.514);
-} */
-
-/* #content .title .text {
-  font-weight: 700;
-  border-bottom: 2px solid #00146d;
-  padding: 10px 15px;
-}
-
-#content .card {
-  margin: 8vh 5%;
-  padding: 20px;
-  border: 1px solid rgba(235, 235, 235, 0.514);
-}
-
-#content .card .card-title {
-  font-weight: 700;
-  color: #0000008e;
-  text-align: center;
-  margin-bottom: 0px;
-}
-
-#content .card .card-body .personal-info-card-body {
-  padding: 0px 20%;
-}
-
-@media (max-width: 768px) {
-  #content .card .card-body .personal-info-card-body {
-    padding: 5px 10%;
-  }
-}
-
-.personal-info-form .label {
-  font-weight: 700;
-  font-size: 0.9em;
-} */
-
 /* ---------------------------------------------------
   MEDIAQUERIES
 ----------------------------------------------------- */
@@ -425,21 +354,6 @@ ul ul a {
     display: none;
   }
 }
-
-/* ---------------------------------
-  MODAL 
-  ----------------------------------*/
-/* .modal-form-label {
-  font-weight: 600;
-  font-size: 0.8em;
-
-} */
-
-/* ---------------------------------
-  EDUCATION
-  ----------------------------------*/
-
-
 
 /* ---------------------------------
   GENERAL 
@@ -551,14 +465,6 @@ ul ul a {
   font-size: 24px;
 }
 
-.body-wrapper-heading-left .sub-title {}
-
-.body-wrapper-heading-right {}
-
-.body-wrapper-content {
-  /* margin-top: 20px; */
-}
-
 /* ---------------------------------
   SEARCH AREA COMPONENT
   ---------------------------------*/
@@ -612,7 +518,6 @@ ul ul a {
 }
 
 .table>thead>tr:last-child>th:last-child {
-  /* background-color: #00146d; */
   border-top-right-radius: 8px;
 }
 
@@ -629,12 +534,10 @@ ul ul a {
 }
 
 .table>tbody>tr:last-child>td:first-child {
-  /* background-color: #00146d; */
   border-bottom-left-radius: 8px;
 }
 
 .table>tbody>tr:last-child>td:last-child {
-  /* background-color: #00146d; */
   border-bottom-right-radius: 8px;
 
 }
@@ -664,8 +567,6 @@ ul ul a {
   width: 30px;
   border-radius: 8px;
   margin-right: 24px;
-  /* background-color: #F9DBBD; */
-
 }
 
 .admin-metric-row-1 .metric-box .right-side .metric-title {
@@ -692,7 +593,6 @@ ul ul a {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: solid; */
 }
 
 .profile-pic-section .image-outter-box .image-box {
@@ -863,17 +763,11 @@ ul ul a {
   display: flex;
 }
 
-.error-container .error-action button {
-  /* width: 400px;
-  padding: 10px 5px; */
-}
-
 /* ---------------------------------
   ADMIN SCHOOL PROFILE
   ---------------------------------*/
 .compartment {
   padding: 30px;
-  /* margin-bottom: 30px; */
   background-color: #ffffff;
   box-shadow: 0 0 40px rgba(51, 51, 51, .1) !important;
 }
@@ -1003,7 +897,6 @@ ul ul a {
     background: #F5F5F5;
     padding: 0 !important;
     overflow: hidden;
-    /* box-shadow: 0px 4px 4px 0px #6F6F6F; */
   }
 }
 
@@ -1012,7 +905,6 @@ ul ul a {
   background: #F5F5F5;
   padding: 0 !important;
   overflow: hidden;
-  /* box-shadow: 0px 4px 4px 0px #6F6F6F; */
 }
 
 .school-login-row .school-login-form-box .logo {
@@ -1038,7 +930,7 @@ ul ul a {
 }
 
 .price-card:hover {
-  box-shadow: 0px 3px 15px #a7a7a7;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1);
 }
 
 .price-card .price-card-sub-title {
@@ -1053,7 +945,6 @@ ul ul a {
   font-size: large;
   text-align: center !important;
   color: #0F1925 !important;
-  /* color: #ca302b !important; */
 }
 
 .price-card .price-card-border {
@@ -1066,17 +957,9 @@ ul ul a {
 }
 
 .price-card .price-card-text>a {
-  /* text-decoration: none; */
   color: #301aaf;
   cursor: pointer;
 }
-
-/* .price-card .btn {
-} */
-
-/* .price-card {
-  border-bottom: 8px solid #aa8302 !important;
-} */
 
 .price-card .btn {
   align-self: center;
@@ -1146,7 +1029,7 @@ ul ul a {
 }
 
 .broadcast-card:hover {
-  box-shadow: 0px 3px 15px #a7a7a7;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1);
 }
 
 .broadcast-card .broadcast-card-sub-title {
@@ -1164,7 +1047,6 @@ ul ul a {
 }
 
 .broadcast-card .broadcast-card-text>a {
-  /* text-decoration: none; */
   color: #301aaf;
   cursor: pointer;
 }
@@ -1233,7 +1115,7 @@ ul ul a {
 }
 
 .dashboard-broadcasts-card:hover {
-  box-shadow: 0px 0px 8px #c7c7c7;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1);
 }
 
 .dashboard-broadcasts-card .card-body {
@@ -1283,7 +1165,7 @@ ul ul a {
 }
 
 .dashboard-menu-row .dashboard-menu-box:hover {
-  box-shadow: 0px 0px 8px #c2c2c2;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1);
 }
 
 .dashboard-menu-row .dashboard-menu-box .icon-block {
@@ -1323,7 +1205,7 @@ ul ul a {
 }
 
 .checkout-card:hover {
-  box-shadow: 0px 3px 15px #a7a7a7;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1);
 }
 
 .checkout-card .checkout-card-sub-title {
@@ -1353,11 +1235,10 @@ ul ul a {
   border-radius: 8px !important;
   padding: 2%;
   border-color: #86868680;
-  /* border-bottom: solid 8px #0F1925 !important; */
 }
 
 .checkout-items-card:hover {
-  box-shadow: 0px 3px 15px #a7a7a7;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1);
 }
 
 .checkout-items-card .checkout-items-card-list {

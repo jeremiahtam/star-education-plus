@@ -130,7 +130,6 @@ function EditServiceProvidersModal(props: any) {
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
                     <Form.Label className='form-labels'>Service Name</Form.Label>
-
                     <Form.Select className='custom-text-input' name='serviceName'
                       onChange={(selectedOption: any) => {
                         setFieldValue('serviceName', selectedOption.target.value)

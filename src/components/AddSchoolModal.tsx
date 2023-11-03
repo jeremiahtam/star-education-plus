@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -9,6 +10,40 @@ import 'react-phone-number-input/style.css'
 function AddSchoolModal(props: any) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+  const [membershipPlansList, setMembershipPlansList] = useState<any>()
+
+  useEffect(() => {
+    getMembershipPlansHandler()
+  }, [])
+  const getMembershipPlansHandler = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/api/membership-plans-list`,
+        {
+          params: {
+          },
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${userInfoData.token}`,
+          },
+          timeout: 30000,
+        });
+
+      const resData = res.data;
+      // console.log(resData.data);
+      if (resData.success == false) {
+
+      } else {
+        setMembershipPlansList(resData.data)
+      }
+    } catch (e: any) {
+      console.log(e);
+      if (e.code == "ECONNABORTED") {
+      }
+      if (e?.response?.data !== undefined) {
+        const errorData = e.response.data;
+      }
+    }
+  };
 
   const addSchoolHandler = async (
     values: any,
@@ -68,6 +103,12 @@ function AddSchoolModal(props: any) {
           numberOfPupils: '',
           chairOfTrusteesName: '',
           headTeacherName: '',
+
+          membershipPlanId: '',
+
+          schoolImprovementPartner: '',
+          consultantAppointed: '',
+          consultantContact: '',
         }}
         validationSchema={Yup.object({
           schoolName: Yup.string().required('Cannot be empty!'),
@@ -83,8 +124,16 @@ function AddSchoolModal(props: any) {
           numberOfPupils: Yup.number().typeError('Enter a number')
             .required('Cannot be empty').integer('Enter a whole number')
             .positive('Enter a positive number'),
-          headTeacherName: Yup.string(),
           chairOfTrusteesName: Yup.string(),
+          headTeacherName: Yup.string(),
+
+          membershipPlanId: Yup.number().typeError('Enter a number')
+            .required('Cannot be empty').integer('Select plan')
+            .positive('Enter a positive number'),
+
+          schoolImprovementPartner: Yup.string().required('Enter a partner'),
+          consultantAppointed: Yup.string().required('Enter a consultant'),
+          consultantContact: Yup.string().required('Enter contact'),
         })}
 
         onSubmit={(values, { setSubmitting, setErrors }) => {
@@ -93,7 +142,8 @@ function AddSchoolModal(props: any) {
       >
         {({
           isSubmitting,
-          setFieldValue
+          setFieldValue,
+          values
         }) => (
           <FormikForm method="POST" id="add-school" name="add-school">
             <Modal.Header closeButton>
@@ -164,7 +214,7 @@ function AddSchoolModal(props: any) {
                 </Col>
               </Row>
               <Row className="align-items-center">
-                <Col xs="auto" lg={'6'}>
+                <Col xs="auto" lg={'4'}>
                   <Form.Group className="mb-3" >
                     <Form.Label className='form-labels'>Full Name*</Form.Label>
                     <Field className="form-control custom-text-input" type="text" placeholder="Enter school admin name" name='fullName' id='fullName'
@@ -174,16 +224,9 @@ function AddSchoolModal(props: any) {
                     </div>
                   </Form.Group>
                 </Col>
-                <Col xs="auto" lg={'6'}>
+                <Col xs="auto" lg={4}>
                   <Form.Group className="mb-3" >
                     <Form.Label htmlFor="inlineFormInputGroup">Phone Number*</Form.Label>
-                    {/* <PhoneInput
-                      placeholder="Enter phone number"
-                      value={phoneNumber}
-                      onChange={() => setPhoneNumber}
-                      className="form-control custom-text-input"
-                      name='phoneNumber' id='phoneNumber'
-                      disabled={isSubmitting} /> */}
                     <Field className="form-control custom-text-input" type="text" placeholder="Phone number" name='phoneNumber' id='phoneNumber'
                       disabled={isSubmitting} />
                     <div className="form-error">
@@ -191,6 +234,29 @@ function AddSchoolModal(props: any) {
                     </div>
                   </Form.Group>
                 </Col>
+
+                <Col xs='auto' lg={4}>
+                  <Form.Group className="mb-3"  >
+                    <Form.Label className='form-labels'>Membership Plan</Form.Label>
+                    <Form.Select className='custom-text-input' name={`membershipPlanId`}
+                      onChange={(selectedOption: any) => {
+                        setFieldValue(`membershipPlanId`, selectedOption.target.value)
+                      }}
+                      value={values.membershipPlanId}>
+                      <option value=''>-- select --</option>
+                      {membershipPlansList &&
+                        membershipPlansList.map((item: any, index: number) => {
+                          return (
+                            <option key={index} value={item.id}>{item.name}</option>
+                          )
+                        })}
+                    </Form.Select>
+                    <div className="form-error">
+                      <ErrorMessage name={`membershipPlanId`} />
+                    </div>
+                  </Form.Group>
+                </Col>
+
               </Row>
               <Row className="align-items-center">
                 <Col xs="auto" lg={'6'}>
@@ -236,6 +302,40 @@ function AddSchoolModal(props: any) {
                   </Form.Group>
                 </Col>
               </Row>
+
+              <Row className="align-items-center">
+                <Col xs="auto" lg={'4'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label className='form-labels'>School Improvement Partner*</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="School Improvement Partner" name='schoolImprovementPartner' id='schoolImprovementPartner'
+                      disabled={isSubmitting} />
+                    <div className="form-error">
+                      <ErrorMessage name="schoolImprovementPartner" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col xs="auto" lg={'4'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="consultantAppointed">Consultant Appointed*</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="Consultant Appointed" name='consultantAppointed' id='consultantAppointed'
+                      disabled={isSubmitting} />
+                    <div className="form-error">
+                      <ErrorMessage name="consultantAppointed" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col xs="auto" lg={'4'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="consultantContact">Consultant Contact*</Form.Label>
+                    <Field className="form-control custom-text-input" type="text" placeholder="Consultant Contact" name='consultantContact' id='consultantContact'
+                      disabled={isSubmitting} />
+                    <div className="form-error">
+                      <ErrorMessage name="consultantContact" />
+                    </div>
+                  </Form.Group>
+                </Col>
+              </Row>
+
             </Modal.Body>
             <Modal.Footer>
               <Button className="btn-custom-outline" onClick={props.handleClose}>  Close </Button>

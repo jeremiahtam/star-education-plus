@@ -70,6 +70,13 @@ function EditSchoolProfile(props: any) {
         numberOfPupils: props.selectedSchool.number_of_pupils,
         chairOfTrusteesName: props.selectedSchool.chair_of_trustees_name,
         headTeacherName: props.selectedSchool.head_teacher_name,
+
+        schoolImprovementPartner: props.selectedSchool.school_improvement_partner,
+        consultantAppointed: props.selectedSchool.consultant_appointed,
+        consultantContact: props.selectedSchool.consultant_contact,
+        webinarsAttended: props.selectedSchool.webinars_attended,
+        workshopsAttended: props.selectedSchool.workshops_attended,
+        masterclassesAttended: props.selectedSchool.masterclasses_attended,
       }}
       validationSchema={Yup.object({
         schoolName: Yup.string().required('Cannot be empty!'),
@@ -84,8 +91,15 @@ function EditSchoolProfile(props: any) {
         numberOfPupils: Yup.number().typeError('Enter a number')
           .required('Cannot be empty').integer('Enter a whole number')
           .positive('Enter a positive number'),
-        headTeacherName: Yup.string(),
         chairOfTrusteesName: Yup.string(),
+        headTeacherName: Yup.string(),
+
+        schoolImprovementPartner: Yup.string().required('Enter a partner'),
+        consultantAppointed: Yup.string().required('Enter a consultant'),
+        consultantContact: Yup.string().required('Enter contact'),
+        webinarsAttended: Yup.number().typeError('Enter a number'),
+        workshopsAttended: Yup.number().typeError('Enter a number'),
+        masterclassesAttended: Yup.number().typeError('Enter a number'),
       })}
 
       onSubmit={async (values, { setSubmitting, setErrors }) => {
@@ -171,7 +185,7 @@ function EditSchoolProfile(props: any) {
             </Col>
             <Col xs={"12"} lg={'6'}>
               <Form.Group className="mb-3" >
-                <Form.Label className='form-labels'>Phone Number*</Form.Label>                
+                <Form.Label className='form-labels'>Phone Number*</Form.Label>
                 <Field className="form-control custom-text-input" type="text" placeholder="Phone number" name='phoneNumber' id='phoneNumber'
                   disabled={isSubmitting} />
                 <div className="form-error">
@@ -224,6 +238,71 @@ function EditSchoolProfile(props: any) {
               </Form.Group>
             </Col>
           </Row>
+          <Row className="align-items-center">
+            <Col xs="auto" lg={'4'}>
+              <Form.Group className="mb-3" >
+                <Form.Label className='form-labels'>School Improvement Partner*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="School Improvement Partner" name='schoolImprovementPartner' id='schoolImprovementPartner'
+                  disabled={isSubmitting} />
+                <div className="form-error">
+                  <ErrorMessage name="schoolImprovementPartner" />
+                </div>
+              </Form.Group>
+            </Col>
+            <Col xs="auto" lg={'4'}>
+              <Form.Group className="mb-3" >
+                <Form.Label htmlFor="consultantAppointed">Consultant Appointed*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Consultant Appointed" name='consultantAppointed' id='consultantAppointed'
+                  disabled={isSubmitting} />
+                <div className="form-error">
+                  <ErrorMessage name="consultantAppointed" />
+                </div>
+              </Form.Group>
+            </Col>
+            <Col xs="auto" lg={'4'}>
+              <Form.Group className="mb-3" >
+                <Form.Label htmlFor="consultantContact">Consultant Contact*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Consultant Contact" name='consultantContact' id='consultantContact'
+                  disabled={isSubmitting} />
+                <div className="form-error">
+                  <ErrorMessage name="consultantContact" />
+                </div>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="align-items-center">
+            <Col xs="auto" lg={'4'}>
+              <Form.Group className="mb-3" >
+                <Form.Label className='form-labels'>Webinars Attended*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Webinars Attended" name='webinarsAttended' id='webinarsAttended'
+                  disabled={isSubmitting} />
+                <div className="form-error">
+                  <ErrorMessage name="webinarsAttended" />
+                </div>
+              </Form.Group>
+            </Col>
+            <Col xs="auto" lg={'4'}>
+              <Form.Group className="mb-3" >
+                <Form.Label htmlFor="workshopsAttended">Workshops Attended*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Consultant Appointed" name='workshopsAttended' id='workshopsAttended'
+                  disabled={isSubmitting} />
+                <div className="form-error">
+                  <ErrorMessage name="workshopsAttended" />
+                </div>
+              </Form.Group>
+            </Col>
+            <Col xs="auto" lg={'4'}>
+              <Form.Group className="mb-3" >
+                <Form.Label htmlFor="masterclassesAttended">Masterclasses Attended*</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Masterclasses Attended" name='masterclassesAttended' id='masterclassesAttended'
+                  disabled={isSubmitting} />
+                <div className="form-error">
+                  <ErrorMessage name="masterclassesAttended" />
+                </div>
+              </Form.Group>
+            </Col>
+          </Row>
+
           <Button className='btn btn-custom' type='submit'>Submit</Button>
         </FormikForm>
       )}
