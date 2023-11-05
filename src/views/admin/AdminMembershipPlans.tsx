@@ -160,8 +160,10 @@ function AdminMembershipPlans(props: any) {
                 <tr>
                   <th>No.</th>
                   <th>Name</th>
-                  <th>Amount</th>
                   <th>Content</th>
+                  <th>Amount</th>
+                  <th>Discount Amount</th>
+                  <th>Discount Frequency</th>
                   <th>Duration (Days)</th>
                   <th>Status</th>
                   <th></th>
@@ -174,8 +176,10 @@ function AdminMembershipPlans(props: any) {
                     <tr key={item.id}>
                       <td>{item.sn}</td>
                       <td>{item.name}</td>
-                      <td>{pounds.format(item.amount)}</td>
                       <td><div>{item.membershipPlanContent}</div></td>
+                      <td>{pounds.format(item.amount)}</td>
+                      <td>{pounds.format(item.discountAmount)}</td>
+                      <td>{item.discountFrequency}</td>
                       <td>{item.duration == null ? '-' : item.duration}</td>
                       <td>{item.status}</td>
                       <td ><IoMdCreate onClick={() => {

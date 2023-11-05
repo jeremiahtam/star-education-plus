@@ -161,22 +161,29 @@ function SchoolMetrics() {
           <Card className='right-side-dashboard-card mb-3'>
             <Card.Body>
               <Card.Title>Membership Tracker</Card.Title>
-              <Card.Text>Seminars attended <Badge bg='info' className='float-end'>24</Badge></Card.Text>
-              <Card.Text>Webinars attended <Badge bg='info' className='float-end'>12</Badge></Card.Text>
+              <Card.Text>Workshops attended <Badge bg='info' className='float-end'>
+                {userInfoData.workshopsAttended}
+              </Badge></Card.Text>
+              <Card.Text>Webinars attended <Badge bg='info' className='float-end'>
+                {userInfoData.webinarsAttended}
+              </Badge></Card.Text>
+              <Card.Text>Masterclasses attended <Badge bg='info' className='float-end'>
+                {userInfoData.masterclassesAttended}
+              </Badge></Card.Text>
             </Card.Body>
           </Card>
+          <Card className='right-side-dashboard-card mb-3'>
+            <Card.Body>
+              <Card.Title>School Imporvement Partner</Card.Title>
+              <Card.Text>{userInfoData.schoolImprovementPartner}</Card.Text>
+            </Card.Body>
+          </Card>
+
           <Card className='right-side-dashboard-card mb-3'>
             <Card.Body>
               <Card.Title>Consultant Improvement Partner</Card.Title>
-              <Card.Text>Consultant appointed: John</Card.Text>
-              <Card.Text>Contact details: 12, Lagos</Card.Text>
-              <Card.Text>Current used hours this term <Badge bg='info' className='float-end'>12</Badge></Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className='right-side-dashboard-card mb-3'>
-            <Card.Body>
-              <Card.Title>Contact Personnel</Card.Title>
-              <Card.Text>Downing Street, London</Card.Text>
+              <Card.Text>Consultant appointed: {userInfoData.consultantAppointed}</Card.Text>
+              <Card.Text>Contact details: {userInfoData.consultantContact}</Card.Text>
             </Card.Body>
           </Card>
         </Col>
