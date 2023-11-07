@@ -25,6 +25,7 @@ function ViewInvoiceModal(props: any) {
 
 
   const [selectedInvoiceItems, setSelectedInvoiceItems] = useState<any[]>([])
+  const [purchaseTotal, setPurchaseTotal] = useState<number>(0)
 
   const getItemsOnInvoice = async () => {
     try {
@@ -44,7 +45,8 @@ function ViewInvoiceModal(props: any) {
       console.log(resData.data);
       if (resData.success == false) {
       } else {
-        setSelectedInvoiceItems(resData.data)
+        setSelectedInvoiceItems(resData.data.invoiceItems)
+        setPurchaseTotal(resData.data.purchaseTotal)
       }
     } catch (e: any) {
       console.log(e);
@@ -123,7 +125,7 @@ function ViewInvoiceModal(props: any) {
                     })}
                     <tr>
                       <td colSpan={2}>Total</td>
-                      <td>{invoiceData.total}</td>
+                      <td>{purchaseTotal}</td>
                     </tr>
                   </tbody>
                 </Table>

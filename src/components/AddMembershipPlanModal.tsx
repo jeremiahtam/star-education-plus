@@ -135,7 +135,6 @@ function AddMembershipPlanModal(props: any) {
               packagesAndServicesId: Yup.number().typeError('Enter a number')
                 .required('Required!').positive('Positive number'),
               frequency: Yup.string().required('Required!'),
-              freebiesReach: Yup.string().required('Required!'),
               freeAttempts: Yup.number().typeError('Enter a number')
                 .required('Required!').positive('Positive number'),
             })
@@ -193,7 +192,8 @@ function AddMembershipPlanModal(props: any) {
                     }
                       className='custom-text-input' name={`discountFrequency`}
                       value={values.discountFrequency}>
-                      <option value=''>-- select --</option>
+                      {/* <option value=''>-- select --</option> */}
+                      <option value='none'>None</option>
                       <option value="per-cycle">Every subscription</option>
                       <option value="per-lifetime">Once in a lifetime</option>
                     </Form.Select>
@@ -256,7 +256,7 @@ function AddMembershipPlanModal(props: any) {
                         <div className='pull-right'>
                           <button className='btn btn-custom btn-sm' type="button"
                             onClick={() => arrayHelpers.push({
-                              id: '', packagesAndServicesId: '', frequency: '', freebiesReach: '', freeAttempts: ''
+                              id: '', packagesAndServicesId: '', frequency: '', freeAttempts: ''
                             })}
                           >
                             <IoIosAdd className='btn-icon' />
@@ -303,23 +303,6 @@ function AddMembershipPlanModal(props: any) {
                             </Form.Select>
                             <div className="form-error">
                               <ErrorMessage name={`freebies.${index}.frequency`} />
-                            </div>
-                          </Form.Group>
-                        </Col>
-                        <Col xs={6} md={3}>
-                          <Form.Group className="mb-3"  >
-                            <Form.Label className='form-labels'>Freebies Reach</Form.Label>
-                            <Form.Select onChange={(selectedOption: any) =>
-                              setFieldValue(`freebies.${index}.freebiesReach`, selectedOption.target.value)
-                            }
-                              className='custom-text-input' name={`freebies.${index}.freebiesReach`}
-                              value={freebie.freebiesReach}>
-                              <option value=''>-- select --</option>
-                              <option value="all-packages">All packages</option>
-                              <option value="this-package">This package only</option>
-                            </Form.Select>
-                            <div className="form-error">
-                              <ErrorMessage name={`freebies.${index}.freebiesReach`} />
                             </div>
                           </Form.Group>
                         </Col>
