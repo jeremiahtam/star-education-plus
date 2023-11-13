@@ -25,6 +25,7 @@ export interface stateLoggedInUserType {
       webinarsAttended: number,
       workshopsAttended: number,
       masterclassesAttended: number,
+      expiryDate: string,
     };
   };
 }

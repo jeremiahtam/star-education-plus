@@ -155,7 +155,7 @@ function SchoolMetrics() {
           <Card className='right-side-dashboard-card mb-3'>
             <Card.Body>
               <Card.Title>Membership Plan</Card.Title>
-              <Card.Text>Basic Plan Expires <Badge bg='primary' className='float-end'>12th May, 2024</Badge></Card.Text>
+              <Card.Text>Basic Plan Expires <Badge bg='primary' className='float-end'>{userInfoData.expiryDate}</Badge></Card.Text>
             </Card.Body>
           </Card>
           <Card className='right-side-dashboard-card mb-3'>

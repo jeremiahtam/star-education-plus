@@ -46,6 +46,8 @@ function SchoolCheckout() {
           cartResources,
           cartMembershipPlans,
           cartPackagesAndServices,
+          schoolId: userInfoData.userId,
+          billingAddress: userInfoData.userAddress,
         },
         {
           headers: {
