@@ -24,7 +24,7 @@ function CustomPagination(props: CustomPaginationPropType) {
           <select className="" onChange={(e: any) => {
             props.setItemsPerPage(e.target.value)
           }}>
-            {[2, 10, 20, 50, 100].map((item, index) => {
+            {[10, 20, 50, 100].map((item, index) => {
               return <option key={index} value={item}>{item}</option>
             })}
           </select>

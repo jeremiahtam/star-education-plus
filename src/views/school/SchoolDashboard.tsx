@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 import { navToggleClassStateType, stateLoggedInUserType } from '../../../types/type-definitions'
 import { store } from '../../store/root-reducer'
 import { insertUserData, loadUserData } from '../../store/actions/user-info'
+import { Alert, Col, Row } from 'react-bootstrap'
+import { userInfo } from 'os'
 
 const SchoolDashboard = () => {
   const navigate = useNavigate();
@@ -25,13 +27,28 @@ const SchoolDashboard = () => {
       // navigate('/dashboard')
     }
   }, [userInfoData])
-  
+
   return (
     <div className="wrapper">
       <SideBarNav />
       <div id="content" className={navToggleClass}>
         <TopNav />
-        <Outlet />
+        {userInfoData.schoolStatus == 'pending review' &&
+          <Alert className='form-feedback-message' variant={"info"} dismissible
+            style={{ margin: '10px' }}>
+            <div>
+              You account is currently being assessed and pending approval.
+              Please be patient while your account is being reviewed.Contact us at <a href='mailto:contact@stareducationplus.org.uk'>contact@stareducationplus.org.uk</a>
+            </div>
+          </Alert>}
+        {userInfoData.schoolStatus == 'suspended' &&
+          <Alert className='form-feedback-message' variant={"danger"} dismissible
+            style={{ margin: '10px' }}>
+            <div>
+              You account is currently suspended. Contact the admin <a href='mailto:contact@stareducationplus.org.uk'>contact@stareducationplus.org.uk</a>
+            </div>
+          </Alert>}
+        {userInfoData.schoolStatus == 'approved' && <Outlet />}
       </div>
     </div>
   )

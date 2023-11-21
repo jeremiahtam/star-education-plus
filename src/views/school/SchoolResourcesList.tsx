@@ -12,12 +12,16 @@ import { IoMdSearch } from 'react-icons/io';
 import { store } from '../../store/root-reducer';
 import { deleteUserData } from '../../store/actions/user-info';
 import { FaEye } from 'react-icons/fa';
+import ToastComponent from '../../components/ToastComponent';
 
 function SchoolResourcesList() {
   const location = useLocation()
   const { resourcesId } = useParams()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+
+  //Toast information
+  const [showToast, setShowToast] = useState(false);
 
   //Modal COntrol
   const [show, setShow] = useState(false);
@@ -168,7 +172,11 @@ function SchoolResourcesList() {
                         <td>
                           <FaEye
                             onClick={() => {
-                              modalDataHandler(item, 'view-resources-docs')
+                              if (userInfoData.planExpired) {
+                                setShowToast(true)
+                              } else {
+                                modalDataHandler(item, 'view-resources-docs')
+                              }
                             }}
                           />
                         </td>
@@ -188,6 +196,15 @@ function SchoolResourcesList() {
             <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
           {modalType && <AdminResourcesDocsModal show={show} handleClose={handleClose} handleShow={handleShow}
             modalType={modalType} modalDataContent={modalDataContent} resourcesId={resourcesId} />}
+          <ToastComponent
+            onClose={() => setShowToast(false)}
+            show={showToast}
+            delay={3000}
+            autohide={true}
+            title='Oops! Membership Plan Expired'
+            body='Your membership plan has expired Please renew.'
+          />
+
         </>
       }
 

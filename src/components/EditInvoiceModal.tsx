@@ -133,12 +133,13 @@ function EditInvoiceModal(props: any) {
                   <Form.Label className='form-labels'>Status*</Form.Label>
 
                   <Form.Select className='custom-text-input' id='status' name='status'
+                    disabled={initialValues.status == 'paid' ? true : false}
                     onChange={(selectedOption: any) =>
                       setFieldValue('status', selectedOption.target.value)
                     }
                     value={values.status}>
                     <option value={''}>-- select status --</option>
-                    <option value="paid">Paid</option>
+                    <option value={'paid'}>Paid</option>
                     <option value="pending">Pending</option>
                   </Form.Select>
                   {values.status == 'paid' && initialValues.status !== 'paid' &&

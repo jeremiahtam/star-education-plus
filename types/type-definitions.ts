@@ -19,13 +19,16 @@ export interface stateLoggedInUserType {
       userProfilePic: string,
       userAddress: string,
       schoolName: string,
+      schoolStatus: string,
       schoolImprovementPartner: string,
       consultantAppointed: string,
       consultantContact: string,
       webinarsAttended: number,
       workshopsAttended: number,
       masterclassesAttended: number,
-      expiryDate: string,
+      planExpired: boolean,
+      planExpiryDate: string,
+      planExpiryTime: string,
     };
   };
 }

@@ -13,6 +13,7 @@ import { IoIosAdd, IoMdCreate, IoMdDownload, IoMdSearch } from 'react-icons/io';
 import fileDownload from 'js-file-download'
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
+import ToastComponent from '../../components/ToastComponent';
 
 function SchoolPackagesAndServicesDocument() {
   const location = useLocation()
@@ -27,20 +28,23 @@ function SchoolPackagesAndServicesDocument() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   // const [selectedSchool, setSelectedSchool] = useState<any>(null)
 
-  //Modal COntrol
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  //Toast information
+  const [showToast, setShowToast] = useState(false);
 
-  const [modalType, setModalType] = useState<string | null>(null);
-  const [modalDataId, setModalDataId] = useState<number | null>(null) /* modal dataId */
+  // //Modal COntrol
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
-  const modalDataHandler = useCallback((_dataId: number, _modalType: string) => {
-    handleShow()
-    setModalDataId(_dataId)
-    setModalType(_modalType)
-    console.log(`${_dataId} ${_modalType}`)
-  }, [setModalType, setModalDataId])
+  // const [modalType, setModalType] = useState<string | null>(null);
+  // const [modalDataId, setModalDataId] = useState<number | null>(null) /* modal dataId */
+
+  // const modalDataHandler = useCallback((_dataId: number, _modalType: string) => {
+  //   handleShow()
+  //   setModalDataId(_dataId)
+  //   setModalType(_modalType)
+  //   console.log(`${_dataId} ${_modalType}`)
+  // }, [setModalType, setModalDataId])
 
   const [schoolOrderedDocs, setSchoolOrderedDocs] = useState<any>()
 
@@ -205,7 +209,13 @@ function SchoolPackagesAndServicesDocument() {
                         <td>{item.documentName}</td>
                         <td>
                           <IoMdDownload
-                            onClick={() => downloadFileHandler(item.nameInStorage, item.documentName)}
+                            onClick={() => {
+                              if (userInfoData.planExpired) {
+                                setShowToast(true)
+                              } else {
+                                downloadFileHandler(item.nameInStorage, item.documentName)
+                              }
+                            }}
                           />
                         </td>
                         {/* <td ><IoMdCreate onClick={() => {
@@ -228,9 +238,18 @@ function SchoolPackagesAndServicesDocument() {
 
           {schoolOrderedDocs.data.length !== 0 &&
             <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
-          {modalType && <AdminSchoolDocsModal show={show} handleClose={handleClose} handleShow={handleShow}
+          {/* {modalType && <AdminSchoolDocsModal show={show} handleClose={handleClose} handleShow={handleShow}
             modalType={modalType} modalDataId={modalDataId} orderedItemsId={orderedItemsId}
-            loadSchoolDocs={getSchoolDocsHandler} />}
+            loadSchoolDocs={getSchoolDocsHandler} />} */}
+          <ToastComponent
+            onClose={() => setShowToast(false)}
+            show={showToast}
+            delay={3000}
+            autohide={true}
+            title='Oops! Membership Plan Expired'
+            body='Your membership plan has expired Please renew.'
+          />
+
         </>
       }
     </BodyWrapper>

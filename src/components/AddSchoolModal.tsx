@@ -203,9 +203,9 @@ function AddSchoolModal(props: any) {
                         selectedOption.target.value,
                       )} aria-label="Default select example" id='status' name='status' className='custom-text-input'>
                       <option value={''}>-- select status --</option>
-                      <option value="Pending Review">Pending Review</option>
-                      <option value="Approved">Approved</option>
-                      <option value="Suspended">Suspended</option>
+                      <option value="pending review">Pending Review</option>
+                      <option value="approved">Approved</option>
+                      <option value="suspended">Suspended</option>
                     </Form.Select>
                     <div className="form-error">
                       <ErrorMessage name="status" />
