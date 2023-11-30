@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Button, Pagination, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import AdminSchoolDocsModal from '../../components/AdminSchoolDocsModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -30,21 +30,6 @@ function SchoolPackagesAndServicesDocument() {
 
   //Toast information
   const [showToast, setShowToast] = useState(false);
-
-  // //Modal COntrol
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-
-  // const [modalType, setModalType] = useState<string | null>(null);
-  // const [modalDataId, setModalDataId] = useState<number | null>(null) /* modal dataId */
-
-  // const modalDataHandler = useCallback((_dataId: number, _modalType: string) => {
-  //   handleShow()
-  //   setModalDataId(_dataId)
-  //   setModalType(_modalType)
-  //   console.log(`${_dataId} ${_modalType}`)
-  // }, [setModalType, setModalDataId])
 
   const [schoolOrderedDocs, setSchoolOrderedDocs] = useState<any>()
 
@@ -146,6 +131,25 @@ function SchoolPackagesAndServicesDocument() {
     <BodyWrapper title={'Documents'}
     // subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}
     >
+      <Breadcrumb>
+        <Breadcrumb.Item onClick={() => {
+          navigate('/packages-and-services')
+        }}>
+          Packages and Services
+        </Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => {
+          navigate(`/packages-and-services/${location.state.packagesAndServicesId}`, {
+            state: { packagesAndServicesName: location.state.packagesAndServicesName }
+          })
+        }}>
+          {location?.state?.packagesAndServicesName !== null ?
+            location.state.packagesAndServicesName : 'Item'}
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          Document Download
+        </Breadcrumb.Item>
+
+      </Breadcrumb>
 
       {(location?.state?.category !== null && location?.state?.name !== null) &&
         <div className=''>{location.state.category} | {location.state.data.name}</div>}
@@ -210,7 +214,7 @@ function SchoolPackagesAndServicesDocument() {
                         <td>
                           <IoMdDownload
                             onClick={() => {
-                              if (userInfoData.planExpired) {
+                              if (userInfoData.planExpired === true) {
                                 setShowToast(true)
                               } else {
                                 downloadFileHandler(item.nameInStorage, item.documentName)
@@ -218,12 +222,6 @@ function SchoolPackagesAndServicesDocument() {
                             }}
                           />
                         </td>
-                        {/* <td ><IoMdCreate onClick={() => {
-                          modalDataHandler(item.id, 'edit-school-packages-and-services-docs')
-                        }} /></td> */}
-                        {/* <td><HiTrash onClick={() => {
-                          modalDataHandler(item.id, 'delete-school-packages-and-services-docs')
-                        }} /></td> */}
                       </tr>
                     )
                   })}

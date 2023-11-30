@@ -34,16 +34,14 @@ const SchoolDashboard = () => {
       <div id="content" className={navToggleClass}>
         <TopNav />
         {userInfoData.schoolStatus == 'pending review' &&
-          <Alert className='form-feedback-message' variant={"info"} dismissible
-            style={{ margin: '10px' }}>
+          <Alert className='form-feedback-message' variant={"info"} style={{ margin: '10px' }}>
             <div>
               You account is currently being assessed and pending approval.
               Please be patient while your account is being reviewed.Contact us at <a href='mailto:contact@stareducationplus.org.uk'>contact@stareducationplus.org.uk</a>
             </div>
           </Alert>}
         {userInfoData.schoolStatus == 'suspended' &&
-          <Alert className='form-feedback-message' variant={"danger"} dismissible
-            style={{ margin: '10px' }}>
+          <Alert className='form-feedback-message' variant={"danger"} style={{ margin: '10px' }}>
             <div>
               You account is currently suspended. Contact the admin <a href='mailto:contact@stareducationplus.org.uk'>contact@stareducationplus.org.uk</a>
             </div>

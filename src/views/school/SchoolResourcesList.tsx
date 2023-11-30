@@ -1,12 +1,12 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Button, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import AdminResourcesDocsModal from '../../components/AdminResourcesDocsModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch } from 'react-icons/io';
 import { store } from '../../store/root-reducer';
@@ -19,6 +19,7 @@ function SchoolResourcesList() {
   const { resourcesId } = useParams()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+  const navigate = useNavigate();
 
   //Toast information
   const [showToast, setShowToast] = useState(false);
@@ -112,8 +113,19 @@ function SchoolResourcesList() {
 
   return (
     <BodyWrapper title='Resources'>
-      {location?.state !== null &&
-        <div className=''>{location.state.category} | {location.state.data.name}</div>}
+      <Breadcrumb>
+        <Breadcrumb.Item onClick={() => {
+          navigate('/resources')
+        }}>
+          Resources
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          {location?.state !== null ? location.state.data.name : 'Resource Item'}
+        </Breadcrumb.Item>
+      </Breadcrumb>
+
+      {/* {location?.state !== null &&
+        <div className=''>{location.state.data.name}</div>} */}
 
       {resourcesDocs?.success === false && !resourcesDocs?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
@@ -172,7 +184,7 @@ function SchoolResourcesList() {
                         <td>
                           <FaEye
                             onClick={() => {
-                              if (userInfoData.planExpired) {
+                              if (userInfoData.planExpired === true) {
                                 setShowToast(true)
                               } else {
                                 modalDataHandler(item, 'view-resources-docs')

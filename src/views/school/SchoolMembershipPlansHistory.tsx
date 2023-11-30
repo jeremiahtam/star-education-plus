@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch } from "react-icons/io";
-import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Button, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
@@ -9,11 +9,13 @@ import { MdOutlineClear } from 'react-icons/md';
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 import CustomPagination from '../../components/CustomPagination';
+import { useNavigate } from 'react-router';
 
 function SchoolMembershipPlansHistory(props: any) {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
-
+  const navigate = useNavigate()
+  
   const [membershipPlansHistory, setMembershipPlansHistory] = useState<any>()
 
   // Pagination control
@@ -88,7 +90,17 @@ function SchoolMembershipPlansHistory(props: any) {
 
   return (
     <BodyWrapper title='Membership Plan History'>
-
+      <Breadcrumb>
+        <Breadcrumb.Item onClick={() => {
+          navigate('/membership-plans')
+        }}>
+          Membership Plans
+        </Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => {
+        }}>
+          Membership Plan History
+        </Breadcrumb.Item>
+      </Breadcrumb>
       {membershipPlansHistory?.success === false && !membershipPlansHistory?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{membershipPlansHistory?.message}</div>

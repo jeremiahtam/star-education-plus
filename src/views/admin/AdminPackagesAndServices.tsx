@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Button, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import AdminPackagesAndServicesModal from '../../components/AdminPackagesAndServicesModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -11,12 +11,14 @@ import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
+import { useNavigate } from 'react-router';
 
 function AdminPackagesAndServices() {
   const pounds = Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'GBP',
   });
+  const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
@@ -124,6 +126,12 @@ function AdminPackagesAndServices() {
           setModalType('add-packages-and-services')
           handleShow()
         }}>Create New <IoIosAdd className='btn-icon' /></button>}>
+      {/* <Breadcrumb>
+        <Breadcrumb.Item onClick={() => {
+        }}>
+          Packages and Services
+        </Breadcrumb.Item>
+      </Breadcrumb> */}
 
       {selectedPackagesAndServices?.success === false && !selectedPackagesAndServices?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>

@@ -7,6 +7,7 @@ import personIcon from '../images/person-icon.png'
 import ChangeProfilePicModal from './ChangeProfilePicModal';
 import { BsPencilFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import AdminChangeProfilePicModal from './AdminChangeProfilePicModal';
 
 function EditSchoolProfilePic(props: any) {
   const backEndImageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;
@@ -100,7 +101,7 @@ function EditSchoolProfilePic(props: any) {
           </Dropdown>
         </div>
       </Row>
-      {modalType && <ChangeProfilePicModal show={show} handleClose={handleClose} handleShow={handleShow}
+      {modalType && <AdminChangeProfilePicModal show={show} handleClose={handleClose} handleShow={handleShow}
         modalType={modalType} modalDataId={modalDataId} setProfilePic={(pic: string) => setProfilePic(pic)} />}
     </div>
   )

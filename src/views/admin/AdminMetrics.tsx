@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Row, Col, Alert } from 'react-bootstrap';
+import { Row, Col, Alert, Breadcrumb } from 'react-bootstrap';
 import BodyWrapper from '../../components/BodyWrapper'
 import { ImStack } from 'react-icons/im'
 import AdminMetricBox from '../../components/AdminMetricBox';
@@ -8,9 +8,10 @@ import { store } from '../../store/root-reducer';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import { deleteUserData } from '../../store/actions/user-info';
+import { useNavigate } from 'react-router';
 
 const AdminMetrics = () => {
-
+  const navigate = useNavigate()
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const [invoiceStatistics, setInvoiceStatistics] = useState<any>()
@@ -111,7 +112,14 @@ const AdminMetrics = () => {
 
   return (
     <BodyWrapper title='Dashboard'>
-
+      {/* <Breadcrumb>
+        <Breadcrumb.Item onClick={() => 
+          {
+            //  navigate('/') 
+          }}>
+          Dashboard
+        </Breadcrumb.Item>
+      </Breadcrumb> */}
       <Row className='admin-metric-row-1'>
         <Col md={'6'}>
           {invoiceStatistics?.success === false && !invoiceStatistics?.data

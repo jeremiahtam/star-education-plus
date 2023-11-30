@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Button, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import AdminSchoolDocsModal from '../../components/AdminSchoolDocsModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -194,6 +194,27 @@ function AdminPackagesAndServicesDocumentAttendance() {
             setModalType('add-school-packages-and-services-docs')
             handleShow()
           }}>Create New <IoIosAdd className='btn-icon' /></button>}>
+      <Breadcrumb>
+        <Breadcrumb.Item onClick={() => {
+          navigate('/schools')
+        }}>
+          Schools
+        </Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => {
+          navigate(`/schools/${schoolId}`)
+        }}>
+          {selectedSchool !== null ? selectedSchool.school_name : 'School Profile'}
+        </Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => {
+          navigate(`/schools/${schoolId}/packages-and-services`)
+        }}>
+          {location?.state !== null ? location.state.data.name : 'Packages and Services'}
+        </Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => {
+        }}>
+          Attendance
+        </Breadcrumb.Item>
+      </Breadcrumb>
 
       {location?.state !== null &&
         <div className=''>{location.state.category} | {location.state.data.name}</div>}

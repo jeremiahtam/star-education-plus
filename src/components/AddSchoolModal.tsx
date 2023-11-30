@@ -124,8 +124,8 @@ function AddSchoolModal(props: any) {
           numberOfPupils: Yup.number().typeError('Enter a number')
             .required('Cannot be empty').integer('Enter a whole number')
             .positive('Enter a positive number'),
-          chairOfTrusteesName: Yup.string(),
-          headTeacherName: Yup.string(),
+          chairOfTrusteesName: Yup.string().nullable(),
+          headTeacherName: Yup.string().nullable(),
 
           membershipPlanId: Yup.number().typeError('Enter a number')
             .required('Cannot be empty').integer('Select plan')

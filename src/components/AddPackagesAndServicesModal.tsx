@@ -60,7 +60,8 @@ function AddPackagesAndServicesModal(props: any) {
           packagesAndServicesContent: '',
           duration: '',
           amount: '',
-          status: ''
+          status: '',
+          category: '',
         }}
         validationSchema={Yup.object({
           name: Yup.string().required('Enter a name'),
@@ -79,6 +80,7 @@ function AddPackagesAndServicesModal(props: any) {
               (amount: any) => /^\d+(\.\d{1,2})?$/.test(amount)
             ),
           status: Yup.string().required('Select status'),
+          category: Yup.string().required('Select a category'),
         })}
 
         onSubmit={(values, { setSubmitting, setErrors }) => {
@@ -146,6 +148,22 @@ function AddPackagesAndServicesModal(props: any) {
                       <option value={''}>-- select status --</option>
                       <option value="inactive">Inactive</option>
                       <option value="active">Active</option>
+                    </Form.Select>
+                    <div className="form-error">
+                      <ErrorMessage name="status" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col xs="auto" lg={'6'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label className='form-labels'>Category</Form.Label>
+                    <Form.Select className='custom-text-input'
+                      onChange={(selectedOption: any) =>
+                        setFieldValue('category', selectedOption.target.value)
+                      } id='category' name='category' value={values.category}>
+                      <option value={''}>-- select category --</option>
+                      <option value="document">Document</option>
+                      <option value="attendance">Attendance</option>
                     </Form.Select>
                     <div className="form-error">
                       <ErrorMessage name="status" />

@@ -1,5 +1,5 @@
-import{ ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { ChangeEvent, useEffect, useState, useCallback } from 'react'
+import { Button, Pagination, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import AdminSchoolDocsModal from '../../components/AdminSchoolDocsModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -16,7 +16,6 @@ import { store } from '../../store/root-reducer';
 
 function AdminPackagesAndServicesDocumentUpload() {
   const location = useLocation()
-
   if (location.state.category) {
     // console.log(location.state.category)
     // console.log(location.state.data.name)
@@ -191,8 +190,31 @@ function AdminPackagesAndServicesDocumentUpload() {
             handleShow()
           }}>Create New <IoIosAdd className='btn-icon' /></button>}>
 
-      {location?.state !== null &&
-        <div className=''>{location.state.category} | {location.state.data.name}</div>}
+      <Breadcrumb>
+        <Breadcrumb.Item onClick={() => {
+          navigate('/schools')
+        }}>
+          Schools
+        </Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => {
+          navigate(`/schools/${schoolId}`)
+        }}>
+          {selectedSchool !== null ? selectedSchool.school_name : 'School Profile'}
+        </Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => {
+          navigate(`/schools/${schoolId}/packages-and-services`)
+        }}>
+          {location?.state !== null ? location.state.data.name : 'Packages and Services'}
+        </Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => {
+        }}>
+          Document Upload
+        </Breadcrumb.Item>
+      </Breadcrumb>
+
+      {/* This block of code is useful for reference, do not delete */}
+      {/* {location?.state !== null &&
+        <div className=''>{location.state.category} | {location.state.data.name}</div>} */}
 
       {schoolOrderedDocs?.success === false && !schoolOrderedDocs?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>

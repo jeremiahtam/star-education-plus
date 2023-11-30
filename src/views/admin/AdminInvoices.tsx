@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdCreate } from "react-icons/io";
-import { Button, Form, Row, Col, InputGroup, Alert, Badge } from 'react-bootstrap';
+import { Button, Form, Row, Col, InputGroup, Alert, Badge, Breadcrumb } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
@@ -11,11 +11,13 @@ import { HiEye } from 'react-icons/hi';
 import InvoiceModal from '../../components/InvoiceModal';
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
+import { useNavigate } from 'react-router';
 
 
 function AdminInvoices() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
+  const navigate = useNavigate()
 
   //Modal COntrol
   const [show, setShow] = useState(false);
@@ -105,6 +107,14 @@ function AdminInvoices() {
 
   return (
     <BodyWrapper title='Invoices'>
+      {/* <Breadcrumb>
+        <Breadcrumb.Item onClick={() => {
+          // navigate('/invoices')
+        }}>
+          Invoices
+        </Breadcrumb.Item>
+      </Breadcrumb> */}
+
       {invoices?.success === false && !invoices?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{invoices?.message}</div>
@@ -154,6 +164,7 @@ function AdminInvoices() {
                   <th>Address</th>
                   <th>Status</th>
                   <th>Deadline</th>
+                  <th>Payment Date</th>
                   <th></th>
                 </tr>
               </thead>
@@ -174,6 +185,7 @@ function AdminInvoices() {
                         </Badge>
                       </td>
                       <td>{item.deadlineDate} {item.deadlineTime}</td>
+                      <td>{item.paymentDate} {item.paymentTime}</td>
                       <td>
                         <HiEye onClick={() =>
                           modalDataHandler(item, 'view-invoice')}

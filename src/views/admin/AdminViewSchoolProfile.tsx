@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from "react-router-dom";
-import { Row, Col, Card } from 'react-bootstrap';
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Row, Col, Card, Breadcrumb } from 'react-bootstrap';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
@@ -15,6 +15,7 @@ import { deleteUserData } from '../../store/actions/user-info';
 function AdminViewSchoolProfile() {
   const { schoolId } = useParams()
   const navigate = useNavigate()
+  const location = useLocation();
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const [selectedSchool, setSelectedSchool] = useState<any>(null)
@@ -64,6 +65,17 @@ function AdminViewSchoolProfile() {
 
   return (
     <BodyWrapper title='School Profile'>
+      <Breadcrumb>
+        <Breadcrumb.Item onClick={() => {
+          navigate('/schools')
+        }}>
+          Schools
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          {location?.state !== null ? location.state.data.schoolName : 'School Profile'}         
+        </Breadcrumb.Item>
+      </Breadcrumb>
+
       <Row className='mb-3'>
         <Col md={'12'}>
           <div className='compartment'>

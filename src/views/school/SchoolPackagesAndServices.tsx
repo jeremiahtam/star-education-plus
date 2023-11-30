@@ -207,7 +207,8 @@ function SchoolPackagesAndServices() {
                           <FaOpencart /> Purchase
                         </Button>
                         <div className='view-link'>
-                          <Link to={`/packages-and-services/${item.id}`}>
+                          <Link to={`/packages-and-services/${item.id}`}
+                            state={{ packagesAndServicesName: item.name }}>
                             View Item
                           </Link>
                         </div>

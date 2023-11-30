@@ -1,12 +1,13 @@
 import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert, Badge, Card, Spinner } from 'react-bootstrap';
+import { Button, Row, Col, Card, Spinner } from 'react-bootstrap';
 import CustomModal from '../../components/MembershipPlanModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateCart, stateLoggedInUserType } from '../../../types/type-definitions';
 import { store } from '../../store/root-reducer';
 import { emptyCart, removeMembershipPlan, removePackagesAndServices, removeResource } from '../../store/actions/shopping-cart';
+import ToastComponent from '../../components/ToastComponent';
 
 
 function SchoolCheckout() {
@@ -23,7 +24,13 @@ function SchoolCheckout() {
     currency: 'GBP',
   });
 
-  function priceTotalResources() {
+  useEffect(() => {
+    priceTotalResources()
+  }, [cartResources, cartPackagesAndServices, cartMembershipPlans])
+
+  const [totalCost, setTotalCost] = useState<number>(0)
+
+  const priceTotalResources = () => {
     const resourcesTotal = cartResources.reduce((acc, val: any) => {
       return acc + val.amount
     }, 0)
@@ -34,9 +41,12 @@ function SchoolCheckout() {
       return acc + val.amount
     }, 0)
     let sum = resourcesTotal + membershipPlansTotal + packagesAndServicesTotal
-    return pounds.format(sum)
+    setTotalCost(sum)
   }
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+
+  //Toast information
+  const [showToast, setShowToast] = useState(false);
 
   async function submitCart() {
     try {
@@ -64,6 +74,7 @@ function SchoolCheckout() {
         } else {
         }
       } else {
+        setShowToast(true)
         store.dispatch(emptyCart())
       }
       setIsSubmitting(false)
@@ -92,7 +103,7 @@ function SchoolCheckout() {
               <Card.Title className='checkout-items-card-title'>Cart</Card.Title>
               <div className='checkout-items-card-border mb-3 mt-3'></div>
               {cartMembershipPlans.length + cartResources.length + cartPackagesAndServices.length > 0 ?
-                <>
+                <div>
                   {cartMembershipPlans.map((item: any, index: any) => {
                     return (
                       <Card.Text className='checkout-items-card-list' key={index}>
@@ -149,7 +160,7 @@ function SchoolCheckout() {
                   <Card.Text className='checkout-items-card-text'>
                     {userInfoData.userAddress}
                   </Card.Text>
-                </>
+                </div>
                 :
                 <Card.Text className='checkout-items-card-text'>
                   Cart is empty
@@ -166,7 +177,7 @@ function SchoolCheckout() {
               </Card.Subtitle>
               <Card.Subtitle className="mb-2 checkout-card-sub-title">Total</Card.Subtitle>
               <div className='checkout-card-border mb-3 mt-3'></div>
-              <Card.Title className='checkout-card-title'>{priceTotalResources()}</Card.Title>
+              <Card.Title className='checkout-card-title'>{pounds.format(totalCost)}</Card.Title>
               <div className='checkout-card-border mb-3 mt-3'></div>
               {cartMembershipPlans.length + cartResources.length + cartPackagesAndServices.length > 0 &&
                 <Button className='btn-block mb-3 form-control btn-custom' disabled={!!isSubmitting}
@@ -181,6 +192,14 @@ function SchoolCheckout() {
           </Card>
         </Col>
       </Row>
+      <ToastComponent
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        delay={3000}
+        autohide={true}
+        title='Success!'
+        body='Your order has been placed..'
+      />
 
     </BodyWrapper>
   )

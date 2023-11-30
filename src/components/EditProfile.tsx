@@ -82,8 +82,8 @@ function EditProfile(props: any) {
         numberOfPupils: Yup.number().typeError('Enter a number')
           .required('Cannot be empty').integer('Enter a whole number')
           .positive('Enter a positive number'),
-        headTeacherName: Yup.string(),
-        chairOfTrusteesName: Yup.string(),
+        chairOfTrusteesName: Yup.string().nullable(),
+        headTeacherName: Yup.string().nullable(),
       })}
 
       onSubmit={async (values, { setSubmitting, setErrors }) => {
@@ -136,23 +136,6 @@ function EditProfile(props: any) {
                 </div>
               </Form.Group>
             </Col>
-            {/* <Col xs={"12"} lg={'6'}>
-              <Form.Group className="mb-3" >
-                <Form.Label className='form-labels'>Status*</Form.Label>
-                <Form.Select className='custom-text-input' onChange={(selectedOption: any) =>
-                  setFieldValue('status', selectedOption.target.value)
-                } id='status' name='status'
-                  value={values.status}>
-                  <option value={''}>-- select status --</option>
-                  <option value="pending review">Pending Review</option>
-                  <option value="approved">Approved</option>
-                  <option value="suspended">Suspended</option>
-                </Form.Select>
-                <div className="form-error">
-                  <ErrorMessage name="status" />
-                </div>
-              </Form.Group>
-            </Col> */}
           </Row>
           <Row className="align-items-center">
             <Col xs={"12"} lg={'6'}>

@@ -192,7 +192,11 @@ function SchoolResources() {
                         <div className='price-card-border mb-3 mt-3'></div>
                         {item.paidResources.length > 0 ?
                           <Button className='btn-block mb-3 form-control btn-custom' onClick={() => {
-                            navigate(`/resources/${item.id}`)
+                            navigate(`/resources/${item.id}`, {
+                              state: {
+                                data: item
+                              }
+                            })
                           }}>
                             <FaArrowRight /> View Purchase
                           </Button>

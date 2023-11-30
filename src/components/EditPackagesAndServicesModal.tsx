@@ -99,7 +99,8 @@ function EditPackagesAndServicesModal(props: any) {
           packagesAndServicesContent: selectedPackagesAndServices ? selectedPackagesAndServices?.packagesAndServicesContent : '',
           duration: selectedPackagesAndServices ? selectedPackagesAndServices?.duration : '',
           amount: selectedPackagesAndServices ? selectedPackagesAndServices?.amount : '',
-          status: selectedPackagesAndServices ? selectedPackagesAndServices?.status : ''
+          status: selectedPackagesAndServices ? selectedPackagesAndServices?.status : '',
+          category: selectedPackagesAndServices ? selectedPackagesAndServices?.category : ''
         }}
         validationSchema={Yup.object({
           name: Yup.string().required('Enter a name'),
@@ -118,6 +119,7 @@ function EditPackagesAndServicesModal(props: any) {
               (amount: any) => /^\d+(\.\d{1,2})?$/.test(amount)
             ),
           status: Yup.string().required('Select status'),
+          category: Yup.string().required('Select a category'),
         })}
         onSubmit={(values, { setSubmitting, setErrors }) => {
           editPackagesAndServicesHandler(values, setSubmitting, setErrors)
@@ -177,13 +179,29 @@ function EditPackagesAndServicesModal(props: any) {
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
                     <Form.Label className='form-labels'>Status</Form.Label>
-                    <Form.Select className='custom-text-input'
+                    <Form.Select className='custom-text-input' disabled={isSubmitting}
                       onChange={(selectedOption: any) =>
                         setFieldValue('status', selectedOption.target.value)
                       } id='status' name='status' value={values.status}>
                       <option value={''}>-- select status --</option>
                       <option value="inactive">Inactive</option>
                       <option value="active">Active</option>
+                    </Form.Select>
+                    <div className="form-error">
+                      <ErrorMessage name="status" />
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col xs="auto" lg={'6'}>
+                  <Form.Group className="mb-3" >
+                    <Form.Label className='form-labels'>Category</Form.Label>
+                    <Form.Select className='custom-text-input' disabled={isSubmitting}
+                      onChange={(selectedOption: any) =>
+                        setFieldValue('category', selectedOption.target.value)
+                      } id='category' name='category' value={values.category}>
+                      <option value={''}>-- select category --</option>
+                      <option value="document">Document</option>
+                      <option value="attendance">Attendance</option>
                     </Form.Select>
                     <div className="form-error">
                       <ErrorMessage name="status" />

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Button, Form, InputGroup, Row, Col, Badge, Alert } from 'react-bootstrap';
+import { Button, Form, InputGroup, Row, Col, Badge, Alert, Breadcrumb } from 'react-bootstrap';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
@@ -183,12 +183,15 @@ function AdminSchools(props: any) {
                   return (
                     <tr key={item.id}>
                       <td>{item.sn}</td>
-                      <td onClick={() => {
-                        navigate(`/schools/${item.id}`)
-                      }} >
+                      <td style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          navigate(`/schools/${item.id}`, { state: { data: item } })
+                        }}>
                         {item.fullname}
                       </td>
-                      <td>{item.schoolName}</td>
+                      <td style={{ cursor: 'pointer' }} onClick={() => {
+                        navigate(`/schools/${item.id}`, { state: { data: item } })
+                      }}>{item.schoolName}</td>
                       <td>{item.email}</td>
                       <td>{item.address}</td>
                       <td>{item.schoolImprovementPartner}</td>
@@ -219,7 +222,7 @@ function AdminSchools(props: any) {
         {modalType && <SchoolModal show={show} handleClose={handleClose} handleShow={handleShow}
           modalType={modalType} modalDataId={modalDataId} loadSchool={getSchoolsHandler} />}
       </>}
-    </BodyWrapper>
+    </BodyWrapper >
   )
 }
 

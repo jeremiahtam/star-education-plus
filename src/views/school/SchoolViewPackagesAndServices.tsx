@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert, Badge } from 'react-bootstrap';
+import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert, Badge, Breadcrumb } from 'react-bootstrap';
 // import AdminSchoolPackagesAndServicesModal from '../../components/AdminSchoolPackagesAndServicesModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -23,6 +23,9 @@ function SchoolViewPackagesAndServices() {
   const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
+
+  const location = useLocation()
+  // location.state.packagesAndServicesName
 
   //Modal COntrol
   const [show, setShow] = useState(false);
@@ -111,11 +114,22 @@ function SchoolViewPackagesAndServices() {
         }
     }
   }
-
+  console.log(location.state.packagesAndServicesName)
   return (
-    <BodyWrapper title={'Packages and Services'}
-    // subTitle={'Packages and Services'}
-    >
+    <BodyWrapper title={'Packages and Services'}>
+      <Breadcrumb>
+        <Breadcrumb.Item onClick={() => {
+          navigate('/packages-and-services')
+        }}>
+          Packages and Services
+        </Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => {
+        }}>
+          {location?.state?.packagesAndServicesName !== null ?
+            location.state.packagesAndServicesName : 'Item'}
+        </Breadcrumb.Item>
+      </Breadcrumb>
+
       {schoolPackagesAndServices?.success === false && !schoolPackagesAndServices?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{schoolPackagesAndServices?.message}</div>
@@ -186,7 +200,13 @@ function SchoolViewPackagesAndServices() {
                           {item.status === 'paid' ?
                             item.category === 'document' ?
                               <Link to={`/packages-and-services/${packagesAndServicesId}/${item.id}`}
-                                state={{ data: item, category: 'Packages and Services' }}>
+                                state={{
+                                  data: item,
+                                  category: 'Packages and Services',
+                                  packagesAndServicesName: location?.state?.packagesAndServicesName !== null ?
+                                    location.state.packagesAndServicesName : 'Item',
+                                  packagesAndServicesId: packagesAndServicesId,
+                                }}>
                                 <BsDownload />
                               </Link>
                               :

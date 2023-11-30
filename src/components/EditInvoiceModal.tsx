@@ -39,6 +39,7 @@ function EditInvoiceModal(props: any) {
 
       } else {
         setSelectedInvoice(resData.data)
+        props.getInvoicesHandler()
       }
     } catch (e: any) {
       console.log(e);
@@ -76,7 +77,7 @@ function EditInvoiceModal(props: any) {
         }
       } else {
         setInvoiceResponse(resData)
-        props.loadInvoice()
+        props.getInvoicesHandler()
       }
     } catch (e: any) {
       console.log(e);

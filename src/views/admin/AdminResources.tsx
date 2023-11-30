@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Button, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import AdminResourcesModal from '../../components/AdminResourcesModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -19,7 +19,7 @@ function AdminResources() {
     style: 'currency',
     currency: 'GBP',
   });
-
+  const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
@@ -192,7 +192,8 @@ function AdminResources() {
                         <td>{item.duration == null ? '-' : item.duration}</td>
                         <td>{item.status}</td>
                         <td>
-                          <Link to={`/resources/resources-document-upload/${item.id}`}>
+                          <Link to={`/resources/resources-document-upload/${item.id}`}
+                            state={{ data: item }}>
                             <BsEye />
                           </Link>
                         </td>

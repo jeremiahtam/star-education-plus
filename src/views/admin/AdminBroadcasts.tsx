@@ -3,7 +3,7 @@ import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdCreate } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { MdOutlineClear } from "react-icons/md";
-import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Button, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
@@ -12,8 +12,10 @@ import BroadcastModal from '../../components/BroadcastModal';
 import { HiTrash } from 'react-icons/hi';
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
+import { useNavigate } from 'react-router';
 
 function AdminBroadcasts(props: any) {
+  const navigate = useNavigate()
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -119,6 +121,13 @@ function AdminBroadcasts(props: any) {
           setModalType('add-broadcast')
           handleShow()
         }}>Create New <IoIosAdd className='btn-icon' /> </button>}>
+      {/* <Breadcrumb>
+        <Breadcrumb.Item onClick={() => { 
+          // navigate('/broadcasts') 
+          }}>
+          Broadcasts
+        </Breadcrumb.Item>
+      </Breadcrumb> */}
 
       {broadcasts?.success === false && !broadcasts?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>

@@ -103,7 +103,7 @@ function App() {
               element={<SchoolPackagesAndServicesDocument />} />
           </Route>
 
-          <Route path='/resources' >
+          <Route path='/resources'>
             <Route path='/resources' element={<SchoolResources />} />
             <Route path='/resources/:resourcesId' element={<SchoolResourcesList />} />
           </Route>

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
+import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import AdminResourcesDocsModal from '../../components/AdminResourcesDocsModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -8,7 +8,8 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
-import { BsCloudUpload, BsEye } from 'react-icons/bs'; import BodyWrapper from '../../components/BodyWrapper'
+import { BsCloudUpload, BsEye } from 'react-icons/bs'; 
+import BodyWrapper from '../../components/BodyWrapper'
 import { IoIosAdd, IoMdCreate, IoMdDownload, IoMdSearch } from 'react-icons/io';
 import fileDownload from 'js-file-download'
 import { store } from '../../store/root-reducer';
@@ -145,9 +146,17 @@ function AdminResourcesDocumentUpload() {
           setModalType('add-resources-docs')
           handleShow()
         }}>Create New <IoIosAdd className='btn-icon' /></button>}>
-
-      {location?.state !== null &&
-        <div className=''>{location.state.category} | {location.state.data.name}</div>}
+      <Breadcrumb>
+        <Breadcrumb.Item onClick={() => {
+          navigate('/resources')
+        }}>
+          Resources
+        </Breadcrumb.Item>
+        <Breadcrumb.Item onClick={() => {
+        }}>
+          {location?.state !== null ? location.state.data.name :'Document Upload'}     
+        </Breadcrumb.Item>
+      </Breadcrumb>
 
       {resourcesDocs?.success === false && !resourcesDocs?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
