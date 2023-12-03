@@ -8,10 +8,10 @@ import { stateLoggedInUserType } from "../../types/type-definitions"
 function ErrorPage() {
   const navigate = useNavigate()
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
-console.log(userInfoData)
+// console.log(userInfoData)
   useEffect(() => {
     if (userInfoData === null) {//only if it is NULL***
-      console.log(userInfoData)
+      // console.log(userInfoData)
       navigate('/')
     } else {
       // navigate('/dashboard')

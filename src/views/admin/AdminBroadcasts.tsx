@@ -38,7 +38,7 @@ function AdminBroadcasts(props: any) {
 
   // Pagination control
   const [page, setPage] = useState<number>(1)
-  const [itemsPerPage, setItemsPerPage] = useState<number | null>(2)
+  const [itemsPerPage, setItemsPerPage] = useState<number | null>(10)
   const [totalPages, setTotalPages] = useState<number | null>(null)
 
   // Search 
@@ -121,13 +121,6 @@ function AdminBroadcasts(props: any) {
           setModalType('add-broadcast')
           handleShow()
         }}>Create New <IoIosAdd className='btn-icon' /> </button>}>
-      {/* <Breadcrumb>
-        <Breadcrumb.Item onClick={() => { 
-          // navigate('/broadcasts') 
-          }}>
-          Broadcasts
-        </Breadcrumb.Item>
-      </Breadcrumb> */}
 
       {broadcasts?.success === false && !broadcasts?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>

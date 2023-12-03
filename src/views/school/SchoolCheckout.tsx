@@ -29,6 +29,7 @@ function SchoolCheckout() {
   }, [cartResources, cartPackagesAndServices, cartMembershipPlans])
 
   const [totalCost, setTotalCost] = useState<number>(0)
+  console.log(totalCost)
 
   const priceTotalResources = () => {
     const resourcesTotal = cartResources.reduce((acc, val: any) => {
@@ -40,8 +41,8 @@ function SchoolCheckout() {
     const packagesAndServicesTotal = cartPackagesAndServices.reduce((acc, val: any) => {
       return acc + val.amount
     }, 0)
-    let sum = resourcesTotal + membershipPlansTotal + packagesAndServicesTotal
-    setTotalCost(sum)
+    let sum = Number(resourcesTotal) + Number(membershipPlansTotal) + Number(packagesAndServicesTotal)
+    setTotalCost(Number(sum))
   }
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 

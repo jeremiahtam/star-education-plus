@@ -30,7 +30,7 @@ const SideBarNav = (props: any) => {
     try {
       const res = await axios.post(
         `${baseUrl}/api/logout`,
-        {},
+        { token: userInfoData.token },
         {
           headers: {
             "Accept": "application/json",
@@ -47,8 +47,8 @@ const SideBarNav = (props: any) => {
         } else {
         }
       } else {
+        navigate(resData.logoutUserType === 'admin' ? '/admin-login' : '/')
         store.dispatch(deleteUserData());
-        navigate(userInfoData?.userType == 'school' ? '/' : '/admin-login')
       }
     } catch (e: any) {
       console.log(e);
@@ -114,12 +114,6 @@ const SideBarNav = (props: any) => {
               <FaFileInvoice className="icon" />
               <div hidden={sidebarHide}> Invoices</div></Link>
           </li>
-          {/* <li className={splitLocation[1] == 'messages' ? 'active' : ''}>
-            <Link to="/messages">
-              <SiGooglechat className="icon" />
-              <div hidden={sidebarHide}> Messages</div>
-            </Link>
-          </li> */}
         </>}
         {/* school use menu */}
         {userInfoData?.userType == 'school' && <>
@@ -165,12 +159,6 @@ const SideBarNav = (props: any) => {
               <FaFileInvoice className="icon" />
               <div hidden={sidebarHide}> My Invoices</div></Link>
           </li>
-          {/* <li className={splitLocation[1] == 'messages' ? 'active' : ''}>
-            <Link to="/messages">
-              <SiGooglechat className="icon" />
-              <div hidden={sidebarHide}> Messages</div>
-            </Link>
-          </li> */}
         </>}
       </ul>
       <ul className="list-unstyled CTAs">

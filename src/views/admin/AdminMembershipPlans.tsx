@@ -41,7 +41,7 @@ function AdminMembershipPlans(props: any) {
 
   // Pagination control
   const [page, setPage] = useState<number>(1)
-  const [itemsPerPage, setItemsPerPage] = useState<number | null>(2)
+  const [itemsPerPage, setItemsPerPage] = useState<number | null>(10)
   const [totalPages, setTotalPages] = useState<number | null>(null)
   // Search 
   const [search, setSearch] = useState<string>('')
