@@ -1,4 +1,4 @@
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Spinner } from 'react-bootstrap';
 import { Formik, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios'
@@ -8,7 +8,7 @@ import { stateLoggedInUserType } from '../../types/type-definitions';
 function AdminChangeProfilePicModal(props: any) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-  const FILE_SIZE = 1000 * 1024;//
+  const FILE_SIZE = 3000 * 1024;//
   const SUPPORTED_FORMATS = [
     "image/jpg",
     "image/jpeg",
@@ -67,7 +67,7 @@ function AdminChangeProfilePicModal(props: any) {
             .required("A file is required")
             .test(
               "fileSize",
-              "Max allowed size is 1MB",
+              "Max allowed size is 3MB",
               (value: any) => value && value.size <= FILE_SIZE
             )
             .test(
@@ -108,8 +108,17 @@ function AdminChangeProfilePicModal(props: any) {
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-              <Button className="btn-custom-outline" onClick={props.handleClose}>Close</Button>
-              <Button className="btn-custom" type='submit'>Submit</Button>
+              <Button className="btn-custom-outline" onClick={props.handleClose} disabled={isSubmitting}>
+                Close
+              </Button>
+              <Button className="btn-custom" type='submit' disabled={!!isSubmitting}>
+                {isSubmitting ?
+                  <>
+                    <Spinner animation="border" size='sm' />
+                    <span> Processing..</span>
+                  </>
+                  : " Submit"}
+              </Button>
             </Modal.Footer>
           </FormikForm>)}
       </Formik>

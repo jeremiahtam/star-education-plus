@@ -12,7 +12,7 @@ function AddSchoolPackagesAndServicesDocsModal(props: any) {
 
   const [uploadDocumentResponse, setUploadDocumentResponse] = useState<any>(null)
 
-  const FILE_SIZE = 20000 * 1024;//
+  const FILE_SIZE = 100000 * 1024;//
   const SUPPORTED_FORMATS = [
     // "image/jpg",
     // "image/jpeg",
@@ -91,7 +91,7 @@ function AddSchoolPackagesAndServicesDocsModal(props: any) {
             .required("A file is required")
             .test(
               "fileSize",
-              "Max allowed size is 20MB",
+              "Max allowed size is 100MB",
               (value: any) => value && value.size <= FILE_SIZE
             )
             .test(
@@ -135,7 +135,7 @@ function AddSchoolPackagesAndServicesDocsModal(props: any) {
                 </div>
               </Form.Group>
 
-              <Form.Group className="mb-3"  >
+              <Form.Group className="mb-3">
                 <Form.Label>Select a document</Form.Label>
                 <input className="form-control" type="file"
                   disabled={isSubmitting}
@@ -148,7 +148,9 @@ function AddSchoolPackagesAndServicesDocsModal(props: any) {
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-              <Button className="btn-custom-outline" onClick={props.handleClose}>Close</Button>
+              <Button className="btn-custom-outline" onClick={props.handleClose}
+                disabled={isSubmitting}
+              >Close</Button>
               <Button className="btn-custom" type='submit' disabled={!!isSubmitting}>
                 {isSubmitting ?
                   <>

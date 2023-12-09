@@ -12,7 +12,7 @@ function AddResourcesDocsModal(props: any) {
 
   const [uploadDocumentResponse, setUploadDocumentResponse] = useState<any>(null)
 
-  const FILE_SIZE = 20000 * 1024;//
+  const FILE_SIZE = 100000 * 1024;//
   const SUPPORTED_FORMATS = [
     // "image/jpg",
     // "image/jpeg",
@@ -92,7 +92,7 @@ function AddResourcesDocsModal(props: any) {
             .required("A file is required")
             .test(
               "fileSize",
-              "Max allowed size is 20MB",
+              "Max allowed size is 100MB",
               (value: any) => value && value.size <= FILE_SIZE
             )
             .test(

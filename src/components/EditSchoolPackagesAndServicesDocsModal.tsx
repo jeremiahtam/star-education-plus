@@ -21,15 +21,6 @@ function ViewSchoolPackagesAndServicesDocsModal(props: any) {
     getDocumentHandler()
   }, [])
 
-  const FILE_SIZE = 20000 * 1024;//
-  const SUPPORTED_FORMATS = [
-    // "image/jpg",
-    // "image/jpeg",
-    // "image/png",
-    "application/pdf",
-    "application/msword"
-  ];
-
   const getDocumentHandler = async () => {
     try {
       const res = await axios.get(`${baseUrl}/api/get-document`,
@@ -150,7 +141,8 @@ function ViewSchoolPackagesAndServicesDocsModal(props: any) {
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-              <Button className="btn-custom-outline" onClick={props.handleClose}>Close</Button>
+              <Button className="btn-custom-outline" onClick={props.handleClose}
+                disabled={!!isSubmitting}>Close</Button>
               <Button className="btn-custom" type='submit' disabled={!!isSubmitting}>
                 {isSubmitting ?
                   <>
