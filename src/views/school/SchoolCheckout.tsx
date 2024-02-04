@@ -178,7 +178,7 @@ function SchoolCheckout() {
               </Card.Subtitle>
               <Card.Subtitle className="mb-2 checkout-card-sub-title">Total</Card.Subtitle>
               <div className='checkout-card-border mb-3 mt-3'></div>
-              <Card.Title className='checkout-card-title'>{pounds.format(totalCost)}</Card.Title>
+              <Card.Title className='checkout-card-title'>{pounds.format(Number(totalCost))}</Card.Title>
               <div className='checkout-card-border mb-3 mt-3'></div>
               {cartMembershipPlans.length + cartResources.length + cartPackagesAndServices.length > 0 &&
                 <Button className='btn-block mb-3 form-control btn-custom' disabled={!!isSubmitting}

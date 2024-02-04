@@ -106,7 +106,7 @@ function AddSchoolModal(props: any) {
 
           membershipPlanId: '',
 
-          schoolImprovementPartner: '',
+          // schoolImprovementPartner: '',
           consultantAppointed: '',
           consultantContact: '',
         }}
@@ -131,7 +131,7 @@ function AddSchoolModal(props: any) {
             .required('Cannot be empty').integer('Select plan')
             .positive('Enter a positive number'),
 
-          schoolImprovementPartner: Yup.string().required('Enter a partner'),
+          // schoolImprovementPartner: Yup.string().required('Enter a partner'),
           consultantAppointed: Yup.string().required('Enter a consultant'),
           consultantContact: Yup.string().required('Enter contact'),
         })}
@@ -304,7 +304,7 @@ function AddSchoolModal(props: any) {
               </Row>
 
               <Row className="align-items-center">
-                <Col xs="auto" lg={'4'}>
+                {/* <Col xs="auto" lg={'4'}>
                   <Form.Group className="mb-3" >
                     <Form.Label className='form-labels'>School Improvement Partner*</Form.Label>
                     <Field className="form-control custom-text-input" type="text" placeholder="School Improvement Partner" name='schoolImprovementPartner' id='schoolImprovementPartner'
@@ -313,8 +313,8 @@ function AddSchoolModal(props: any) {
                       <ErrorMessage name="schoolImprovementPartner" />
                     </div>
                   </Form.Group>
-                </Col>
-                <Col xs="auto" lg={'4'}>
+                </Col> */}
+                <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
                     <Form.Label htmlFor="consultantAppointed">Consultant Appointed*</Form.Label>
                     <Field className="form-control custom-text-input" type="text" placeholder="Consultant Appointed" name='consultantAppointed' id='consultantAppointed'
@@ -324,7 +324,7 @@ function AddSchoolModal(props: any) {
                     </div>
                   </Form.Group>
                 </Col>
-                <Col xs="auto" lg={'4'}>
+                <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
                     <Form.Label htmlFor="consultantContact">Consultant Contact*</Form.Label>
                     <Field className="form-control custom-text-input" type="text" placeholder="Consultant Contact" name='consultantContact' id='consultantContact'

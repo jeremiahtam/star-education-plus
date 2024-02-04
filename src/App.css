@@ -79,7 +79,7 @@
 }
 
 .login-form-box .btn {
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
 .form-error {
@@ -514,31 +514,32 @@ ul ul a {
 
 .table>thead>tr:last-child>th:first-child {
   /* background-color: #00146d; */
-  border-top-left-radius: 8px;
+  border-top-left-radius: 3px;
 }
 
 .table>thead>tr:last-child>th:last-child {
-  border-top-right-radius: 8px;
+  border-top-right-radius: 3px;
 }
 
+.table>thead>tr {}
+
 .table>thead>tr>th {
-  background: #F4F4F4;
-  color: #000;
-  font-size: 15px;
-  font-size: 0.9em;
+  background: #ffffff;
+  color: rgb(119, 119, 119)444;
+  font-size: 0.8em;
 }
 
 .table>tbody>tr>td {
   color: #525252;
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
 
 .table>tbody>tr:last-child>td:first-child {
-  border-bottom-left-radius: 8px;
+  border-bottom-left-radius: 3px;
 }
 
 .table>tbody>tr:last-child>td:last-child {
-  border-bottom-right-radius: 8px;
+  border-bottom-right-radius: 3px;
 
 }
 
@@ -1066,47 +1067,179 @@ ul ul a {
 /* ----------------------------------------------------
   CARDS FOR SCHOOL DASHBOARD
   ----------------------------------------------------*/
-.dashboard-image-box {
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  padding: 5px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-items: center;
-  border: 1px solid #f1f1f1;
 
-  >img {
-    max-width: 100px;
-    max-height: 100px;
-    -webkit-transition: all .2s ease;
-    -moz-transition: all .2s ease;
-    -ms-transition: all .2s ease;
-    -o-transition: all .2s ease;
-    transition: all .2s ease;
-    vertical-align: middle;
+.school-dashboard-user-box {
+  display: flex !important;
+  flex-direction: row !important;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #030432 !important;
+
+  .school-dashboard-image-box {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    padding: 5px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    border: 1px solid #f1f1f1;
+
+    >img {
+      max-width: 100px;
+      max-height: 100px;
+      -webkit-transition: all .2s ease;
+      -moz-transition: all .2s ease;
+      -ms-transition: all .2s ease;
+      -o-transition: all .2s ease;
+      transition: all .2s ease;
+      vertical-align: middle;
+    }
+
+    >img:hover {
+      -webkit-transform: scale(1.5);
+      /* Safari and Chrome */
+      -moz-transform: scale(1.5);
+      /* Firefox */
+      -ms-transform: scale(1.5);
+      /* IE 9 */
+      -o-transform: scale(1.5);
+      /* Opera */
+      transform: scale(1.5);
+    }
   }
 
-  >img:hover {
-    -webkit-transform: scale(1.5);
-    /* Safari and Chrome */
-    -moz-transform: scale(1.5);
-    /* Firefox */
-    -ms-transform: scale(1.5);
-    /* IE 9 */
-    -o-transform: scale(1.5);
-    /* Opera */
-    transform: scale(1.5);
+  .school-dashboard-user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    color: #fff;
+    font-size: 0.9em;
   }
 }
 
-.dashboard-sub-heading {
-  font-weight: 600;
-  margin-bottom: 10px;
-  font-size: large;
-  color: #3a3a3a;
+.school-dashboard-row-two {
+  .school-dashboard-plan-box {
+    padding: 10px;
+    background-color: #cfe2ed;
+
+    .top {
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      justify-content: space-between;
+      font-size: 0.9em;
+      margin-bottom: 37px;
+
+      .icon {
+        border: 5px solid #49a9d8;
+        background-color: #49a9d8;
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
+        color: #fff !important;
+      }
+    }
+
+    .bottom {
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      justify-content: space-between;
+      font-size: 0.9em;
+
+      .plan-name {
+        font-size: .9em;
+        font-weight: 800;
+      }
+
+      .plan-expiry {
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  .school-dashboard-membership-tracker-box {
+    background-color: #f3ebd9;
+
+    .icon {
+      border: 5px solid #ffc059;
+      background-color: #ffc059;
+    }
+  }
+
+  .school-dashboard-packages-and-services-tracker-box {
+    background-color: #cfe2ed;
+
+    .icon {
+      border: 5px solid #49a9d8;
+      background-color: #49a9d8;
+    }
+  }
+
+  .school-dashboard-membership-tracker-box,
+  .school-dashboard-packages-and-services-tracker-box {
+    padding: 10px;
+
+    .top {
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      justify-content: space-between;
+      font-size: 0.9em;
+
+      .icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
+        color: #fff !important;
+      }
+    }
+
+    .tracker-title {
+      font-size: .8em;
+    }
+
+    .tracker-value {
+      font-size: 0.9em;
+      font-weight: 800;
+    }
+  }
+}
+
+.school-dashboard-card {
+  /* border: none !important; */
+  box-shadow: 1px 1px 7px #d6d6d683;
+  padding: 5px 10px;
+  border: solid 1px #e6e6e6 !important;
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+
+    .card-title {
+      font-size: 1em;
+      font-weight: 600;
+      color: #303030;
+    }
+
+    .view-all {
+      border-radius: 10px;
+      font-size: 0.7em;
+      padding: 2px 8px;
+      font-weight: bolder;
+      text-align: center;
+      background-color: #c7c7c7;
+      color: #424242;
+      border: solid 1px #808080;
+    }
+  }
 }
 
 .dashboard-broadcasts-card {
@@ -1298,11 +1431,11 @@ PDF VIEWER
     .text-block {
       margin-left: 3px;
       font-size: 0.9em;
-      font-weight: 800;      
+      font-weight: 800;
     }
   }
 }
+
 /* ----------------------------------------------------
   BREADCRUMBS
   ----------------------------------------------------*/
-  

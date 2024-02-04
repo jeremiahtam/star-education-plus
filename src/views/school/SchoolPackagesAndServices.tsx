@@ -127,7 +127,6 @@ function SchoolPackagesAndServices() {
     }
   };
 
-
   return (
     <BodyWrapper title='Packages and Services'>
       {selectedPackagesAndServices?.success === false && !selectedPackagesAndServices?.data &&
@@ -173,13 +172,13 @@ function SchoolPackagesAndServices() {
               {selectedPackagesAndServices.data.map((item: any, index: any) => {
                 return (
                   <Col lg={3} md={4} className='mb-3' key={index}>
-                    <Card className='price-card'>
+                    <Card className='price-card'
+                      style={{ background: item.status == 'active' ? '#fff' : '#e9e9e9' }}>
                       <Card.Body>
                         <Card.Subtitle className="mb-2 price-card-sub-title">
                           <BiPackage /> {item.name}
                         </Card.Subtitle>
                         <Card.Title className='price-card-title'>{pounds.format(item.amount)}</Card.Title>
-                        {/* <Card.Text className='text-warning'>Text</Card.Text> */}
                         <div className='price-card-border mb-3 mt-3'></div>
                         <Card.Text className='price-card-text'>
                           {item.excerpt}
@@ -189,22 +188,25 @@ function SchoolPackagesAndServices() {
                         </Card.Text>
                         <div className='price-card-border mb-3 mt-3'></div>
                         <Button className='btn-block mb-1 form-control btn-custom'
+                          disabled={item.status == 'active' ? false : true}
                           onClick={() => {
-                            const isFound = cartPackagesAndServices.some((element: any) => {
-                              if (element.id === item.id) {
-                                return true;
+                            if (item.status == 'active') {
+                              const isFound = cartPackagesAndServices.some((element: any) => {
+                                if (element.id === item.id) {
+                                  return true;
+                                }
+                                return false;
+                              });
+                              console.log(isFound)
+                              if (isFound == true) {
+                                setShowToast(true)
+                              } else {
+                                store.dispatch(addPackagesAndServices(item))
                               }
-                              return false;
-                            });
-                            console.log(isFound)
-                            if (isFound == true) {
-                              setShowToast(true)
-                            } else {
-                              store.dispatch(addPackagesAndServices(item))
                             }
                           }}
                         >
-                          <FaOpencart /> Purchase
+                          <FaOpencart /> {item.status == 'active' ? 'Purchase' : 'Inactive'}
                         </Button>
                         <div className='view-link'>
                           <Link to={`/packages-and-services/${item.id}`}

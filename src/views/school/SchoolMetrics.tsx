@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import axios from 'axios';
 import BodyWrapper from '../../components/BodyWrapper'
 import { useSelector } from 'react-redux'
-import { Alert, Badge, Card, Col, Row, Image } from 'react-bootstrap'
+import { Alert, Badge, Card, Col, Row, Image, Button } from 'react-bootstrap'
 import { store } from '../../store/root-reducer';
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import { deleteUserData } from '../../store/actions/user-info';
@@ -10,6 +10,11 @@ import BroadcastModal from '../../components/BroadcastModal';
 import { Link, useNavigate } from 'react-router-dom';
 import menuItems from '../../data/menuItems';
 import personIcon from '../../images/person-icon.png'
+import SchoolDashboardBroadcastsCard from '../../components/atoms/SchoolDashboardBroadcastsCard';
+import { MdCardMembership, MdGraphicEq, MdSelfImprovement } from 'react-icons/md';
+import SchoolDashboardInvoicesCard from '../../components/atoms/SchoolDashboardInvoicesCard';
+import SchoolDashboardResourcesCard from '../../components/atoms/SchoolDashboardResourcesCard';
+import SchoolDashboardServiceProvidersCard from '../../components/atoms/SchoolDashboardServiceProvidersCard';
 
 function SchoolMetrics() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -90,21 +95,117 @@ function SchoolMetrics() {
   }
 
   return (
-    <BodyWrapper title={``}>
-      <Row className=''>
-        <Col lg={12}>
-          <div className='dashboard-image-box'>
-            <Image
-              src={userInfoData.userProfilePic == null || "" ?
-                personIcon : `${backEndImageBaseUrl}/${userInfoData.userProfilePic}`}
-            />
-          </div>
-          <div >{`Hi, ${userInfoData.userFullname}.`}</div>
-          <div className='dashboard-sub-heading'>{userInfoData.schoolName}</div>
+    <BodyWrapper title={`Dashboard`}>
+      <Row>
+        <Col md={9}>
+          <Row className='school-dashboard-row-one'>
+            <Col lg={7} md={7} className='mb-3'>
+              <Card className='school-dashboard-user-box'>
+                <div className='school-dashboard-image-box'>
+                  <Image
+                    src={userInfoData.userProfilePic == null || "" ?
+                      personIcon : `${backEndImageBaseUrl}/${userInfoData.userProfilePic}`}
+                  />
+                </div>
+                <div className='school-dashboard-user-info'>
+                  <div>{`Welcome back, ${userInfoData.userFullname}.`}</div>
+                  <div>{userInfoData.schoolName}</div>
+                </div>
+              </Card>
+            </Col>
+            <Col lg={5} md={5} className='mb-3'>
+              <Card className='school-dashboard-user-box'>
+                <div className='school-dashboard-user-info'>
+                  <p>Consultant Improvement Partner</p>
+                  <div>Consultant appointed: {userInfoData.consultantAppointed}</div>
+                  <div>Contact details: {userInfoData.consultantContact}</div>
+                </div>
+              </Card>
+            </Col>
+          </Row>
+          <Row className='school-dashboard-row-two'>
+            <Col md={7} className='mb-3'>
+              <Card className='school-dashboard-membership-tracker-box'>
+                <p className='top'>
+                  <div>Membership Tracker</div>
+                  <MdGraphicEq className="icon" />
+                </p>
+                <Row>
+                  <Col sm={4}>
+                    <div className='tracker-title'>Workshops </div>
+                    <div className='tracker-value'>{userInfoData.workshopsAttended}</div>
+                  </Col>
+                  <Col sm={4}>
+                    <div className='tracker-title'>Webinars </div>
+                    <div className='tracker-value'>{userInfoData.webinarsAttended}</div>
+                  </Col>
+                  <Col sm={4}>
+                    <div className='tracker-title'>Masterclasses </div>
+                    <div className='tracker-value'>
+                      {userInfoData.masterclassesAttended}
+                    </div>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+            <Col md={5} className='mb-3'>
+              <Card className='school-dashboard-plan-box'>
+                <p className='top'>
+                  <div>Membership Plan</div>
+                  <MdCardMembership className="icon" />
+                </p>
+                <div className='bottom'>
+                  <div className='plan-name'>Basic Plan</div>
+                  
+                  <div className='plan-expiry'>Expires {userInfoData.planExpiryDate}</div>
+                </div>
+              </Card>
+            </Col>
+            {/* Important! Do not delete */}
+            {/* <Col md={4} className='mb-3'>
+          <Card className='school-dashboard-packages-and-services-tracker-box'>
+            <p className='top'>
+              <div>Packages and Services</div>
+              <MdSelfImprovement className="icon" />
+            </p>
+            <Row>
+              <Col sm={6}>
+                <div className='tracker-title'>Audit</div>
+                <div className='tracker-value'>33</div>
+              </Col>
+              <Col sm={6}>
+                <div className='tracker-title'>Seminars</div>
+                <div className='tracker-value'>33</div>
+              </Col>
+            </Row>
+          </Card>
+        </Col> */}
+          </Row>
+        </Col>
+        <Col md={3}>
+        </Col>
+
+      </Row>
+
+
+      <Row>
+        <Col md={6}>
+          <SchoolDashboardBroadcastsCard />
+        </Col>
+        <Col md={6}>
+          <SchoolDashboardResourcesCard />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6}>
+          <SchoolDashboardServiceProvidersCard />
+        </Col>
+        <Col md={6}>
+          <SchoolDashboardInvoicesCard />
         </Col>
       </Row>
 
-      <Row className=''>
+      {/* <Row className=''>
         <Col lg={8} md={7} className='mb-3'>
           <div className='dashboard-sub-heading'>Broadcasts</div>
           {broadcasts?.success === false && !broadcasts?.data &&
@@ -151,27 +252,7 @@ function SchoolMetrics() {
           {modalType && <BroadcastModal show={show} handleClose={handleClose} handleShow={handleShow}
             modalType={modalType} modalDataContent={modalDataContent} />}
         </Col>
-        <Col lg={4} md={5} className='mb-3'>
-          <Card className='right-side-dashboard-card mb-3'>
-            <Card.Body>
-              <Card.Title>Membership Plan</Card.Title>
-              <Card.Text>Basic Plan Expires <Badge bg='primary' className='float-end'>{userInfoData.planExpiryDate}</Badge></Card.Text>
-            </Card.Body>
-          </Card>
-          <Card className='right-side-dashboard-card mb-3'>
-            <Card.Body>
-              <Card.Title>Membership Tracker</Card.Title>
-              <Card.Text>Workshops attended <Badge bg='info' className='float-end'>
-                {userInfoData.workshopsAttended}
-              </Badge></Card.Text>
-              <Card.Text>Webinars attended <Badge bg='info' className='float-end'>
-                {userInfoData.webinarsAttended}
-              </Badge></Card.Text>
-              <Card.Text>Masterclasses attended <Badge bg='info' className='float-end'>
-                {userInfoData.masterclassesAttended}
-              </Badge></Card.Text>
-            </Card.Body>
-          </Card>
+         <Col lg={4} md={5} className='mb-3'>
           <Card className='right-side-dashboard-card mb-3'>
             <Card.Body>
               <Card.Title>School Imporvement Partner</Card.Title>
@@ -186,10 +267,9 @@ function SchoolMetrics() {
               <Card.Text>Contact details: {userInfoData.consultantContact}</Card.Text>
             </Card.Body>
           </Card>
-        </Col>
-      </Row>
-
-      <Row className='dashboard-menu-row'>
+        </Col> 
+      </Row> */}
+      {/* <Row className='dashboard-menu-row'>
         <div className='dashboard-sub-heading'>Navigation</div>
         {menuItems.map((item, index) => {
           const Icon = item.iconName
@@ -210,7 +290,7 @@ function SchoolMetrics() {
             </Col>
           )
         })}
-      </Row>      
+      </Row> */}
     </BodyWrapper>
   )
 }

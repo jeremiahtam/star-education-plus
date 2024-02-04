@@ -93,7 +93,6 @@ function ViewResourcesDocsModal(props: any) {
     setSubmitting(false);
   };
 
-
   return (
     <>
       <Formik
@@ -106,11 +105,12 @@ function ViewResourcesDocsModal(props: any) {
             .min(3, "Must be more than five characters")
             .max(25, 'Cannot be more than 25 characters')
             .required('Document name cannot be empty'),
+          documentLink: Yup.string()
+            .min(5, "Must be more than five characters")
+            .required('Document name cannot be empty'),
         })}
         onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
           // console.log(values)
-          // var formData = new FormData();
-          // formData.append("documentName", values.documentName)
           editFileHandler(values, setSubmitting, setErrors, resetForm)
         }}
       >
@@ -139,6 +139,16 @@ function ViewResourcesDocsModal(props: any) {
                   <ErrorMessage name="documentName" />
                 </div>
               </Form.Group>
+
+              <Form.Group className="mb-3"  >
+                <Form.Label className='form-labels'>Document Link</Form.Label>
+                <Field className="form-control custom-text-input" type="text" placeholder="Google Drive Link" name='documentLink' id='documentLink'
+                  disabled={isSubmitting} />
+                <div className="form-error">
+                  <ErrorMessage name="documentLink" />
+                </div>
+              </Form.Group>
+
             </Modal.Body>
             <Modal.Footer>
               <Button className="btn-custom-outline" onClick={props.handleClose}

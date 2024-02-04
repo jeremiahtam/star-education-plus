@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch } from "react-icons/io";
-import { Button, Form, Card, Row, Col, InputGroup, Alert, ToastContainer, Toast } from 'react-bootstrap';
+import { Button, Form, Card, Row, Col, InputGroup, Alert } from 'react-bootstrap';
 import AdminResourcesModal from '../../components/AdminResourcesModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -175,7 +175,8 @@ function SchoolResources() {
               {selectedResources.data.map((item: any, index: any) => {
                 return (
                   <Col lg={3} md={4} className='mb-3' key={index}>
-                    <Card className='price-card'>
+                    <Card className='price-card'
+                      style={{ background: item.status == 'active' ? '#fff' : '#e9e9e9' }}>
                       <Card.Body>
                         <Card.Subtitle className="mb-2 price-card-sub-title">
                           <BiPackage /> {item.name}
@@ -191,17 +192,20 @@ function SchoolResources() {
                         </Card.Text>
                         <div className='price-card-border mb-3 mt-3'></div>
                         {item.paidResources.length > 0 ?
-                          <Button className='btn-block mb-3 form-control btn-custom' onClick={() => {
+                          <Button className='btn-block mb-3 form-control btn-custom'
+                            disabled={item.status == 'active' ? false : true}
+                          onClick={() => {
                             navigate(`/resources/${item.id}`, {
                               state: {
                                 data: item
                               }
                             })
                           }}>
-                            <FaArrowRight /> View Purchase
+                            <FaArrowRight /> {item.status == 'active' ? 'View Purchase' : 'Inactive'}
                           </Button>
                           :
                           <Button className='btn-block mb-3 form-control btn-custom'
+                            disabled={item.status == 'active' ? false : true}
                             onClick={() => {
                               const isFound = cartResources.some((element: any) => {
                                 if (element.id === item.id) {
@@ -216,7 +220,7 @@ function SchoolResources() {
                                 store.dispatch(addResource(item))
                               }
                             }}>
-                            <FaOpencart /> Purchase
+                            <FaOpencart /> {item.status == 'active' ? 'Purchase' : 'Inactive'}
                           </Button>
                         }
                       </Card.Body>

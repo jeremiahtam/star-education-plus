@@ -7,7 +7,7 @@ import ViewResourcesDocsModal from './ViewResourcesDocsModal';
 function AdminResourcesDocsModal(props: any) {
   return (
     <Modal show={props.show} onHide={props.handleClose}
-      size={props.modalType == 'view-resources-docs' ? 'lg' : undefined}>
+      size={props.modalType == 'view-resources-docs' ? 'xl' : undefined}>
       {props.modalType == 'add-resources-docs' ?
         <AddResourcesDocsModal modalDataId={props.modalDataId} handleClose={props.handleClose}
           resourcesId={props.resourcesId} loadResourcesDocs={props.loadResourcesDocs}

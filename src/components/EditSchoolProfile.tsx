@@ -71,7 +71,7 @@ function EditSchoolProfile(props: any) {
         chairOfTrusteesName: props.selectedSchool.chair_of_trustees_name,
         headTeacherName: props.selectedSchool.head_teacher_name,
 
-        schoolImprovementPartner: props.selectedSchool.school_improvement_partner,
+        // schoolImprovementPartner: props.selectedSchool.school_improvement_partner,
         consultantAppointed: props.selectedSchool.consultant_appointed,
         consultantContact: props.selectedSchool.consultant_contact,
         webinarsAttended: props.selectedSchool.webinars_attended,
@@ -94,7 +94,7 @@ function EditSchoolProfile(props: any) {
         chairOfTrusteesName: Yup.string().nullable(),
         headTeacherName: Yup.string().nullable(),
 
-        schoolImprovementPartner: Yup.string().required('Enter a partner'),
+        // schoolImprovementPartner: Yup.string().required('Enter a partner'),
         consultantAppointed: Yup.string().required('Enter a consultant'),
         consultantContact: Yup.string().required('Enter contact'),
         webinarsAttended: Yup.number().typeError('Enter a number'),
@@ -239,7 +239,7 @@ function EditSchoolProfile(props: any) {
             </Col>
           </Row>
           <Row className="align-items-center">
-            <Col xs="auto" lg={'4'}>
+            {/* <Col xs="auto" lg={'4'}>
               <Form.Group className="mb-3" >
                 <Form.Label className='form-labels'>School Improvement Partner*</Form.Label>
                 <Field className="form-control custom-text-input" type="text" placeholder="School Improvement Partner" name='schoolImprovementPartner' id='schoolImprovementPartner'
@@ -248,8 +248,8 @@ function EditSchoolProfile(props: any) {
                   <ErrorMessage name="schoolImprovementPartner" />
                 </div>
               </Form.Group>
-            </Col>
-            <Col xs="auto" lg={'4'}>
+            </Col> */}
+            <Col xs="auto" lg={'6'}>
               <Form.Group className="mb-3" >
                 <Form.Label htmlFor="consultantAppointed">Consultant Appointed*</Form.Label>
                 <Field className="form-control custom-text-input" type="text" placeholder="Consultant Appointed" name='consultantAppointed' id='consultantAppointed'
@@ -259,7 +259,7 @@ function EditSchoolProfile(props: any) {
                 </div>
               </Form.Group>
             </Col>
-            <Col xs="auto" lg={'4'}>
+            <Col xs="auto" lg={'6'}>
               <Form.Group className="mb-3" >
                 <Form.Label htmlFor="consultantContact">Consultant Contact*</Form.Label>
                 <Field className="form-control custom-text-input" type="text" placeholder="Consultant Contact" name='consultantContact' id='consultantContact'

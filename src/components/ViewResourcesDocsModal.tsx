@@ -14,7 +14,7 @@ interface ViewResourcesDocsModalPropType {
   modalDataContent: {
     id: number,
     documentName: string,
-    nameInStorage: string,
+    documentLink: string,
   },
   handleClose: any,
 }
@@ -23,26 +23,28 @@ function ViewResourcesDocsModal(props: ViewResourcesDocsModalPropType) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 
-  const [pdf, setPdf] = useState<any>(null)
+  // const [pdf, setPdf] = useState<any>(null)
 
   useEffect(() => {
-    downloadFileHandler(props.modalDataContent.nameInStorage, props.modalDataContent.documentName)
+    resourcesDoucmentHandler()
   }, [])
 
-  const downloadFileHandler = async (fileName: string, saveFileName: string) => {
+  const resourcesDoucmentHandler = async () => {
     try {
-      const res = await axios.get(`${baseUrl}/api/download-resources-file/${fileName}`,
+      const res = await axios.get(`${baseUrl}/api/get-resources-document-by-id`,
         {
-          responseType: 'blob',
+          params: {
+            id: props.modalDataContent.id
+          },
           headers: {
+            Accept: "application/json",
             Authorization: `Bearer ${userInfoData.token}`,
           },
           timeout: 30000,
-          validateStatus: (s) => s <= 500,
         });
       const resData = res.data;
       console.log(resData)
-      setPdf(resData)
+      // setPdf(resData)
     } catch (e: any) {
       console.log(e);
       if (e.code == "ECONNABORTED") {
@@ -63,13 +65,14 @@ function ViewResourcesDocsModal(props: ViewResourcesDocsModalPropType) {
       </Modal.Header>
       <Modal.Body>
         <div className='pdf-view-box'>
-          {pdf !== null && <Document
-            file={pdf}
-            onContextMenu={(e) => e.preventDefault()}
-            className="pdf-container"
+          {/* {pdf !== null && */}
+          <iframe
+            style={{ height: '90vh', width: '100%' }}
+            src={props.modalDataContent.documentLink}
           >
-            <Page pageNumber={1} />
-          </Document>}
+          </iframe>
+          {/* } */}
+
         </div>
       </Modal.Body>
       <Modal.Footer>

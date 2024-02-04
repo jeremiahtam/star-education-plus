@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
-import { IoMdSearch, IoMdCreate, IoIosAdd } from "react-icons/io";
+import { IoMdSearch } from "react-icons/io";
 import { Button, Form, Row, Col, InputGroup, Alert, Card } from 'react-bootstrap';
 import CustomModal from '../../components/MembershipPlanModal';
 import axios from 'axios';
@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux'
 import { stateCart, stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
-import { HiTrash } from 'react-icons/hi';
 import { FaOpencart } from 'react-icons/fa'
 import { GoHistory } from 'react-icons/go'
 import { deleteUserData } from '../../store/actions/user-info';
@@ -168,13 +167,13 @@ function SchoolMembershipPlans() {
             {membershipPlans.data.map((item: any, index: number) => {
               return (
                 <Col lg={3} md={4} className='mb-3' key={index}>
-                  <Card className='price-card'>
+                  <Card className='price-card'
+                    style={{ background: item.status == 'active' ? '#fff' : '#e9e9e9' }}>
                     <Card.Body>
                       <Card.Subtitle className="mb-2 price-card-sub-title">
                         <BiPackage /> {item.name}
                       </Card.Subtitle>
                       <Card.Title className='price-card-title'>{pounds.format(item.amount)}</Card.Title>
-                      {/* <Card.Text className='text-warning'>Text</Card.Text> */}
                       <div className='price-card-border mb-3 mt-3'></div>
                       <Card.Text className='price-card-text'>
                         {item.excerpt}
@@ -184,15 +183,18 @@ function SchoolMembershipPlans() {
                       </Card.Text>
                       <div className='price-card-border mb-3 mt-3'></div>
                       <Button className='btn-block mb-3 form-control btn-custom'
+                        disabled={item.status == 'active' ? false : true}
                         onClick={() => {
-                          if (cartMembershipPlans.length > 0) {
-                            setShowToast(true)
-                          } else {
-                            store.dispatch(addMembershipPlan(item))
+                          if (item.status == 'active') {
+                            if (cartMembershipPlans.length > 0) {
+                              setShowToast(true)
+                            } else {
+                              store.dispatch(addMembershipPlan(item))
+                            }
                           }
                         }}
                       >
-                        <FaOpencart /> Purchase
+                        <FaOpencart /> {item.status == 'active' ? 'Purchase' : 'Inactive'}
                       </Button>
                     </Card.Body>
                   </Card>
