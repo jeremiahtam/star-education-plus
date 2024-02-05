@@ -1,6 +1,8 @@
+import 'react-calendar/dist/Calendar.css';
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import axios from 'axios';
 import BodyWrapper from '../../components/BodyWrapper'
+import Calendar from 'react-calendar';
 import { useSelector } from 'react-redux'
 import { Alert, Badge, Card, Col, Row, Image, Button } from 'react-bootstrap'
 import { store } from '../../store/root-reducer';
@@ -15,6 +17,10 @@ import { MdCardMembership, MdGraphicEq, MdSelfImprovement } from 'react-icons/md
 import SchoolDashboardInvoicesCard from '../../components/atoms/SchoolDashboardInvoicesCard';
 import SchoolDashboardResourcesCard from '../../components/atoms/SchoolDashboardResourcesCard';
 import SchoolDashboardServiceProvidersCard from '../../components/atoms/SchoolDashboardServiceProvidersCard';
+import ReactDatePicker from 'react-datepicker';
+
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 function SchoolMetrics() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -29,18 +35,14 @@ function SchoolMetrics() {
   const [modalType, setModalType] = useState<string | null>(null);
   const [modalDataContent, setModalDataContent] = useState<number | null>(null) /* modal dataId */
 
-  const modalDataHandler = useCallback((_dataId: number, _modalType: string) => {
-    handleShow()
-    setModalDataContent(_dataId)
-    setModalType(_modalType)
-    console.log(`${_dataId} ${_modalType}`)
-  }, [setModalType, setModalDataContent])
 
   const [broadcasts, setBroadcasts] = useState<any>()
 
   useEffect(() => {
     getBroadcastsHandler()
   }, [userInfoData])
+
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const getBroadcastsHandler = async () => {
     try {
@@ -156,38 +158,26 @@ function SchoolMetrics() {
                 </p>
                 <div className='bottom'>
                   <div className='plan-name'>Basic Plan</div>
-                  
+
                   <div className='plan-expiry'>Expires {userInfoData.planExpiryDate}</div>
                 </div>
               </Card>
             </Col>
-            {/* Important! Do not delete */}
-            {/* <Col md={4} className='mb-3'>
-          <Card className='school-dashboard-packages-and-services-tracker-box'>
-            <p className='top'>
-              <div>Packages and Services</div>
-              <MdSelfImprovement className="icon" />
-            </p>
-            <Row>
-              <Col sm={6}>
-                <div className='tracker-title'>Audit</div>
-                <div className='tracker-value'>33</div>
-              </Col>
-              <Col sm={6}>
-                <div className='tracker-title'>Seminars</div>
-                <div className='tracker-value'>33</div>
-              </Col>
-            </Row>
-          </Card>
-        </Col> */}
           </Row>
         </Col>
         <Col md={3}>
+          <div className='calendar-box'>
+            <ReactDatePicker
+              selected={currentDate}
+              onChange={(date: any) => {
+                setCurrentDate(date)
+                window.open('https://www.stareducationplus.org.uk/upcoming-events', "_blank", "noreferrer");
+              }}
+              inline
+            />
+          </div>
         </Col>
-
       </Row>
-
-
       <Row>
         <Col md={6}>
           <SchoolDashboardBroadcastsCard />

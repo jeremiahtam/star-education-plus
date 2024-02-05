@@ -98,12 +98,7 @@ export default function SchoolDashboardInvoicesCard() {
           </Card.Header>
           <Card.Body>
             {invoices.data.length !== 0 &&
-              <div className="table-responsive"
-                style={{
-                  height: '300px',
-                  overflow: 'scroll',
-                  scrollbarWidth: 'thin',
-                }}>
+              <div className="table-responsive">
                 <table className='table table-hover table-sm'>
                   <thead>
                     <tr>

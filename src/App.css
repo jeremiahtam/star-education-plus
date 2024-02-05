@@ -1171,17 +1171,9 @@ ul ul a {
     }
   }
 
-  .school-dashboard-packages-and-services-tracker-box {
-    background-color: #cfe2ed;
 
-    .icon {
-      border: 5px solid #49a9d8;
-      background-color: #49a9d8;
-    }
-  }
 
-  .school-dashboard-membership-tracker-box,
-  .school-dashboard-packages-and-services-tracker-box {
+  .school-dashboard-membership-tracker-box {
     padding: 10px;
 
     .top {
@@ -1210,6 +1202,18 @@ ul ul a {
   }
 }
 
+.calendar-box {
+  border-bottom: 1px solid #bebebe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ececec;
+
+  .react-datepicker {
+    margin: auto;
+  }
+}
+
 .school-dashboard-card {
   /* border: none !important; */
   box-shadow: 1px 1px 7px #d6d6d683;
@@ -1229,6 +1233,7 @@ ul ul a {
       color: #303030;
     }
 
+
     .view-all {
       border-radius: 10px;
       font-size: 0.7em;
@@ -1240,7 +1245,19 @@ ul ul a {
       border: solid 1px #808080;
     }
   }
+
+  .card-body {
+    .table-responsive {
+      height: 300px;
+    }
+
+    .table-responsive:hover {
+      overflow: scroll;
+      scrollbar-width: thin;
+    }
+  }
 }
+
 
 .dashboard-broadcasts-card {
   overflow: hidden;

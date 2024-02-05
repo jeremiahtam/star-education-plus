@@ -22,6 +22,7 @@
     "react": "^18.2.0",
     "react-auth-code-input": "^3.2.1",
     "react-bootstrap": "^2.8.0",
+    "react-calendar": "^4.8.0",
     "react-datepicker": "^4.14.1",
     "react-dom": "^18.2.0",
     "react-dotenv": "^0.1.3",
