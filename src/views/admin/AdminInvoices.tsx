@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdCreate } from "react-icons/io";
-import { Button, Form, Row, Col, InputGroup, Alert, Badge, Breadcrumb } from 'react-bootstrap';
+import { Button, Form, Row, Col, InputGroup, Alert, Badge } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
@@ -166,6 +166,7 @@ function AdminInvoices() {
                   <th>Deadline</th>
                   <th>Payment Date</th>
                   <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -211,7 +212,7 @@ function AdminInvoices() {
         {invoices.data.length !== 0 &&
           <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
         {modalType && <InvoiceModal show={show} handleClose={handleClose} handleShow={handleShow}
-          modalType={modalType} modalDataContent={modalDataContent} getInvoicesHandler={() => getInvoicesHandler} />}
+          modalType={modalType} modalDataContent={modalDataContent} getInvoicesHandler={() => getInvoicesHandler()} />}
       </>}
     </BodyWrapper>
   )

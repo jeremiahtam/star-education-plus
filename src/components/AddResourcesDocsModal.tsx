@@ -12,14 +12,6 @@ function AddResourcesDocsModal(props: any) {
 
   const [uploadDocumentResponse, setUploadDocumentResponse] = useState<any>(null)
 
-  const FILE_SIZE = 100000 * 1024;//
-  const SUPPORTED_FORMATS = [
-    // "image/jpg",
-    // "image/jpeg",
-    // "image/png",
-    "application/pdf",
-    "application/msword"
-  ];
   const uploadFileHandler = async (
     values: any,
     setSubmitting: any,

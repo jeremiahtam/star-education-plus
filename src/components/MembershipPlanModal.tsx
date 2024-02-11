@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap';
 import AddMembershipPlanModal from './AddMembershipPlanModal';
 import EditMembershipPlanModal from './EditMembershipPlanModal';

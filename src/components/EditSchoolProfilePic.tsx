@@ -1,12 +1,10 @@
 import { useState, useCallback } from 'react'
-import { Image, Button, Row, ButtonToolbar, Alert, Dropdown } from 'react-bootstrap';
+import { Image, Row, Alert, Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';
 import personIcon from '../images/person-icon.png'
-import ChangeProfilePicModal from './ChangeProfilePicModal';
 import { BsPencilFill } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
 import AdminChangeProfilePicModal from './AdminChangeProfilePicModal';
 
 function EditSchoolProfilePic(props: any) {

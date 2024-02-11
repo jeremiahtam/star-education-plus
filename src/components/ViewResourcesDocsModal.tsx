@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { Document, Page, pdfjs } from "react-pdf";
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';
-import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { deleteUserData } from '../store/actions/user-info';
 import { store } from '../store/root-reducer';
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface ViewResourcesDocsModalPropType {
   modalDataContent: {
@@ -22,8 +18,6 @@ interface ViewResourcesDocsModalPropType {
 function ViewResourcesDocsModal(props: ViewResourcesDocsModalPropType) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
-
-  // const [pdf, setPdf] = useState<any>(null)
 
   useEffect(() => {
     resourcesDoucmentHandler()
@@ -44,7 +38,6 @@ function ViewResourcesDocsModal(props: ViewResourcesDocsModalPropType) {
         });
       const resData = res.data;
       console.log(resData)
-      // setPdf(resData)
     } catch (e: any) {
       console.log(e);
       if (e.code == "ECONNABORTED") {
@@ -65,14 +58,11 @@ function ViewResourcesDocsModal(props: ViewResourcesDocsModalPropType) {
       </Modal.Header>
       <Modal.Body>
         <div className='pdf-view-box'>
-          {/* {pdf !== null && */}
           <iframe
             style={{ height: '90vh', width: '100%' }}
             src={props.modalDataContent.documentLink}
           >
           </iframe>
-          {/* } */}
-
         </div>
       </Modal.Body>
       <Modal.Footer>

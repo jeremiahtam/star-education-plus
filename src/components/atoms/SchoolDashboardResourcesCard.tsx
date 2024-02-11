@@ -1,7 +1,7 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useSelector } from 'react-redux'
-import { Alert, Badge, Button, Card } from 'react-bootstrap'
+import { Alert, Badge, Card } from 'react-bootstrap'
 import { store } from '../../store/root-reducer';
 import { stateCart, stateLoggedInUserType } from '../../../types/type-definitions';
 import { deleteUserData } from '../../store/actions/user-info';

@@ -201,6 +201,7 @@ function SchoolPackagesAndServices() {
                               if (isFound == true) {
                                 setShowToast(true)
                               } else {
+                                console.log(item)
                                 store.dispatch(addPackagesAndServices(item))
                               }
                             }

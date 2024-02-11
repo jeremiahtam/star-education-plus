@@ -137,6 +137,7 @@ function AddSchoolModal(props: any) {
         })}
 
         onSubmit={(values, { setSubmitting, setErrors }) => {
+          // console.log(values)
           addSchoolHandler(values, setSubmitting, setErrors)
         }}
       >
@@ -203,9 +204,9 @@ function AddSchoolModal(props: any) {
                         selectedOption.target.value,
                       )} aria-label="Default select example" id='status' name='status' className='custom-text-input'>
                       <option value={''}>-- select status --</option>
-                      <option value="pending review">Pending Review</option>
+                      {/* <option value="pending review">Pending Review</option> */}
                       <option value="approved">Approved</option>
-                      <option value="suspended">Suspended</option>
+                      {/* <option value="suspended">Suspended</option> */}
                     </Form.Select>
                     <div className="form-error">
                       <ErrorMessage name="status" />
@@ -303,17 +304,7 @@ function AddSchoolModal(props: any) {
                 </Col>
               </Row>
 
-              <Row className="align-items-center">
-                {/* <Col xs="auto" lg={'4'}>
-                  <Form.Group className="mb-3" >
-                    <Form.Label className='form-labels'>School Improvement Partner*</Form.Label>
-                    <Field className="form-control custom-text-input" type="text" placeholder="School Improvement Partner" name='schoolImprovementPartner' id='schoolImprovementPartner'
-                      disabled={isSubmitting} />
-                    <div className="form-error">
-                      <ErrorMessage name="schoolImprovementPartner" />
-                    </div>
-                  </Form.Group>
-                </Col> */}
+              <Row className="align-items-center">                
                 <Col xs="auto" lg={'6'}>
                   <Form.Group className="mb-3" >
                     <Form.Label htmlFor="consultantAppointed">Consultant Appointed*</Form.Label>

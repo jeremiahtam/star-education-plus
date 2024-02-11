@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { Navigate, Outlet, redirect, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import TopNav from "../../components/TopNav"
 import SideBarNav from "../../components/SideBarNav"
 import { useSelector } from 'react-redux'
 import { navToggleClassStateType, stateLoggedInUserType } from '../../../types/type-definitions'
 import { store } from '../../store/root-reducer'
-import { insertUserData, loadUserData } from '../../store/actions/user-info'
-import { Alert, Col, Row } from 'react-bootstrap'
-import { userInfo } from 'os'
+import { loadUserData } from '../../store/actions/user-info'
+import { Alert } from 'react-bootstrap'
 
 const SchoolDashboard = () => {
   const navigate = useNavigate();

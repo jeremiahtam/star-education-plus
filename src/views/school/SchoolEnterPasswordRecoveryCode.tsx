@@ -1,16 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
+import { useState } from 'react'
+import { Formik, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { deleteUserData, insertUserData } from '../../store/actions/user-info';
+import { useLocation, useNavigate } from "react-router-dom";
+import { deleteUserData } from '../../store/actions/user-info';
 import axios from 'axios'
 import { store } from '../../store/root-reducer';
-import { stateLoggedInUserType } from '../../../types/type-definitions';
-import { loadUserData } from '../../store/actions/user-info';
-import { Col, Spinner, Image, Form, Container, Row } from 'react-bootstrap';
+import { Spinner, Image, Form, Container } from 'react-bootstrap';
 import SEPLogo from '../../images/SEP-Logo-White-Final.png'
-// import SEPLogo129 from '../../images/logo192.png'
 import OtpInput from 'react-otp-input';
 
 function SchoolEnterPasswordRecoveryCode() {

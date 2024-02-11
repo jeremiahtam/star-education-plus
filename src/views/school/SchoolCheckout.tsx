@@ -1,7 +1,6 @@
-import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { Button, Row, Col, Card, Spinner } from 'react-bootstrap';
-import CustomModal from '../../components/MembershipPlanModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateCart, stateLoggedInUserType } from '../../../types/type-definitions';
@@ -29,17 +28,16 @@ function SchoolCheckout() {
   }, [cartResources, cartPackagesAndServices, cartMembershipPlans])
 
   const [totalCost, setTotalCost] = useState<number>(0)
-  console.log(totalCost)
 
   const priceTotalResources = () => {
     const resourcesTotal = cartResources.reduce((acc, val: any) => {
-      return acc + val.amount
+      return Number(acc) + Number(val.amount)
     }, 0)
     const membershipPlansTotal = cartMembershipPlans.reduce((acc, val: any) => {
-      return acc + val.amount
+      return Number(acc) + Number(val.amount)
     }, 0)
     const packagesAndServicesTotal = cartPackagesAndServices.reduce((acc, val: any) => {
-      return acc + val.amount
+      return Number(acc) + Number(val.amount)
     }, 0)
     let sum = Number(resourcesTotal) + Number(membershipPlansTotal) + Number(packagesAndServicesTotal)
     setTotalCost(Number(sum))
@@ -99,7 +97,7 @@ function SchoolCheckout() {
     <BodyWrapper title='Checkout'>
       <Row>
         <Col md={'8'}>
-          <Card className='checkout-items-card'>
+          <Card className='checkout-items-card mb-3'>
             <Card.Body>
               <Card.Title className='checkout-items-card-title'>Cart</Card.Title>
               <div className='checkout-items-card-border mb-3 mt-3'></div>
@@ -172,7 +170,7 @@ function SchoolCheckout() {
           </Card>
         </Col>
         <Col md={'4'}>
-          <Card className='checkout-card'>
+          <Card className='checkout-card mb-3'>
             <Card.Body>
               <Card.Subtitle className="mb-2 checkout-card-sub-title">
               </Card.Subtitle>

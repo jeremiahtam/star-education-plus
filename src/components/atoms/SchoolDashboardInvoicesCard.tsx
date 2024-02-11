@@ -2,12 +2,9 @@ import { useEffect, useState, useCallback } from 'react'
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { Alert, Badge, Card } from 'react-bootstrap'
-import { store } from '../../store/root-reducer';
 import { stateLoggedInUserType } from '../../../types/type-definitions';
-import { deleteUserData } from '../../store/actions/user-info';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BroadcastModal from '../BroadcastModal';
-import { HiEye } from 'react-icons/hi';
 
 export default function SchoolDashboardInvoicesCard() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)

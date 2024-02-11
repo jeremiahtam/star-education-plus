@@ -1,11 +1,4 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom";
-import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
-import { Table, Button, Pagination, Modal } from 'react-bootstrap';
-import CustomModal from './BroadcastModal';
-import axios from 'axios'
-import { useSelector } from 'react-redux'
-import { stateLoggedInUserType } from '../../types/type-definitions';
+import { Button, Modal } from 'react-bootstrap';
 
 interface ViewBroadcastModalPropType {
   modalDataContent: {

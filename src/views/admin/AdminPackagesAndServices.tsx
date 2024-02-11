@@ -11,14 +11,12 @@ import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
-import { useNavigate } from 'react-router';
 
 function AdminPackagesAndServices() {
   const pounds = Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'GBP',
   });
-  const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
 

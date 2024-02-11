@@ -1,7 +1,4 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom";
-import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
-import { Table, Button, Pagination, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../types/type-definitions';

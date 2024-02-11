@@ -1,8 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Table, Button, Pagination, Form, Row, Col, InputGroup } from 'react-bootstrap';
-import { ImStack } from 'react-icons/im'
-
 export default function AdminMetricBox(props: any) {
   return (
     <div className='metric-box'>

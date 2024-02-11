@@ -1,11 +1,9 @@
-import { ChangeEvent, useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useSelector } from 'react-redux'
-import { Alert, Badge, Card, Col, Row, Image, Button } from 'react-bootstrap'
-import { store } from '../../store/root-reducer';
+import { Alert, Card } from 'react-bootstrap'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
-import { deleteUserData } from '../../store/actions/user-info';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import serviceProvidersList from '../../data/serviceProvidersList';
 import { RiCustomerService2Line } from 'react-icons/ri';
 

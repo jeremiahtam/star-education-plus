@@ -521,8 +521,6 @@ ul ul a {
   border-top-right-radius: 3px;
 }
 
-.table>thead>tr {}
-
 .table>thead>tr>th {
   background: #ffffff;
   color: rgb(119, 119, 119)444;
@@ -1124,7 +1122,7 @@ ul ul a {
 .school-dashboard-row-two {
   .school-dashboard-plan-box {
     padding: 10px;
-    background-color: #cfe2ed;
+    background-color: #f5eac8;
 
     .top {
       display: flex;
@@ -1135,8 +1133,8 @@ ul ul a {
       margin-bottom: 37px;
 
       .icon {
-        border: 5px solid #49a9d8;
-        background-color: #49a9d8;
+        border: 5px solid #aa8302;
+        background-color: #aa8302;
         width: 30px;
         height: 30px;
         border-radius: 4px;
@@ -1163,11 +1161,11 @@ ul ul a {
   }
 
   .school-dashboard-membership-tracker-box {
-    background-color: #f3ebd9;
+    background-color: #f3cedc;
 
     .icon {
-      border: 5px solid #ffc059;
-      background-color: #ffc059;
+      border: 5px solid #ad134c;
+      background-color: #a90c45;
     }
   }
 

@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
-import { Button, Spinner } from "react-bootstrap"
-import { HiOutlineArrowLeft } from 'react-icons/hi'
+import { Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router"
 import { stateLoggedInUserType } from "../../types/type-definitions"
 

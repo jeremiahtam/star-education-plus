@@ -1,22 +1,13 @@
-import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
-import AdminResourcesDocsModal from '../../components/AdminResourcesDocsModal';
+import { useEffect, useState, useCallback } from 'react'
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
-import CustomPagination from '../../components/CustomPagination';
-import { MdOutlineClear } from 'react-icons/md';
-import { HiTrash } from 'react-icons/hi';
-import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
-import { BsCloudUpload, BsEye } from 'react-icons/bs'; import BodyWrapper from '../../components/BodyWrapper'
-import { IoIosAdd, IoMdCreate, IoMdDownload, IoMdSearch } from 'react-icons/io';
+import { useNavigate, useParams } from "react-router-dom";
 import fileDownload from 'js-file-download'
 import { store } from '../../store/root-reducer';
 import { deleteUserData } from '../../store/actions/user-info';
 
 function AdminResourcesAttendance() {
-  const location = useLocation()
-
   const { resourcesId } = useParams()
   const navigate = useNavigate()
   const baseUrl = process.env.REACT_APP_API_BASE_URL;

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Dispatch } from 'redux'
-import { useNavigate } from 'react-router'
 
 export const LOAD_USER_DATA = 'LOAD_USER_DATA'
 export const ADD_USER_DATA = 'ADD_USER_DATA'

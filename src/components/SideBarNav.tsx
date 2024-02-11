@@ -1,8 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { SiGooglechat } from "react-icons/si";
 import { BsBroadcastPin } from 'react-icons/bs'
 import { ImStack } from 'react-icons/im'
-import { FaGlobe, FaFileUpload, FaFileInvoice } from 'react-icons/fa'
+import { FaFileInvoice } from 'react-icons/fa'
 import { RiLogoutBoxLine } from 'react-icons/ri'
 import { BiSolidDashboard, BiSolidPackage } from 'react-icons/bi'
 import { MdSchool, MdCardMembership, MdOutlineHomeRepairService } from 'react-icons/md'

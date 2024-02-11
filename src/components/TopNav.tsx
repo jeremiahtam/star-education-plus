@@ -1,9 +1,8 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { IoIosMenu } from "react-icons/io";
 import { useDispatch } from 'react-redux'
 import { toggleNav } from '../store/actions/nav'
-import { NavDropdown, Image, Col, Row, Badge } from 'react-bootstrap';
-import SEPlogo129 from '../images/logo192.png'
+import { NavDropdown, Image, Badge } from 'react-bootstrap';
 import { stateCart, stateLoggedInUserType } from '../../types/type-definitions';
 import personIcon from '../images/person-icon.png'
 import { useSelector } from 'react-redux'

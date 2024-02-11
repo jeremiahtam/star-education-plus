@@ -2,9 +2,7 @@ import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import axios from 'axios';
 import BodyWrapper from '../../components/BodyWrapper'
 import { useSelector } from 'react-redux'
-import { Alert, Badge, Form, Button, Card, Col, Row, InputGroup } from 'react-bootstrap'
-import { FaOpencart } from 'react-icons/fa'
-import { BiPackage } from 'react-icons/bi'
+import { Alert, Form, Button, Card, Col, Row, InputGroup } from 'react-bootstrap'
 import { LuSubtitles } from 'react-icons/lu'
 import { store } from '../../store/root-reducer';
 import { stateLoggedInUserType } from '../../../types/type-definitions';

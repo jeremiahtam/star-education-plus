@@ -1,22 +1,14 @@
-import React, { useEffect } from 'react'
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from "react-router-dom";
-import { deleteUserData, insertUserData } from '../../store/actions/user-info';
+import { useNavigate } from "react-router-dom";
+import { deleteUserData } from '../../store/actions/user-info';
 import axios from 'axios'
 import { store } from '../../store/root-reducer';
-import { stateLoggedInUserType } from '../../../types/type-definitions';
-import { loadUserData } from '../../store/actions/user-info';
-import { Col, Spinner, Image, Form, Container } from 'react-bootstrap';
+import { Spinner, Image, Form, Container } from 'react-bootstrap';
 import SEPLogo from '../../images/SEP-Logo-White-Final.png'
-import SEPLogo129 from '../../images/logo192.png'
-
-
 
 const SchoolRecoverPassword = (props: any) => {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
-  const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const navigate = useNavigate();
 
   const recoverPasswordHandler = async (

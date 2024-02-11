@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Link } from "react-router-dom";
-import { IoMdSearch, IoMdTrash, IoMdCreate, IoIosAdd } from "react-icons/io";
+import { IoIosAdd } from "react-icons/io";
 import { Button, Modal, Form, InputGroup, Row, Col } from 'react-bootstrap';
-import MembershipPlanModal from './MembershipPlanModal';
 import { Formik, Field, Form as FormikForm, ErrorMessage, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios'
@@ -145,7 +143,8 @@ function EditMembershipPlanModal(props: any) {
           duration: Yup.number().typeError('Enter a number')
             // .required('Duration cannot be empty!')
             .integer('Please enter a whole number')
-            .positive('Enter a positive number').min(1, 'Please enter at least a digit'),
+            .positive('Enter a positive number')
+            .min(1, 'Please enter at least a digit'),
           amount: Yup.number().typeError('Enter a number')
             .required('Amount cannot be empty!').positive('Enter a positive number')
             .test(
@@ -154,7 +153,8 @@ function EditMembershipPlanModal(props: any) {
               (amount: any) => /^\d+(\.\d{1,2})?$/.test(amount)
             ),
           discountAmount: Yup.number().typeError('Enter discount price')
-            .required('Amount cannot be empty!').positive('Enter a positive number')
+            .required('Amount cannot be empty!')
+            // .positive('Enter a positive number')
             .test(
               "maxDigitsAfterDecimal",
               "Amount cannot have more than 2 digits after decimal",
@@ -175,7 +175,6 @@ function EditMembershipPlanModal(props: any) {
         })}
 
         onSubmit={(values, { setSubmitting, setErrors }) => {
-          console.log(values)
           editMembershipPlanHandler(values, setSubmitting, setErrors)
         }}
       >

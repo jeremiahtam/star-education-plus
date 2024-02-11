@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link, useParams } from "react-router-dom";
-import { IoMdSearch, IoMdTrash, IoMdCreate } from "react-icons/io";
+import { useState, useEffect } from 'react'
 import { Button, Modal, Form, Row, Col, Alert } from 'react-bootstrap';
-import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
+import { Formik, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -78,6 +76,7 @@ function EditInvoiceModal(props: any) {
       } else {
         setInvoiceResponse(resData)
         props.getInvoicesHandler()
+        props.handleClose()
       }
     } catch (e: any) {
       console.log(e);

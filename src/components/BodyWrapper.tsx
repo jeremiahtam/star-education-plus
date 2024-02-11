@@ -1,5 +1,4 @@
-import React, { ReactNode, FC } from 'react'
-import PropTypes from 'prop-types'
+import { ReactNode } from 'react'
 
 interface BodyWrapperPropType {
   title?: string,

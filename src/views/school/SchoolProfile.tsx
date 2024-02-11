@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate, useParams } from "react-router-dom";
-import { Row, Col, Card } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
+import { Row, Col } from 'react-bootstrap';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom';
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import BodyWrapper from '../../components/BodyWrapper';
 import { store } from '../../store/root-reducer';

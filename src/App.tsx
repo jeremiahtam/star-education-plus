@@ -1,6 +1,5 @@
 import './App.css';
 import { useEffect } from 'react';
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import AdminDashboard from './views/admin/AdminDashboard';
 import AdminMetrics from './views/admin/AdminMetrics';
 import AdminLogin from './views/admin/AdminLogin';
@@ -19,18 +18,15 @@ import AdminViewSchoolPackagesAndServices from './views/admin/AdminViewSchoolPac
 import AdminResourcesDocumentUpload from './views/admin/AdminResourcesDocumentUpload';
 import { Route, Routes } from "react-router-dom"
 import { store } from '../src/store/root-reducer'
-import { insertUserData, loadUserData } from '../src/store/actions/user-info'
-import { navToggleClassStateType, stateLoggedInUserType } from '../types/type-definitions'
+import { loadUserData } from '../src/store/actions/user-info'
+import { stateLoggedInUserType } from '../types/type-definitions'
 import { useSelector } from 'react-redux'
 import SchoolLogin from './views/school/SchoolLogin';
-import SchoolSignup from './views/school/SchoolSignup';
 import SchoolRecoverPassword from './views/school/SchoolRecoverPassword';
 import SchoolEnterPasswordRecoveryCode from './views/school/SchoolEnterPasswordRecoveryCode';
 import SchoolChangePassword from './views/school/SchoolChangePassword';
 import SchoolDashboard from './views/school/SchoolDashboard';
 import SchoolMetrics from './views/school/SchoolMetrics';
-import AdminPackagesAndServicesAttendance from './views/admin/AdminPackagesAndServicesAttendance';
-import AdminResourcesAttendance from './views/admin/AdminResourcesAttendance';
 import SchoolInvoices from './views/school/SchoolInvoices';
 import SchoolPackagesAndServices from './views/school/SchoolPackagesAndServices';
 import SchoolResources from './views/school/SchoolResources';

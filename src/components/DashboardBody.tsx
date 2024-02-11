@@ -1,7 +1,5 @@
-import React from 'react'
 import TopNav from "./TopNav"
 import SideBarNav from "./SideBarNav"
-import { useSelector } from 'react-redux'
 
 const DashboardBody = (props: any) => {
   // const navToggleClass = useSelector(state: any => state.navToggle.navbarClass)

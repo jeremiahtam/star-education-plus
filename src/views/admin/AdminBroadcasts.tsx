@@ -3,7 +3,7 @@ import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdCreate } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { MdOutlineClear } from "react-icons/md";
-import { Button, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
+import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
@@ -15,7 +15,6 @@ import { store } from '../../store/root-reducer';
 import { useNavigate } from 'react-router';
 
 function AdminBroadcasts(props: any) {
-  const navigate = useNavigate()
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 

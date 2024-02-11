@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Table, Button, Pagination, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
+import { ChangeEvent, useEffect, useState, useCallback } from 'react'
+import { Button, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import AdminResourcesDocsModal from '../../components/AdminResourcesDocsModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -8,7 +8,6 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
-import { BsCloudUpload, BsEye } from 'react-icons/bs'; 
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoIosAdd, IoMdCreate, IoMdDownload, IoMdSearch } from 'react-icons/io';
 import fileDownload from 'js-file-download'
@@ -154,7 +153,7 @@ function AdminResourcesDocumentUpload() {
         </Breadcrumb.Item>
         <Breadcrumb.Item onClick={() => {
         }}>
-          {location?.state !== null ? location.state.data.name :'Document Upload'}     
+          {location?.state !== null ? location.state.data.name : 'Document Upload'}
         </Breadcrumb.Item>
       </Breadcrumb>
 

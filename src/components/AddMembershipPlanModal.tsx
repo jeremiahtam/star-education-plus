@@ -112,7 +112,8 @@ function AddMembershipPlanModal(props: any) {
           duration: Yup.number().typeError('Enter a number')
             // .required('Duration cannot be empty!')
             .integer('Please enter a whole number')
-            .positive('Enter a positive number').min(1, 'Please enter at least a digit'),
+            .positive('Enter a positive number')
+            .min(1, 'Please enter at least a digit'),
           amount: Yup.number().typeError('Enter a number')
             .required('Amount cannot be empty!').positive('Enter a positive number')
             .test(
@@ -121,7 +122,8 @@ function AddMembershipPlanModal(props: any) {
               (amount: any) => /^\d+(\.\d{1,2})?$/.test(amount)
             ),
           discountAmount: Yup.number().typeError('Enter discount price')
-            .required('Amount cannot be empty!').positive('Enter a positive number')
+            .required('Amount cannot be empty!')
+            // .positive('Enter a positive number')
             .test(
               "maxDigitsAfterDecimal",
               "Amount cannot have more than 2 digits after decimal",

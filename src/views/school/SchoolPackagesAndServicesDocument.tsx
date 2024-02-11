@@ -1,15 +1,13 @@
-import { ChangeEvent, useEffect, useState, useCallback } from 'react'
-import { Button, Pagination, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
-import AdminSchoolDocsModal from '../../components/AdminSchoolDocsModal';
+import { ChangeEvent, useEffect, useState } from 'react'
+import { Button, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
-import { HiTrash } from 'react-icons/hi';
-import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
-import { BsCloudUpload, BsEye } from 'react-icons/bs'; import BodyWrapper from '../../components/BodyWrapper'
-import { IoIosAdd, IoMdCreate, IoMdDownload, IoMdSearch } from 'react-icons/io';
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import BodyWrapper from '../../components/BodyWrapper'
+import { IoMdDownload, IoMdSearch } from 'react-icons/io';
 import fileDownload from 'js-file-download'
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';

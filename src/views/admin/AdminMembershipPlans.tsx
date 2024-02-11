@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdCreate, IoIosAdd } from "react-icons/io";
-import { Button, Form, Row, Col, InputGroup, Alert, Breadcrumb } from 'react-bootstrap';
+import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
 import CustomModal from '../../components/MembershipPlanModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
@@ -11,14 +11,12 @@ import { MdOutlineClear } from 'react-icons/md';
 import { HiTrash } from 'react-icons/hi';
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
-import { useNavigate } from 'react-router';
 
 function AdminMembershipPlans(props: any) {
   const pounds = Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'GBP',
   });
-  const navigate = useNavigate()
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 

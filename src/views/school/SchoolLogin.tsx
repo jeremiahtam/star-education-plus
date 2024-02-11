@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
@@ -8,10 +8,8 @@ import axios from 'axios'
 import { store } from '../../store/root-reducer';
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import { loadUserData } from '../../store/actions/user-info';
-import { Col, Spinner, Image, Form, Container } from 'react-bootstrap';
+import { Spinner, Image, Form, Container } from 'react-bootstrap';
 import SEPLogo from '../../images/SEP-Logo-White-Final.png'
-import SEPLogo129 from '../../images/logo192.png'
-
 
 const SchoolLogin = (props: any) => {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
