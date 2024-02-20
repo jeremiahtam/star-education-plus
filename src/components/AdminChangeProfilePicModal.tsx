@@ -111,7 +111,7 @@ function AdminChangeProfilePicModal(props: any) {
               <Button className="btn-custom-outline" onClick={props.handleClose} disabled={isSubmitting}>
                 Close
               </Button>
-              <Button className="btn-custom" type='submit' disabled={!!isSubmitting}>
+              <Button className="btn-custom" type='submit' disabled={isSubmitting}>
                 {isSubmitting ?
                   <>
                     <Spinner animation="border" size='sm' />

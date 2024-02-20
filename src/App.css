@@ -1214,9 +1214,9 @@ ul ul a {
 
 .school-dashboard-card {
   /* border: none !important; */
-  box-shadow: 1px 1px 7px #d6d6d683;
+  /* box-shadow: 1px 1px 7px #d6d6d683; */
   padding: 5px 10px;
-  border: solid 1px #e6e6e6 !important;
+  /* border: solid 1px #e6e6e6 !important; */
 
   .card-header {
     display: flex;
@@ -1230,7 +1230,6 @@ ul ul a {
       font-weight: 600;
       color: #303030;
     }
-
 
     .view-all {
       border-radius: 10px;
@@ -1259,7 +1258,7 @@ ul ul a {
 
 .dashboard-broadcasts-card {
   overflow: hidden;
-  border: 1px solid #ececec !important;
+  border: 1px solid #a90c45 !important;
 }
 
 .dashboard-broadcasts-card:hover {

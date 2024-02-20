@@ -93,8 +93,11 @@ export default function SchoolDashboardBroadcastsCard() {
         </Alert>}
 
       {broadcasts?.data && <>
-        <Card className='school-dashboard-card mb-3'>
-          <Card.Header>
+        <Card className='school-dashboard-card mb-3'
+          style={{
+            borderColor: '#aa8302'
+          }}>
+          <Card.Header style={{ borderColor: '#aa8302' }}>
             <Card.Title>Broadcasts</Card.Title>
             <span className='view-all' style={{ cursor: 'pointer' }}
               onClick={() => navigate('/broadcasts')}>

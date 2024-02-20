@@ -73,8 +73,11 @@ export default function SchoolDashboardServiceProvidersCard() {
 
 
       {serviceProviders?.data && <>
-        <Card className='school-dashboard-card mb-3'>
-          <Card.Header>
+        <Card className='school-dashboard-card mb-3'
+          style={{
+            borderColor: '#1d698c'
+          }}>
+          <Card.Header style={{ borderColor: '#1d698c' }}>
             <Card.Title>Service Providers</Card.Title>
             <span className='view-all' style={{ cursor: 'pointer' }}
               onClick={() => navigate('/service-providers')}>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
@@ -16,6 +16,8 @@ const AdminLogin = (props: any) => {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const navigate = useNavigate();
+
+  const [loginFeedback, setLoginFeedback] = useState<null | string>(null)
 
   const loginHandler = async (
     values: any,
@@ -42,6 +44,7 @@ const AdminLogin = (props: any) => {
         } else {
           //output the error message
         }
+        setLoginFeedback(resData.message)
       } else {
         store.dispatch(insertUserData(resData.data.token));
         navigate('/dashboard')
@@ -90,6 +93,8 @@ const AdminLogin = (props: any) => {
                 </div>
                 <div className="form-heading">Welcome Back</div>
                 <div className="form-sub-heading">Enter your details to access the admin panel</div>
+                {loginFeedback !== null &&
+                  <div className="form-error">{loginFeedback}</div>}
                 <Formik
                   initialValues={{
                     email: '',

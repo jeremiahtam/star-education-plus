@@ -1,29 +1,14 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { Alert, Badge, Card } from 'react-bootstrap'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import { useNavigate } from 'react-router-dom';
-import BroadcastModal from '../BroadcastModal';
 
 export default function SchoolDashboardInvoicesCard() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const navigate = useNavigate()
-
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const [modalType, setModalType] = useState<string | null>(null);
-  const [modalDataContent, setModalDataContent] = useState<number | null>(null) /* modal dataId */
-
-  const modalDataHandler = useCallback((_dataId: number, _modalType: string) => {
-    handleShow()
-    setModalDataContent(_dataId)
-    setModalType(_modalType)
-    console.log(`${_dataId} ${_modalType}`)
-  }, [setModalType, setModalDataContent])
 
   const [invoices, setInvoices] = useState<any>()
 
@@ -52,7 +37,6 @@ export default function SchoolDashboardInvoicesCard() {
         return setInvoices(resData)
       } else {
         setInvoices(resData)
-        // setTotalPages(resData.pageInfo.totalPages)
       }
     } catch (e: any) {
       console.log(e)
@@ -85,8 +69,11 @@ export default function SchoolDashboardInvoicesCard() {
         </Alert>}
 
       {invoices?.data && <>
-        <Card className='school-dashboard-card mb-3'>
-          <Card.Header>
+        <Card className='school-dashboard-card mb-3'
+          style={{
+            borderColor: '#aa8302'
+          }}>
+          <Card.Header style={{ borderColor: '#aa8302' }}>
             <Card.Title>Invoices</Card.Title>
             <span className='view-all' style={{ cursor: 'pointer' }}
               onClick={() => navigate('/invoices')}>
@@ -101,7 +88,6 @@ export default function SchoolDashboardInvoicesCard() {
                     <tr>
                       <th>No.</th>
                       <th>Invoice Number</th>
-                      {/* <th>Address</th> */}
                       <th>Status</th>
                       <th>Deadline</th>
                     </tr>
@@ -112,7 +98,6 @@ export default function SchoolDashboardInvoicesCard() {
                         <tr key={index}>
                           <td>{item.sn}</td>
                           <td>{item.invoiceNumber}</td>
-                          {/* <td><div>{item.billingAddress}</div></td> */}
                           <td>
                             <Badge
                               bg={item.status == 'paid' ?
@@ -131,9 +116,6 @@ export default function SchoolDashboardInvoicesCard() {
           </Card.Body>
         </Card>
       </>}
-
-      {modalType && <BroadcastModal show={show} handleClose={handleClose} handleShow={handleShow}
-        modalType={modalType} modalDataContent={modalDataContent} />}
     </>
   )
 }

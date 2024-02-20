@@ -53,7 +53,7 @@ function App() {
       <Route path='/admin-login' element={<AdminLogin />} />
 
       {/* For admin when logged into their portal */}
-      {userInfoData?.userType == 'admin' &&
+      {userInfoData?.userType === 'admin' &&
         <Route path='/' element={<AdminDashboard />}>
           <Route path='/' element={<AdminMetrics />} />
           <Route path='/dashboard' element={<AdminMetrics />} />
@@ -84,7 +84,7 @@ function App() {
       <Route path='/change-password' element={<SchoolChangePassword />} />
 
       {/* For schools only. Can be accessed by after school logs in*/}
-      {userInfoData?.userType == 'school' &&
+      {userInfoData?.userType === 'school' &&
         <Route path='/' element={<SchoolDashboard />}>
           <Route path='/' element={<SchoolMetrics />} />
           <Route path='/dashboard' element={<SchoolMetrics />} />

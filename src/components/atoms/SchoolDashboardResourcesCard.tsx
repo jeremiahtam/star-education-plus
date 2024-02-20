@@ -89,9 +89,12 @@ export default function SchoolDashboardResourcesCard() {
         </Alert>}
 
       {selectedResources?.data && <>
-        <Card className='school-dashboard-card mb-3'>
-          <Card.Header>
-            <Card.Title>Resources</Card.Title>
+        <Card className='school-dashboard-card mb-3'
+          style={{
+            borderColor: '#ad134c'
+          }}>
+          <Card.Header style={{ borderColor: '#ad134c' }}>
+            <Card.Title>Services Purchased</Card.Title>
             <span className='view-all' style={{ cursor: 'pointer' }}
               onClick={() => navigate('/resources')}>
               View all

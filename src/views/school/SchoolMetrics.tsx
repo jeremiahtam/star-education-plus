@@ -12,7 +12,6 @@ import SchoolDashboardResourcesCard from '../../components/atoms/SchoolDashboard
 import SchoolDashboardServiceProvidersCard from '../../components/atoms/SchoolDashboardServiceProvidersCard';
 import ReactDatePicker from 'react-datepicker';
 
-
 function SchoolMetrics() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const backEndImageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL;

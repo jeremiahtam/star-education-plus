@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
@@ -15,6 +15,8 @@ const SchoolLogin = (props: any) => {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
   const navigate = useNavigate();
+
+  const [loginFeedback, setLoginFeedback] = useState<null | string>(null)
 
   const loginHandler = async (
     values: any,
@@ -37,8 +39,9 @@ const SchoolLogin = (props: any) => {
         if (resData.errors !== undefined) {
           setErrors(resData.errors);
         } else {
-          //output the error message
+
         }
+        setLoginFeedback(resData.message)
       } else {
         store.dispatch(insertUserData(resData.data.token));
         navigate('/dashboard')
@@ -82,6 +85,8 @@ const SchoolLogin = (props: any) => {
             <div className='main-login-box'>
               <div className="form-heading">Welcome</div>
               <div className="form-sub-heading">Enter your details to access your dashboard</div>
+              {loginFeedback !== null && 
+              <div className="form-error">{loginFeedback}</div>}
               <Formik
                 initialValues={{
                   email: '',
@@ -132,9 +137,9 @@ const SchoolLogin = (props: any) => {
                       </button>
                     </Form.Group>
                     <Form.Group>
-                      <Form.Text className=''>
+                      {/* <Form.Text className=''>
                         Don't have an account? <Link to={'/signup'}>Signup</Link>
-                      </Form.Text>
+                      </Form.Text> */}
                     </Form.Group>
                   </FormikForm>)}
               </Formik>
