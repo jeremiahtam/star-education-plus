@@ -9,6 +9,7 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { HiEye } from 'react-icons/hi';
 import InvoiceModal from '../../components/InvoiceModal';
+import { Link } from 'react-router-dom';
 
 
 function SchoolInvoices() {
@@ -40,7 +41,7 @@ function SchoolInvoices() {
   const [search, setSearch] = useState<string>('')
 
   useEffect(() => {
-    if (search == '') {
+    if (search === '') {
       getInvoicesHandler()
     }
   }, [search])
@@ -97,6 +98,11 @@ function SchoolInvoices() {
 
   return (
     <BodyWrapper title='Invoices'>
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
+        </Alert>}
+
       {invoices?.success === false && !invoices?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{invoices?.message}</div>
@@ -157,8 +163,8 @@ function SchoolInvoices() {
                       <td><div>{item.billingAddress}</div></td>
                       <td>
                         <Badge
-                          bg={item.status == 'paid' ?
-                            'success' : item.status == 'pending' ?
+                          bg={item.status === 'paid' ?
+                            'success' : item.status === 'pending' ?
                               'info' : 'danger'}>
                           {item.status}
                         </Badge>
@@ -181,7 +187,7 @@ function SchoolInvoices() {
             </table>
           </div>}
 
-        {invoices.data.length == 0 &&
+        {invoices.data.length === 0 &&
           <Alert className='form-feedback-message' variant={"info"} dismissible>
             <div>{invoices?.message}</div>
           </Alert>}

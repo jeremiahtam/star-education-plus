@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch } from 'react-icons/io';
 import { store } from '../../store/root-reducer';
@@ -130,6 +130,10 @@ function SchoolResourcesList() {
       {resourcesDocs?.success === false && !resourcesDocs?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{resourcesDocs?.message}</div>
+        </Alert>}
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
         </Alert>}
 
       {resourcesDocs?.data &&

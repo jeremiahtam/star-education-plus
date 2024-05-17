@@ -14,7 +14,7 @@ import { BiPackage } from 'react-icons/bi';
 import { FaOpencart } from 'react-icons/fa';
 import ToastComponent from '../../components/ToastComponent';
 import { addPackagesAndServices } from '../../store/actions/shopping-cart';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function SchoolPackagesAndServices() {
   const pounds = Intl.NumberFormat('en-GB', {
@@ -23,7 +23,6 @@ function SchoolPackagesAndServices() {
   });
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
-  const navigate = useNavigate()
   //PackagesAndServices available in cart
   const cartPackagesAndServices = useSelector((state: stateCart) => state.cart.packagesAndServices)
 
@@ -44,6 +43,8 @@ function SchoolPackagesAndServices() {
 
   //Toast information
   const [showToast, setShowToast] = useState(false);
+  const [toastTitle, setToastTitle] = useState<string | null>(null);
+  const [toastBody, setToastBody] = useState<string | null>(null);
 
   // Pagination control
   const [page, setPage] = useState<number>(1)
@@ -129,6 +130,11 @@ function SchoolPackagesAndServices() {
 
   return (
     <BodyWrapper title='Packages and Services'>
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
+        </Alert>}
+
       {selectedPackagesAndServices?.success === false && !selectedPackagesAndServices?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{selectedPackagesAndServices?.message}</div>
@@ -198,6 +204,8 @@ function SchoolPackagesAndServices() {
                                 return false;
                               });
                               console.log(isFound)
+                              setToastTitle('Oops')
+                              setToastBody('You already added that item.')
                               if (isFound == true) {
                                 setShowToast(true)
                               } else {
@@ -232,14 +240,16 @@ function SchoolPackagesAndServices() {
           {modalType && <AdminPackagesAndServicesModal show={show} handleClose={handleClose} handleShow={handleShow}
             modalType={modalType} modalDataContent={modalDataContent} />}
 
-          <ToastComponent
-            onClose={() => setShowToast(false)}
-            show={showToast}
-            delay={3000}
-            autohide={true}
-            title='Oops!'
-            body='You already added that item.'
-          />
+          {toastBody && toastTitle &&
+            <ToastComponent
+              onClose={() => setShowToast(false)}
+              show={showToast}
+              delay={3000}
+              autohide={true}
+              title={toastTitle}
+              body={toastBody}
+            />}
+
         </>
       }
     </BodyWrapper >

@@ -10,7 +10,7 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import { FaArrowRight, FaOpencart } from 'react-icons/fa'
 import { BiPackage } from 'react-icons/bi'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 import { addResource } from '../../store/actions/shopping-cart';
@@ -45,6 +45,8 @@ function SchoolResources() {
 
   //Toast information
   const [showToast, setShowToast] = useState(false);
+  const [toastTitle, setToastTitle] = useState<string | null>(null);
+  const [toastBody, setToastBody] = useState<string | null>(null);
 
   // Pagination control
   const [page, setPage] = useState<number>(1)
@@ -131,6 +133,12 @@ function SchoolResources() {
 
   return (
     <BodyWrapper title='Resources'>
+
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
+        </Alert>}
+
       {selectedResources?.success === false && !selectedResources?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{selectedResources?.message}</div>
@@ -194,13 +202,13 @@ function SchoolResources() {
                         {item.paidResources.length > 0 ?
                           <Button className='btn-block mb-3 form-control btn-custom'
                             disabled={item.status == 'active' ? false : true}
-                          onClick={() => {
-                            navigate(`/resources/${item.id}`, {
-                              state: {
-                                data: item
-                              }
-                            })
-                          }}>
+                            onClick={() => {
+                              navigate(`/resources/${item.id}`, {
+                                state: {
+                                  data: item
+                                }
+                              })
+                            }}>
                             <FaArrowRight /> {item.status == 'active' ? 'View Purchase' : 'Inactive'}
                           </Button>
                           :
@@ -214,6 +222,10 @@ function SchoolResources() {
                                 return false;
                               });
                               console.log(isFound)
+
+                              setToastTitle('Oops')
+                              setToastBody('You already added that item.')
+
                               if (isFound == true) {
                                 setShowToast(true)
                               } else {
@@ -240,14 +252,15 @@ function SchoolResources() {
           {modalType && <AdminResourcesModal show={show} handleClose={handleClose} handleShow={handleShow}
             modalType={modalType} modalDataContent={modalDataContent} />}
 
-          <ToastComponent
-            onClose={() => setShowToast(false)}
-            show={showToast}
-            delay={3000}
-            autohide={true}
-            title='Oops!'
-            body='You already added that item.'
-          />
+          {toastBody && toastTitle &&
+            <ToastComponent
+              onClose={() => setShowToast(false)}
+              show={showToast}
+              delay={3000}
+              autohide={true}
+              title={toastTitle}
+              body={toastBody}
+            />}
         </>}
     </BodyWrapper>
   )

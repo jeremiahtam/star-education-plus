@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate } from "react-router-dom";
-import { Row, Col } from 'react-bootstrap';
+import { Link, useNavigate } from "react-router-dom";
+import { Row, Col, Alert } from 'react-bootstrap';
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
@@ -61,6 +61,11 @@ function SchoolProfile() {
 
   return (
     <BodyWrapper title='School Profile'>
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
+        </Alert>}
+
       <Row className='mb-3'>
         <Col md={'12'}>
           <div className='compartment'>

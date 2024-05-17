@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useParams, useLocation, Link } from "react-router-dom";
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdDownload, IoMdSearch } from 'react-icons/io';
 import fileDownload from 'js-file-download'
@@ -129,6 +129,10 @@ function SchoolPackagesAndServicesDocument() {
     <BodyWrapper title={'Documents'}
     // subTitle={selectedSchool !== null ? selectedSchool.school_name : ''}
     >
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
+        </Alert>}
       <Breadcrumb>
         <Breadcrumb.Item onClick={() => {
           navigate('/packages-and-services')

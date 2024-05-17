@@ -8,6 +8,7 @@ import { deleteUserData } from '../../store/actions/user-info';
 import { store } from '../../store/root-reducer';
 import CustomPagination from '../../components/CustomPagination';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 function SchoolMembershipPlansHistory(props: any) {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -99,6 +100,12 @@ function SchoolMembershipPlansHistory(props: any) {
           Membership Plan History
         </Breadcrumb.Item>
       </Breadcrumb>
+      
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
+        </Alert>}
+
       {membershipPlansHistory?.success === false && !membershipPlansHistory?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{membershipPlansHistory?.message}</div>

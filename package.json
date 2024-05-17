@@ -43,10 +43,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:dev": "env-cmd -f dev.env npm start",
+    "start:live-test": "env-cmd -f live-test.env npm start",
     "build": "react-scripts build",
+    "build:dev": "env-cmd -f dev.env react-scripts build",
+    "build:live-test": "env-cmd -f live-test.env react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start:dev": "env-cmd -f dev.env npm start"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

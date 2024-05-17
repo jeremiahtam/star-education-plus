@@ -2,7 +2,7 @@ import 'react-calendar/dist/Calendar.css';
 import { useState } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { useSelector } from 'react-redux'
-import { Card, Col, Row, Image } from 'react-bootstrap'
+import { Card, Col, Row, Image, Alert } from 'react-bootstrap'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
 import personIcon from '../../images/person-icon.png'
 import SchoolDashboardBroadcastsCard from '../../components/atoms/SchoolDashboardBroadcastsCard';
@@ -11,6 +11,7 @@ import SchoolDashboardInvoicesCard from '../../components/atoms/SchoolDashboardI
 import SchoolDashboardResourcesCard from '../../components/atoms/SchoolDashboardResourcesCard';
 import SchoolDashboardServiceProvidersCard from '../../components/atoms/SchoolDashboardServiceProvidersCard';
 import ReactDatePicker from 'react-datepicker';
+import { Link } from 'react-router-dom';
 
 function SchoolMetrics() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -20,80 +21,104 @@ function SchoolMetrics() {
 
   return (
     <BodyWrapper title={`Dashboard`}>
+      {userInfoData.planExpired === true && (
+        <Alert className="form-feedback-message" variant={"danger"} dismissible>
+          <div>
+            Your membership plan has expired. Click{" "}
+            <Link to={"/membership-plans"}>here</Link> to subscribe to a new
+            membership plan.
+          </div>
+        </Alert>
+      )}
       <Row>
         <Col md={9}>
-          <Row className='school-dashboard-row-one'>
-            <Col lg={7} md={7} className='mb-3'>
-              <Card className='school-dashboard-user-box'>
-                <div className='school-dashboard-image-box'>
+          <Row className="school-dashboard-row-one">
+            <Col lg={7} md={7} className="mb-3">
+              <Card className="school-dashboard-user-box">
+                <div className="school-dashboard-image-box">
                   <Image
-                    src={userInfoData.userProfilePic == null || "" ?
-                      personIcon : `${backEndImageBaseUrl}/${userInfoData.userProfilePic}`}
+                    src={
+                      userInfoData.userProfilePic == null || ""
+                        ? personIcon
+                        : `${backEndImageBaseUrl}/${userInfoData.userProfilePic}`
+                    }
                   />
                 </div>
-                <div className='school-dashboard-user-info'>
+                <div className="school-dashboard-user-info">
                   <div>{`Welcome back, ${userInfoData.userFullname}.`}</div>
                   <div>{userInfoData.schoolName}</div>
                 </div>
               </Card>
             </Col>
-            <Col lg={5} md={5} className='mb-3'>
-              <Card className='school-dashboard-user-box'>
-                <div className='school-dashboard-user-info'>
+            <Col lg={5} md={5} className="mb-3">
+              <Card className="school-dashboard-user-box">
+                <div className="school-dashboard-user-info">
                   <p>Consultant Improvement Partner</p>
-                  <div>Consultant appointed: {userInfoData.consultantAppointed}</div>
-                  <div>Contact details: {userInfoData.consultantContact}</div>
+                  <div>
+                    Consultant Appointed: {userInfoData.consultantAppointed}
+                  </div>
+                  <div>Contact Details: {userInfoData.consultantContact}</div>
                 </div>
               </Card>
             </Col>
           </Row>
-          <Row className='school-dashboard-row-two'>
-            <Col md={7} className='mb-3'>
-              <Card className='school-dashboard-membership-tracker-box'>
-                <p className='top'>
+          <Row className="school-dashboard-row-two">
+            <Col md={7} className="mb-3">
+              <Card className="school-dashboard-membership-tracker-box">
+                <p className="top">
                   <div>Membership Tracker</div>
                   <MdGraphicEq className="icon" />
                 </p>
                 <Row>
                   <Col sm={4}>
-                    <div className='tracker-title'>Workshops </div>
-                    <div className='tracker-value'>{userInfoData.workshopsAttended}</div>
+                    <div className="tracker-title">Workshops </div>
+                    <div className="tracker-value">
+                      {userInfoData.workshopsAttended}
+                    </div>
                   </Col>
                   <Col sm={4}>
-                    <div className='tracker-title'>Webinars </div>
-                    <div className='tracker-value'>{userInfoData.webinarsAttended}</div>
+                    <div className="tracker-title">Webinars </div>
+                    <div className="tracker-value">
+                      {userInfoData.webinarsAttended}
+                    </div>
                   </Col>
                   <Col sm={4}>
-                    <div className='tracker-title'>Masterclasses </div>
-                    <div className='tracker-value'>
+                    <div className="tracker-title">Masterclasses </div>
+                    <div className="tracker-value">
                       {userInfoData.masterclassesAttended}
                     </div>
                   </Col>
                 </Row>
               </Card>
             </Col>
-            <Col md={5} className='mb-3'>
-              <Card className='school-dashboard-plan-box'>
-                <p className='top'>
+            <Col md={5} className="mb-3">
+              <Card className="school-dashboard-plan-box">
+                <p className="top">
                   <div>Membership Plan</div>
                   <MdCardMembership className="icon" />
                 </p>
-                <div className='bottom'>
-                  <div className='plan-name'>Basic Plan</div>
+                <div className="bottom">
+                  <div className="plan-name">{userInfoData.membershipPlanName}</div>
 
-                  <div className='plan-expiry'>Expires {userInfoData.planExpiryDate}</div>
+                  <div className="plan-expiry">
+                    Expires {userInfoData.planExpiryDate}
+                  </div>
                 </div>
               </Card>
             </Col>
           </Row>
         </Col>
         <Col md={3}>
-          <div className='calendar-box'>
+          <div className="calendar-box">
             <ReactDatePicker
               selected={currentDate}
               onChange={(date: any) => {
-                setCurrentDate(date)
-                window.open('https://www.stareducationplus.org.uk/upcoming-events', "_blank", "noreferrer");
+                setCurrentDate(date);
+                window.open(
+                  "https://www.stareducationplus.org.uk/upcoming-events",
+                  "_blank",
+                  "noreferrer"
+                );
               }}
               inline
             />
@@ -117,7 +142,7 @@ function SchoolMetrics() {
         </Col>
       </Row>
     </BodyWrapper>
-  )
+  );
 }
 
 export default SchoolMetrics

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
-import { Button, Row, Col, Card, Spinner } from 'react-bootstrap';
+import { Button, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateCart, stateLoggedInUserType } from '../../../types/type-definitions';
 import { store } from '../../store/root-reducer';
 import { emptyCart, removeMembershipPlan, removePackagesAndServices, removeResource } from '../../store/actions/shopping-cart';
 import ToastComponent from '../../components/ToastComponent';
+import { Link } from 'react-router-dom';
 
 
 function SchoolCheckout() {
@@ -46,6 +47,8 @@ function SchoolCheckout() {
 
   //Toast information
   const [showToast, setShowToast] = useState(false);
+  const [toastTitle, setToastTitle] = useState<string | null>(null);
+  const [toastBody, setToastBody] = useState<string | null>(null);
 
   async function submitCart() {
     try {
@@ -73,6 +76,8 @@ function SchoolCheckout() {
         } else {
         }
       } else {
+        setToastTitle('Success')
+        setToastBody('Your order has been placed..')
         setShowToast(true)
         store.dispatch(emptyCart())
       }
@@ -95,6 +100,10 @@ function SchoolCheckout() {
 
   return (
     <BodyWrapper title='Checkout'>
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
+        </Alert>}
       <Row>
         <Col md={'8'}>
           <Card className='checkout-items-card mb-3'>
@@ -180,25 +189,35 @@ function SchoolCheckout() {
               <div className='checkout-card-border mb-3 mt-3'></div>
               {cartMembershipPlans.length + cartResources.length + cartPackagesAndServices.length > 0 &&
                 <Button className='btn-block mb-3 form-control btn-custom' disabled={!!isSubmitting}
-                  onClick={() => submitCart()}>
+                  onClick={() => {
+                    setToastTitle('Oops')
+                    setToastBody('Your membership plan has expired.')
+                    if (userInfoData.planExpired === true) {
+                      setShowToast(true)
+                    } else {
+                      submitCart()
+                    }
+                  }}>
                   {isSubmitting ?
                     (<>
                       <Spinner animation="border" size='sm' />
                       <span> Processing..</span>
                     </>) : (" Generate Invoice")}
-                </Button>}
+                </Button>
+              }
             </Card.Body>
           </Card>
         </Col>
       </Row>
-      <ToastComponent
-        onClose={() => setShowToast(false)}
-        show={showToast}
-        delay={3000}
-        autohide={true}
-        title='Success!'
-        body='Your order has been placed..'
-      />
+      {toastBody && toastTitle &&
+        <ToastComponent
+          onClose={() => setShowToast(false)}
+          show={showToast}
+          delay={3000}
+          autohide={true}
+          title={toastTitle}
+          body={toastBody}
+        />}
 
     </BodyWrapper>
   )

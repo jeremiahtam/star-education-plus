@@ -11,6 +11,7 @@ import { IoMdSearch } from 'react-icons/io';
 import { MdOutlineClear } from 'react-icons/md';
 import CustomPagination from '../../components/CustomPagination';
 import BroadcastModal from '../../components/BroadcastModal';
+import { Link } from 'react-router-dom';
 
 function SchoolBroadcastss() {
   const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
@@ -112,6 +113,11 @@ function SchoolBroadcastss() {
 
   return (
     <BodyWrapper title='My Broadcasts'>
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
+        </Alert>}
+
       {broadcasts?.success === false && !broadcasts?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{broadcasts?.message}</div>

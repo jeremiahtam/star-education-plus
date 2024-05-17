@@ -9,6 +9,7 @@ import CustomPagination from '../../components/CustomPagination';
 import { MdOutlineClear } from 'react-icons/md';
 import serviceProvidersList from '../../data/serviceProvidersList';
 import { RiCustomerService2Line } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 
 function SchoolServiceProviders() {
   const pounds = Intl.NumberFormat('en-GB', {
@@ -86,6 +87,11 @@ function SchoolServiceProviders() {
 
   return (
     <BodyWrapper title={'Service Providers'}>
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
+        </Alert>}
+
       {serviceProviders?.success === false && !serviceProviders?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{serviceProviders?.message}</div>

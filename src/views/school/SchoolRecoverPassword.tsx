@@ -28,7 +28,7 @@ const SchoolRecoverPassword = (props: any) => {
       );
       const resData = res.data;
       console.log(resData);
-      if (resData.success == false) {
+      if (resData.success === false) {
         if (resData.errors !== undefined) {
           setErrors(resData.errors);
         } else {
@@ -43,13 +43,13 @@ const SchoolRecoverPassword = (props: any) => {
       }
     } catch (e: any) {
       console.log(e);
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
         setSubmitting(false);
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
         setErrors(errorData.errors);
-        if (errorData.message == "Unauthenticated.") {
+        if (errorData.message === "Unauthenticated.") {
           store.dispatch(deleteUserData());
         }
       }

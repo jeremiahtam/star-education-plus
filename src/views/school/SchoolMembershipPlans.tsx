@@ -124,6 +124,11 @@ function SchoolMembershipPlans() {
           <GoHistory size={23} />
         </Link>
       }>
+      {userInfoData.planExpired === true &&
+        <Alert className='form-feedback-message' variant={"danger"} dismissible>
+          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
+        </Alert>}
+
       {membershipPlans?.success === false && !membershipPlans?.data &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>{membershipPlans?.message}</div>

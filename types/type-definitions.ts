@@ -26,6 +26,7 @@ export interface stateLoggedInUserType {
       webinarsAttended: number,
       workshopsAttended: number,
       masterclassesAttended: number,
+      membershipPlanName: string,
       planExpired: boolean,
       planExpiryDate: string,
       planExpiryTime: string,
