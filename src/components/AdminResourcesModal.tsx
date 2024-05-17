@@ -8,17 +8,17 @@ import ViewResourcesDetailsModal from './ViewResourcesDetailsModal';
 function AdminResourcesModal(props: any) {
   return (
     <Modal show={props.show} onHide={props.handleClose}>
-      {props.modalType == 'add-resources' ?
+      {props.modalType === 'add-resources' ?
         <AddResourcesModal handleClose={props.handleClose} loadResources={props.loadResources} /> :
-        props.modalType == 'edit-resources' ?
+        props.modalType === 'edit-resources' ?
           <EditResourcesModal modalDataId={props.modalDataId}
             handleClose={props.handleClose} loadResources={props.loadResources} /> :
-          props.modalType == 'delete-resources' ?
+          props.modalType === 'delete-resources' ?
             <DeleteResourcesModal modalDataId={props.modalDataId}
               handleClose={props.handleClose} loadResources={props.loadResources} /> :
-            props.modalType == 'view-resources-details' ?
+            props.modalType === 'view-resources-details' ?
               <ViewResourcesDetailsModal modalDataContent={props.modalDataContent} handleClose={props.handleClose} /> :
-              props.modalType == 'view-resources' ?
+              props.modalType === 'view-resources' ?
                 <ViewResourcesDocsModal modalDataContent={props.modalDataContent} handleClose={props.handleClose} /> :
                 ''
       }
