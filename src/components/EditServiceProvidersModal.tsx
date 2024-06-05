@@ -19,7 +19,7 @@ function EditServiceProvidersModal(props: any) {
 
   useEffect(() => {
     getServiceProvidersHandler()
-  }, [])
+  })
 
   const getServiceProvidersHandler = async () => {
     try {
@@ -37,17 +37,17 @@ function EditServiceProvidersModal(props: any) {
 
       const resData = res.data;
       console.log(resData.data);
-      if (resData.success == false) {
+      if (resData.success === false) {
 
       } else {
         setSelectedServiceProvider(resData.data)
       }
     } catch (e: any) {
       console.log(e);
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
       }
       if (e?.response?.data !== undefined) {
-        const errorData = e.response.data;
+        // const errorData = e.response.data;
       }
     }
   };
@@ -71,7 +71,7 @@ function EditServiceProvidersModal(props: any) {
 
       const resData = res.data;
       console.log(resData);
-      if (resData.success == false) {
+      if (resData.success === false) {
         if (resData.errors !== undefined) {
           setErrors(resData.errors);
         } else {
@@ -82,7 +82,7 @@ function EditServiceProvidersModal(props: any) {
       }
     } catch (e: any) {
       console.log(e);
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;

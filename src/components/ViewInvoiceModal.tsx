@@ -24,7 +24,7 @@ function ViewInvoiceModal(props: any) {
   useEffect(() => {
     getItemsOnInvoice();
     console.log(invoiceData);
-  }, []);
+  });
 
   const [selectedInvoiceItems, setSelectedInvoiceItems] = useState<any[]>([]);
   const [purchaseTotal, setPurchaseTotal] = useState<number>(0);
@@ -47,7 +47,7 @@ function ViewInvoiceModal(props: any) {
 
       const resData = res.data;
       console.log(resData.data);
-      if (resData.success == false) {
+      if (resData.success === false) {
       } else {
         setSelectedInvoiceItems(resData.data.invoiceItems);
         setPurchaseTotal(resData.data.purchaseTotal);
@@ -57,7 +57,7 @@ function ViewInvoiceModal(props: any) {
       if (e.code === "ECONNABORTED") {
       }
       if (e?.response?.data !== undefined) {
-        const errorData = e.response.data;
+        // const errorData = e.response.data;
       }
     }
   };
@@ -72,7 +72,7 @@ function ViewInvoiceModal(props: any) {
           <div className="invoice-heading">
             <div className="left-heading">Invoice</div>
             <div className="right-heading">
-              <img src={SEPLogo} />
+              <img src={SEPLogo} alt='Star Education Plus Logo'/>
             </div>
           </div>
           <Row className="invoice-row-two">
@@ -89,9 +89,9 @@ function ViewInvoiceModal(props: any) {
                 Due On{" "}
                 <Badge
                   bg={
-                    invoiceData.status == "paid"
+                    invoiceData.status === "paid"
                       ? "success"
-                      : invoiceData.status == "pending"
+                      : invoiceData.status === "pending"
                       ? "info"
                       : "danger"
                   }
@@ -159,8 +159,9 @@ function ViewInvoiceModal(props: any) {
             <Col md={"12"} sm={"12"} className="item">
               <div className="title">Note</div>
               <div className="content">
-                Make payments to Wema Bank with account number 1198708179 and
-                send your proof of payment to billing@website.com
+                Make payments to Star Education Plus Ltd with account number
+                87249014 and sort code 60-83-71 . Then send your proof of
+                payment to billing@website.com
               </div>
             </Col>
           </Row>
