@@ -53,10 +53,10 @@ function SchoolResources() {
   const [itemsPerPage, setItemsPerPage] = useState<number | null>(10)
   const [totalPages, setTotalPages] = useState<number | null>(null)
 
-  // Search 
+  // Search
   const [search, setSearch] = useState<string>('')
 
-  // resources 
+  // resources
   const [selectedResources, setSelectedResources] = useState<any>(null)
 
   useEffect(() => {
@@ -201,7 +201,7 @@ function SchoolResources() {
                         <div className='price-card-border mb-3 mt-3'></div>
                         {item.paidResources.length > 0 ?
                           <Button className='btn-block mb-3 form-control btn-custom'
-                            disabled={item.status == 'active' ? false : true}
+                            disabled={item.status === 'active' ? false : true}
                             onClick={() => {
                               navigate(`/resources/${item.id}`, {
                                 state: {

@@ -40,10 +40,10 @@ function AdminPackagesAndServices() {
   const [itemsPerPage, setItemsPerPage] = useState<number | null>(10)
   const [totalPages, setTotalPages] = useState<number | null>(null)
 
-  // Search 
+  // Search
   const [search, setSearch] = useState<string>('')
 
-  // Packages and services 
+  // Packages and services
   const [selectedPackagesAndServices, setSelectedPackagesAndServices] = useState<any>(null)
 
   useEffect(() => {

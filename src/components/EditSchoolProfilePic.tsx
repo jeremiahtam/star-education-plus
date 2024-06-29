@@ -45,7 +45,7 @@ function EditSchoolProfilePic(props: any) {
         });
       const resData = res.data;
       console.log(resData);
-      if (resData.success == false) {
+      if (resData.success === false) {
         if (resData.errors !== undefined) {
         } else {
           setDeleteProfilePicResponse(resData)
@@ -55,7 +55,7 @@ function EditSchoolProfilePic(props: any) {
       }
     } catch (e: any) {
       console.log(e);
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
         setDeleteProfilePicResponse({
           success: false,
           message: 'Time out'

@@ -40,9 +40,9 @@ function AdminBroadcasts(props: any) {
   const [itemsPerPage, setItemsPerPage] = useState<number | null>(10)
   const [totalPages, setTotalPages] = useState<number | null>(null)
 
-  // Search 
+  // Search
   const [search, setSearch] = useState<string>('')
-  
+
   useEffect(() => {
     if (broadcasts !== null) {
       if (search === '') {
@@ -77,7 +77,7 @@ function AdminBroadcasts(props: any) {
       });
       const resData = res.data;
       console.log(resData)
-      if (resData.success == false) {
+      if (resData.success === false) {
         return setBroadcasts(resData)
       } else {
         setBroadcasts(resData)
@@ -85,7 +85,7 @@ function AdminBroadcasts(props: any) {
       }
     } catch (e: any) {
       console.log(e)
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
         return setBroadcasts({
           "success": false,
           "message": "Request timed out.",
@@ -93,7 +93,7 @@ function AdminBroadcasts(props: any) {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
-          if (errorData.message == "Unauthenticated.") {
+          if (errorData.message === "Unauthenticated.") {
             store.dispatch(deleteUserData());
           }
           return setBroadcasts({
@@ -102,7 +102,7 @@ function AdminBroadcasts(props: any) {
           })
         } else {
           const errorData = e.response.data;
-          if (errorData.message == "Unauthenticated.") {
+          if (errorData.message === "Unauthenticated.") {
             store.dispatch(deleteUserData());
           }
           return setBroadcasts({
@@ -190,8 +190,8 @@ function AdminBroadcasts(props: any) {
               </tbody>
             </table>
           </div>}
-        
-        {broadcasts.data.length == 0 &&
+
+        {broadcasts.data.length === 0 &&
           <Alert className='form-feedback-message' variant={"info"} dismissible>
             <div>{broadcasts?.message}</div>
           </Alert>}

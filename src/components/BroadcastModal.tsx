@@ -7,15 +7,15 @@ import ViewBroadcastModal from './ViewBroadcastModal';
 function BroadcastModal(props: any) {
   return (
     <Modal show={props.show} onHide={props.handleClose}>
-      {props.modalType == 'add-broadcast' ?
+      {props.modalType === 'add-broadcast' ?
         <AddBroadcastModal handleClose={props.handleClose} loadBroadcast={props.loadBroadcast} /> :
-        props.modalType == 'edit-broadcast' ?
+        props.modalType === 'edit-broadcast' ?
           <EditBroadcastModal modalDataId={props.modalDataId}
             handleClose={props.handleClose} loadBroadcast={props.loadBroadcast} /> :
-          props.modalType == 'delete-broadcast' ?
+          props.modalType === 'delete-broadcast' ?
             <DeleteBroadcastModal modalDataId={props.modalDataId}
               handleClose={props.handleClose} loadBroadcast={props.loadBroadcast} /> :
-            props.modalType == 'view-broadcast' ?
+            props.modalType === 'view-broadcast' ?
               <ViewBroadcastModal modalDataContent={props.modalDataContent}
                 handleClose={props.handleClose} loadBroadcast={props.loadBroadcast} /> :
               ''

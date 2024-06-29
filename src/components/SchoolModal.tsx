@@ -5,9 +5,9 @@ import DeleteSchoolModal from './DeleteSchoolModal';
 function SchoolModal(props: any) {
   return (
     <Modal show={props.show} onHide={props.handleClose} size='lg'>
-      {props.modalType == 'add-school' ?
+      {props.modalType === 'add-school' ?
         <AddSchoolModal handleClose={props.handleClose} loadSchool={props.loadSchool} /> :
-          props.modalType == 'delete-school' ?
+          props.modalType === 'delete-school' ?
             <DeleteSchoolModal modalDataId={props.modalDataId}
               handleClose={props.handleClose} loadSchool={props.loadSchool} /> :
             ''

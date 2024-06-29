@@ -26,7 +26,7 @@ function SchoolServiceProviders() {
   const [page, setPage] = useState<number>(1)
   const [itemsPerPage, setItemsPerPage] = useState<number | null>(10)
   const [totalPages, setTotalPages] = useState<number | null>(null)
-  // Search 
+  // Search
   const [search, setSearch] = useState<string>('')
 
   useEffect(() => {
@@ -56,7 +56,7 @@ function SchoolServiceProviders() {
       });
       const resData = res.data;
       console.log(resData)
-      if (resData.success == false) {
+      if (resData.success === false) {
         return setServiceProviders(resData)
       } else {
         setServiceProviders(resData)
@@ -64,7 +64,7 @@ function SchoolServiceProviders() {
       }
     } catch (e: any) {
       console.log(e)
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
         return setServiceProviders({
           "success": false,
           "message": "Request timed out.",

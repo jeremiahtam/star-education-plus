@@ -45,7 +45,7 @@ function SchoolMetrics() {
                   />
                 </div>
                 <div className="school-dashboard-user-info">
-                  <div>{`Welcome back, ${userInfoData.userFullname}.`}</div>
+                  <div>{`Welcome back: ${userInfoData.userFullname}.`}</div>
                   <div>{userInfoData.schoolName}</div>
                 </div>
               </Card>
@@ -55,7 +55,7 @@ function SchoolMetrics() {
                 <div className="school-dashboard-user-info">
                   <p>Consultant Improvement Partner</p>
                   <div>
-                    Consultant Appointed: {userInfoData.consultantAppointed}
+                    Consultant Appointed: {userInfoData.consultantAppointed}.
                   </div>
                   <div>Contact Details: {userInfoData.consultantContact}</div>
                 </div>
@@ -101,7 +101,7 @@ function SchoolMetrics() {
                   <div className="plan-name">{userInfoData.membershipPlanName}</div>
 
                   <div className="plan-expiry">
-                    Expires {userInfoData.planExpiryDate}
+                    Expires: {userInfoData.planExpiryDate}
                   </div>
                 </div>
               </Card>

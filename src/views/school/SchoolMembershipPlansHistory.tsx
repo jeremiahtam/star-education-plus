@@ -100,7 +100,7 @@ function SchoolMembershipPlansHistory(props: any) {
           Membership Plan History
         </Breadcrumb.Item>
       </Breadcrumb>
-      
+
       {userInfoData.planExpired === true &&
         <Alert className='form-feedback-message' variant={"danger"} dismissible>
           <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>

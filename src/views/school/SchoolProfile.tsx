@@ -1,88 +1,96 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Row, Col, Alert } from 'react-bootstrap';
-import axios from 'axios'
-import { useSelector } from 'react-redux'
-import { stateLoggedInUserType } from '../../../types/type-definitions';
-import BodyWrapper from '../../components/BodyWrapper';
-import { store } from '../../store/root-reducer';
-import { deleteUserData } from '../../store/actions/user-info';
-import EditProfilePic from '../../components/EditProfilePic';
-import ChangeSchoolPassword from '../../components/ChangeSchoolPassword';
-import EditProfile from '../../components/EditProfile';
+import { Row, Col, Alert } from "react-bootstrap";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { stateLoggedInUserType } from "../../../types/type-definitions";
+import BodyWrapper from "../../components/BodyWrapper";
+import { store } from "../../store/root-reducer";
+import { deleteUserData } from "../../store/actions/user-info";
+import EditProfilePic from "../../components/EditProfilePic";
+import ChangeSchoolPassword from "../../components/ChangeSchoolPassword";
+import EditProfile from "../../components/EditProfile";
 
 function SchoolProfile() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
-  const userInfoData = useSelector((state: stateLoggedInUserType) => state.userInfo.loggedInUserData)
-  const [selectedSchool, setSelectedSchool] = useState<any>(null)
+  const userInfoData = useSelector(
+    (state: stateLoggedInUserType) => state.userInfo.loggedInUserData
+  );
+  const [selectedSchool, setSelectedSchool] = useState<any>(null);
 
   useEffect(() => {
     if (userInfoData !== null && userInfoData !== undefined) {
-      getSchoolHandler()
+      getSchoolHandler();
     }
-  }, [userInfoData])
+  }, [userInfoData]);
 
-  const getSchoolHandler = useCallback(async () => {
+  const getSchoolHandler = async () => {
     try {
-      const res = await axios.get(`${baseUrl}/api/get-school-by-id`,
-        {
-          params: {
-            id: userInfoData.userId
-          },
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${userInfoData.token}`,
-          },
-          timeout: 30000,
-        });
+      const res = await axios.get(`${baseUrl}/api/get-school-by-id`, {
+        params: {
+          id: userInfoData.userId,
+        },
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${userInfoData.token}`,
+        },
+        timeout: 30000,
+      });
 
       const resData = res.data;
       console.log(resData);
-      if (resData.success == false) {
-        navigate('/error-page')
+      if (resData.success === false) {
+        navigate("/error-page");
       } else {
-        setSelectedSchool(resData.data)
+        setSelectedSchool(resData.data);
       }
     } catch (e: any) {
-      navigate('/error-page')
+      navigate("/error-page");
       console.log(e);
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
-        if (errorData.message == "Unauthenticated.") {
+        if (errorData.message === "Unauthenticated.") {
           store.dispatch(deleteUserData());
         }
-        setSelectedSchool(null)
+        setSelectedSchool(null);
       }
     }
-  }, []);
+  };
 
   return (
-    <BodyWrapper title='School Profile'>
-      {userInfoData.planExpired === true &&
-        <Alert className='form-feedback-message' variant={"danger"} dismissible>
-          <div>Your membership plan has expired. Click <Link to={'/membership-plans'}>here</Link> to subscribe to a new membership plan.</div>
-        </Alert>}
+    <BodyWrapper title="School Profile">
+      {userInfoData.planExpired === true && (
+        <Alert className="form-feedback-message" variant={"danger"} dismissible>
+          <div>
+            Your membership plan has expired. Click{" "}
+            <Link to={"/membership-plans"}>here</Link> to subscribe to a new
+            membership plan.
+          </div>
+        </Alert>
+      )}
 
-      <Row className='mb-3'>
-        <Col md={'12'}>
-          <div className='compartment'>
+      <Row className="mb-3">
+        <Col md={"12"}>
+          <div className="compartment">
             <EditProfilePic />
           </div>
         </Col>
       </Row>
       <Row>
-        <Col md={'8'}>
-          <div className='compartment'>
-            {selectedSchool !== null && <EditProfile selectedSchool={selectedSchool} />}
+        <Col md={"8"}>
+          <div className="compartment">
+            {selectedSchool !== null && (
+              <EditProfile selectedSchool={selectedSchool} />
+            )}
           </div>
         </Col>
-        <Col md={'4'}>
+        <Col md={"4"}>
           <Row>
-            <Col md={'12'}>
-              <div className='compartment'>
+            <Col md={"12"}>
+              <div className="compartment">
                 <ChangeSchoolPassword />
               </div>
             </Col>
@@ -90,7 +98,7 @@ function SchoolProfile() {
         </Col>
       </Row>
     </BodyWrapper>
-  )
+  );
 }
 
-export default SchoolProfile
+export default SchoolProfile;

@@ -53,7 +53,8 @@ function AdminInvoices() {
   const [totalPages, setTotalPages] = useState<number | null>(null);
   // Search
   const [search, setSearch] = useState<string>("");
-  const getInvoicesHandler = useCallback(async () => {
+
+  const getInvoicesHandler = async () => {
     try {
       const res = await axios.get(`${baseUrl}/api/all-invoices`, {
         params: {
@@ -102,17 +103,17 @@ function AdminInvoices() {
         });
       }
     }
-  }, [baseUrl, userInfoData, page, itemsPerPage, search]);
+  };
 
   useEffect(() => {
     if (search === "") {
       getInvoicesHandler();
     }
-  }, [search, getInvoicesHandler]);
+  }, [search]);
 
   useEffect(() => {
     getInvoicesHandler();
-  }, [userInfoData, page, itemsPerPage, getInvoicesHandler]);
+  }, [userInfoData, page, itemsPerPage]);
 
   return (
     <BodyWrapper title="Invoices">

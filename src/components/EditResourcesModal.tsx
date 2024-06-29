@@ -14,7 +14,7 @@ function EditResourcesModal(props: any) {
 
   const [selectedResources, setSelectedResources] = useState<any>({});
 
-  const getResourcesHandler = useCallback(async () => {
+  const getResourcesHandler = async () => {
     try {
       const res = await axios.get(`${baseUrl}/api/get-resources`, {
         params: {
@@ -41,11 +41,11 @@ function EditResourcesModal(props: any) {
         // const errorData = e.response.data;
       }
     }
-  }, [baseUrl, props.modalDataId, userInfoData.token]);
+  }
 
   useEffect(() => {
     getResourcesHandler();
-  }, [getResourcesHandler]);
+  });
 
   const editResourcesHandler = async (
     values: any,

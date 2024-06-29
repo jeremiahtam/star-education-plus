@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState, useCallback } from 'react'
 import BodyWrapper from '../../components/BodyWrapper'
 import { IoMdSearch, IoMdCreate, IoIosAdd } from "react-icons/io";
 import { Button, Form, Row, Col, InputGroup, Alert } from 'react-bootstrap';
-import CustomModal from '../../components/MembershipPlanModal';
+import MembershipPlanModal from '../../components/MembershipPlanModal';
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 import { stateLoggedInUserType } from '../../../types/type-definitions';
@@ -41,7 +41,7 @@ function AdminMembershipPlans(props: any) {
   const [page, setPage] = useState<number>(1)
   const [itemsPerPage, setItemsPerPage] = useState<number | null>(10)
   const [totalPages, setTotalPages] = useState<number | null>(null)
-  // Search 
+  // Search
   const [search, setSearch] = useState<string>('')
 
   useEffect(() => {
@@ -70,7 +70,7 @@ function AdminMembershipPlans(props: any) {
       });
       const resData = res.data;
       console.log(resData)
-      if (resData.success == false) {
+      if (resData.success === false) {
         return setMembershipPlans(resData)
       } else {
         setMembershipPlans(resData)
@@ -78,7 +78,7 @@ function AdminMembershipPlans(props: any) {
       }
     } catch (e: any) {
       console.log(e)
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
         return setMembershipPlans({
           "success": false,
           "message": "Request timed out.",
@@ -86,7 +86,7 @@ function AdminMembershipPlans(props: any) {
       } else
         if (e?.response?.data !== undefined) {
           const errorData = e.response.data;
-          if (errorData.message == "Unauthenticated.") {
+          if (errorData.message === "Unauthenticated.") {
             store.dispatch(deleteUserData());
           }
           return setMembershipPlans({
@@ -95,7 +95,7 @@ function AdminMembershipPlans(props: any) {
           })
         } else {
           const errorData = e.response.data;
-          if (errorData.message == "Unauthenticated.") {
+          if (errorData.message === "Unauthenticated.") {
             store.dispatch(deleteUserData());
           }
           return setMembershipPlans({
@@ -187,6 +187,7 @@ function AdminMembershipPlans(props: any) {
                       <td>{pounds.format(item.amount)}</td>
                       <td>{pounds.format(item.discountAmount)}</td>
                       <td>{item.discountFrequency}</td>
+                      {/* Duration cannot be NULL for membership plans  */}
                       <td>{item.duration == null ? '-' : item.duration}</td>
                       <td>{item.status}</td>
                       <td ><IoMdCreate onClick={() => {
@@ -202,14 +203,14 @@ function AdminMembershipPlans(props: any) {
             </table>
           </div>}
 
-        {membershipPlans.data.length == 0 &&
+        {membershipPlans.data.length === 0 &&
           <Alert className='form-feedback-message' variant={"info"} dismissible>
             <div>{membershipPlans?.message}</div>
           </Alert>}
 
         {membershipPlans.data.length !== 0 &&
           <CustomPagination page={page} setPage={setPage} setItemsPerPage={setItemsPerPage} totalPages={totalPages} />}
-        {modalType && <CustomModal show={show} handleClose={handleClose} handleShow={handleShow}
+        {modalType && <MembershipPlanModal show={show} handleClose={handleClose} handleShow={handleShow}
           modalType={modalType} modalDataId={modalDataId} loadMembershipPlan={getMembershipPlansHandler} />}
       </>}
     </BodyWrapper>

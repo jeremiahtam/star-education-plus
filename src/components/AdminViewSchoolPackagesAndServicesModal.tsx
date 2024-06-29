@@ -5,11 +5,11 @@ import ViewPackagesAndServicesAttendance from './ViewPackagesAndServicesAttendan
 function AdminViewSchoolPackagesAndServicesModal(props: any) {
   return (
     <Modal show={props.show} onHide={props.handleClose}>
-      {props.modalType == 'mark-packages-and-services-attendance' ?
+      {props.modalType === 'mark-packages-and-services-attendance' ?
         <AdminMarkPackagesAndServicesAttendance handleClose={props.handleClose} modalDataId={props.modalDataId}
           loadSchoolPackagesAndServices={props.loadSchoolPackagesAndServices}
         /> :
-        props.modalType == 'view-packages-and-services-attendance' ?
+        props.modalType === 'view-packages-and-services-attendance' ?
           <ViewPackagesAndServicesAttendance handleClose={props.handleClose} modalDataId={props.modalDataId} />
           :
           ''

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Button, Modal, Row, Col, Table, Badge } from "react-bootstrap";
 import axios from "axios";
 import { AiOutlinePrinter } from "react-icons/ai";
@@ -24,7 +24,7 @@ function ViewInvoiceModal(props: any) {
   useEffect(() => {
     getItemsOnInvoice();
     console.log(invoiceData);
-  });
+  },[]);
 
   const [selectedInvoiceItems, setSelectedInvoiceItems] = useState<any[]>([]);
   const [purchaseTotal, setPurchaseTotal] = useState<number>(0);
@@ -72,7 +72,7 @@ function ViewInvoiceModal(props: any) {
           <div className="invoice-heading">
             <div className="left-heading">Invoice</div>
             <div className="right-heading">
-              <img src={SEPLogo} alt='Star Education Plus Logo'/>
+              <img src={SEPLogo} alt="Star Education Plus Logo" />
             </div>
           </div>
           <Row className="invoice-row-two">
@@ -113,10 +113,7 @@ function ViewInvoiceModal(props: any) {
           <Row className="invoice-row-three">
             <Col md={"6"} sm={"6"} className="item">
               <div className="title">Bill From</div>
-              <div className="content">
-                Stareducationplus 7 Peckan bolverd, West ham, United Kingdom
-                55590
-              </div>
+              <div className="content">Manningham Ln, Bradford BD8 7ER</div>
             </Col>
             <Col md={"6"} sm={"6"} className="item">
               <div className="title">Bill To</div>
@@ -161,7 +158,7 @@ function ViewInvoiceModal(props: any) {
               <div className="content">
                 Make payments to Star Education Plus Ltd with account number
                 87249014 and sort code 60-83-71 . Then send your proof of
-                payment to billing@website.com
+                payment to info@stareducationplus.org.uk
               </div>
             </Col>
           </Row>

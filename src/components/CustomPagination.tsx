@@ -39,8 +39,8 @@ function CustomPagination(props: CustomPaginationPropType) {
               return <option key={index} value={item}>{item}</option>
             })}
           </select>
-          <Pagination.Prev disabled={props.page == 1 ? true : false} onClick={() => props.setPage(props.page - 1)} />
-          <Pagination.Next disabled={props.page == props.totalPages ? true : false} onClick={() => props.setPage(props.page + 1)} />
+          <Pagination.Prev disabled={props.page === 1 ? true : false} onClick={() => props.setPage(props.page - 1)} />
+          <Pagination.Next disabled={props.page === props.totalPages ? true : false} onClick={() => props.setPage(props.page + 1)} />
         </Pagination>
       </div>
     </div>

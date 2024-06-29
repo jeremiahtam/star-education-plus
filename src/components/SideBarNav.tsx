@@ -41,7 +41,7 @@ const SideBarNav = (props: any) => {
 
       const resData = res.data;
       console.log(resData);
-      if (resData.success == false) {
+      if (resData.success === false) {
         if (resData.errors !== undefined) {
         } else {
         }
@@ -51,7 +51,7 @@ const SideBarNav = (props: any) => {
       }
     } catch (e: any) {
       console.log(e);
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
 
       }
       if (e?.response?.data !== undefined) {
@@ -65,95 +65,95 @@ const SideBarNav = (props: any) => {
   return (
     <nav id={"sidebar"} className={navToggleClass}>
       <div className="sidebar-header">
-        <Image src={sidebarHide == false ? SEPLogo : SEPlogo129} height={35} />
+        <Image src={sidebarHide === false ? SEPLogo : SEPlogo129} height={35} />
       </div>
       <ul className="list-unstyled components">
         {/** Admin menu  */}
-        {userInfoData?.userType == 'admin' && <>
+        {userInfoData?.userType === 'admin' && <>
           <li className={!splitLocation[1] ? 'active' :
-            splitLocation[1] == 'dashboard' ? 'active' : ''}>
+            splitLocation[1] === 'dashboard' ? 'active' : ''}>
             <Link to='/dashboard'>
               <BiSolidDashboard className="icon" />
               <div hidden={sidebarHide}> Dashboard</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'broadcasts' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'broadcasts' ? 'active' : ''}>
             <Link to="/broadcasts">
               <BsBroadcastPin className="icon" />
               <div hidden={sidebarHide}> Broadcasts</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'membership-plans' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'membership-plans' ? 'active' : ''}>
             <Link to="/membership-plans">
               <MdCardMembership className="icon" />
               <div hidden={sidebarHide}> Membership Plans</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'schools' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'schools' ? 'active' : ''}>
             <Link to="/schools">
               <MdSchool className="icon" />
               <div hidden={sidebarHide}> Schools</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'packages-and-services' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'packages-and-services' ? 'active' : ''}>
             <Link to="/packages-and-services">
               <BiSolidPackage className="icon" />
               <div hidden={sidebarHide}> Packages & Services</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'resources' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'resources' ? 'active' : ''}>
             <Link to="/resources" >
               <ImStack className="icon" />
               <div hidden={sidebarHide}> Resources</div>
             </Link>
           </li>
 
-          <li className={splitLocation[1] == 'invoices' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'invoices' ? 'active' : ''}>
             <Link to="/invoices">
               <FaFileInvoice className="icon" />
               <div hidden={sidebarHide}> Invoices</div></Link>
           </li>
         </>}
         {/* school use menu */}
-        {userInfoData?.userType == 'school' && <>
+        {userInfoData?.userType === 'school' && <>
           <li className={!splitLocation[1] ? 'active' :
-            splitLocation[1] == 'dashboard' ? 'active' : ''}>
+            splitLocation[1] === 'dashboard' ? 'active' : ''}>
             <Link to='/dashboard'>
               <BiSolidDashboard className="icon" />
               <div hidden={sidebarHide}> Dashboard</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'broadcasts' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'broadcasts' ? 'active' : ''}>
             <Link to="/broadcasts">
               <BsBroadcastPin className="icon" />
               <div hidden={sidebarHide}> Broadcasts</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'membership-plans' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'membership-plans' ? 'active' : ''}>
             <Link to="/membership-plans">
               <MdCardMembership className="icon" />
               <div hidden={sidebarHide}> Membership Plans</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'service-providers' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'service-providers' ? 'active' : ''}>
             <Link to="/service-providers">
               <MdOutlineHomeRepairService className="icon" />
               <div hidden={sidebarHide}> Service Providers</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'packages-and-services' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'packages-and-services' ? 'active' : ''}>
             <Link to="/packages-and-services">
               <BiSolidPackage className="icon" />
               <div hidden={sidebarHide}> Packages & Services</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'resources' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'resources' ? 'active' : ''}>
             <Link to="/resources" >
               <ImStack className="icon" />
               <div hidden={sidebarHide}> Resources</div>
             </Link>
           </li>
-          <li className={splitLocation[1] == 'invoices' ? 'active' : ''}>
+          <li className={splitLocation[1] === 'invoices' ? 'active' : ''}>
             <Link to="/invoices">
               <FaFileInvoice className="icon" />
               <div hidden={sidebarHide}> My Invoices</div></Link>

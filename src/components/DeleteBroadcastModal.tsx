@@ -26,7 +26,7 @@ function DeleteBroadcastModal(props: DeleteBroadcastModalPropType) {
         });
       const resData = res.data;
       console.log(resData)
-      if (resData.success == true) {
+      if (resData.success === true) {
         props.handleClose()
         props.loadBroadcast()
       } else {
@@ -35,7 +35,7 @@ function DeleteBroadcastModal(props: DeleteBroadcastModalPropType) {
       console.log(e)
       // setShowLoadMoreSpinner(false)
       // setPageLoaded(true)
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
         // showToast("default", "Timeout. Try again.");
       }
       if (e?.response?.data !== undefined) {

@@ -36,7 +36,7 @@ function DeleteMembershipPlanModal(props: DeleteMembershipPlanModalPropType) {
 
       const resData = res.data;
       console.log(resData);
-      if (resData.success == false) {
+      if (resData.success === false) {
 
       } else {
         if (resData.data === 0) {
@@ -45,7 +45,7 @@ function DeleteMembershipPlanModal(props: DeleteMembershipPlanModalPropType) {
       }
     } catch (e: any) {
       console.log(e);
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;
@@ -66,7 +66,7 @@ function DeleteMembershipPlanModal(props: DeleteMembershipPlanModalPropType) {
         });
       const resData = res.data;
       console.log(resData)
-      if (resData.success == true) {
+      if (resData.success === true) {
         props.handleClose()
         props.loadMembershipPlan()
       } else {
@@ -75,7 +75,7 @@ function DeleteMembershipPlanModal(props: DeleteMembershipPlanModalPropType) {
       console.log(e)
       // setShowLoadMoreSpinner(false)
       // setPageLoaded(true)
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
         // showToast("default", "Timeout. Try again.");
       }
       if (e?.response?.data !== undefined) {

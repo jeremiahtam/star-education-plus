@@ -2,7 +2,7 @@ import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { stateLoggedInUserType } from "../../types/type-definitions";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface DeleteResourcesModalPropType {
   modalDataId: number;
@@ -16,9 +16,11 @@ function DeleteResourcesModal(props: DeleteResourcesModalPropType) {
     (state: stateLoggedInUserType) => state.userInfo.loggedInUserData
   );
 
-  const [deletePossibility, setDeletePossibility] = useState<boolean | string>("");
+  const [deletePossibility, setDeletePossibility] = useState<boolean | string>(
+    ""
+  );
 
-  const checkDeletePossibilityHandler = useCallback(async () => {
+  const checkDeletePossibilityHandler = async () => {
     try {
       const res = await axios.get(
         `${baseUrl}/api/get-ordered-resource-rows-by-id`,
@@ -50,11 +52,11 @@ function DeleteResourcesModal(props: DeleteResourcesModalPropType) {
         // const errorData = e.response.data;
       }
     }
-  }, [baseUrl, props.modalDataId, userInfoData.token]);
+  };
 
   useEffect(() => {
     checkDeletePossibilityHandler();
-  }, [checkDeletePossibilityHandler]);
+  });
 
   const deleteResourcesHandler = async () => {
     try {

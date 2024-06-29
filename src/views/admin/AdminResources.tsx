@@ -55,7 +55,7 @@ function AdminResources() {
   // resources
   const [selectedResources, setSelectedResources] = useState<any>(null);
 
-  const getResourcesHandler = useCallback(async () => {
+  const getResourcesHandler = async () => {
     try {
       const res = await axios.get(`${baseUrl}/api/all-resources`, {
         params: {
@@ -105,23 +105,17 @@ function AdminResources() {
         });
       }
     }
-  }, [baseUrl, page, itemsPerPage, search, userInfoData.token]);
+  };
 
   useEffect(() => {
     if (selectedResources !== null) {
       getResourcesHandler();
     }
-  }, [
-    userInfoData,
-    page,
-    itemsPerPage,
-    selectedResources,
-    getResourcesHandler,
-  ]);
+  }, [userInfoData, page, itemsPerPage]);
 
   useEffect(() => {
     getResourcesHandler();
-  }, [userInfoData, getResourcesHandler]);
+  }, [userInfoData]);
 
   useEffect(() => {
     if (selectedResources !== null) {
@@ -129,7 +123,7 @@ function AdminResources() {
         getResourcesHandler();
       }
     }
-  }, [search, getResourcesHandler, selectedResources]);
+  }, [search]);
 
   return (
     <BodyWrapper

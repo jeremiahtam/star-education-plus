@@ -36,7 +36,7 @@ function DeletePackagesAndServicesModal(props: DeletePackagesAndServicesModalPro
 
       const resData = res.data;
       console.log(resData);
-      if (resData.success == false) {
+      if (resData.success === false) {
 
       } else {
         if (resData.data === 0) {
@@ -45,7 +45,7 @@ function DeletePackagesAndServicesModal(props: DeletePackagesAndServicesModalPro
       }
     } catch (e: any) {
       console.log(e);
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
       }
       if (e?.response?.data !== undefined) {
         const errorData = e.response.data;

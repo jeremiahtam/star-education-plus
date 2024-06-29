@@ -34,7 +34,7 @@ function ChangeSchoolPassword(props: any) {
         });
       const resData = res.data;
       console.log(resData);
-      if (resData.success == false) {
+      if (resData.success === false) {
         if (resData.errors !== undefined) {
           setErrors(resData.errors);
         } else {
@@ -46,7 +46,7 @@ function ChangeSchoolPassword(props: any) {
       }
     } catch (e: any) {
       console.log(e);
-      if (e.code == "ECONNABORTED") {
+      if (e.code === "ECONNABORTED") {
         setChangePasswordResponse({
           success: false,
           message: 'Time out'
