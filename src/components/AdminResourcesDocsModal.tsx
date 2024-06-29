@@ -9,7 +9,7 @@ function AdminResourcesDocsModal(props: any) {
     <Modal show={props.show} onHide={props.handleClose}
       size={props.modalType === 'view-resources-docs' ? 'xl' : undefined}>
       {props.modalType === 'add-resources-docs' ?
-        <AddResourcesDocsModal modalDataId={props.modalDataContent.id} handleClose={props.handleClose}
+        <AddResourcesDocsModal handleClose={props.handleClose}
           resourcesId={props.resourcesId} loadResourcesDocs={props.loadResourcesDocs}
         /> :
         props.modalType === 'edit-resources-docs' ?

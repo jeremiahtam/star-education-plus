@@ -18,7 +18,6 @@ import { HiTrash } from "react-icons/hi";
 import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
 import BodyWrapper from "../../components/BodyWrapper";
 import { IoIosAdd, IoMdCreate, IoMdDownload, IoMdEye, IoMdSearch } from "react-icons/io";
-import fileDownload from "js-file-download";
 import { store } from "../../store/root-reducer";
 import { deleteUserData } from "../../store/actions/user-info";
 
